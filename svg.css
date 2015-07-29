@@ -1,4 +1,14 @@
 .neuron {
   fill: white;
   stroke: black;
+  cursor: pointer;
+}
+
+.active {
+  stroke: blue;
+}
+
+.selected {
+  stroke: red;
+  fill: #EEEEEE;
 }

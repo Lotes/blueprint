@@ -1,17 +1,17 @@
 {  
   "nodes": [{
     "name": "S",
-    "template": "neuron",
+    "templateName": "neuron",
      "position": [50, 20],
      "variables": {}
   }, {
     "name": "D",
-    "template": "neuron",
+    "templateName": "neuron",
     "position": [100, 100],
     "variables": {}
   }],
   "connections": [{
-    "template": "activator",
+    "templateName": "activator",
     "source": {
       "node": "S",
       "connector": "default"

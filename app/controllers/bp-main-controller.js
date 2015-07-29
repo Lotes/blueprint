@@ -3,7 +3,22 @@ angular
   .controller('bpMainController', function($scope, bpData, $routeParams, $location) {
     var name = $routeParams.name;
     var revision = $routeParams.revision;
+    $scope.mode = 'edit';
     $scope.data = null;
+    $scope.save = function() {
+      if($scope.data != null) {
+        $scope.saving = true;
+        bpData
+          .save(name, JSON.stringify($scope.data, null, 2))
+          .success(function(res) {
+            $scope.saving = false;
+          })
+          .error(function() { 
+            alert("Error while saving!"); 
+            $scope.saving = false;
+          }); 
+      }
+    };
     bpData.load(name, revision)
       .then(function(res) {
         $scope.data = res.data;

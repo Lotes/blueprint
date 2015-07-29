@@ -1,14 +1,20 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Blueprint</a>
+      <a class="navbar-brand brand" href="#">Blueprint</a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <button>Save</button>
-      <button>Run</button>
-      <button>Step</button>
+    <div class="collapse navbar-collapse">
+      <button type="button" class="btn btn-primary navbar-btn" ng-click="save()">
+        <span class=" glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        Save
+      </button>
+      <button type="button" class="btn btn-success navbar-btn">        
+        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+        Run
+      </button>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-{{data}}
+<bp-canvas map="data" mode="mode">
+</bp-canvas>

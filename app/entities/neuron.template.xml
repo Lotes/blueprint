@@ -1,1 +1,1 @@
-<circle class="neuron"/>
+<circle ng-class="{ neuron: true, active: isActive, selected: isSelected}" cx="0" cy="0" r="13"/>

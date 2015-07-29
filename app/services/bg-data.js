@@ -10,9 +10,9 @@ angular
         return $http.get(url);
       },
       save: function(name, data) {
+        name = name || 'example';
         var url = 'data';
-        if(name)
-          url += '/'+name;
+        url += '/'+name;
         return $http.post(url, data);
       }
     };
