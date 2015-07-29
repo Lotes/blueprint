@@ -22,6 +22,7 @@ angular
           oldMousePosition = [event.clientX, event.clientY];          
           oldNodePosition = scope.data.position;
           parentCtrl.unselect();
+          parentCtrl.selectNode(scope.data);          
           scope.isSelected = true;
           event.preventDefault();
         };

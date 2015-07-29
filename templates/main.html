@@ -16,5 +16,10 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<bp-canvas map="data" mode="mode">
-</bp-canvas>
+<div class="row">
+  <div class="col-md-2">{{ selection }}</div>
+  <div class="col-md-10">
+    <bp-canvas map="data" mode="mode" selection="selection">
+    </bp-canvas>
+  </div>  
+</div>

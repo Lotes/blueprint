@@ -4,6 +4,7 @@ angular
     var name = $routeParams.name;
     var revision = $routeParams.revision;
     $scope.mode = 'edit';
+    $scope.selection = null;
     $scope.data = null;
     $scope.save = function() {
       if($scope.data != null) {
