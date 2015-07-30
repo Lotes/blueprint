@@ -13,7 +13,7 @@
     "variables": {}
   }],
   "connections": [{
-    "templateName": "activator",
+    "label": "go to",
     "source": {
       "node": 1,
       "connector": "default"

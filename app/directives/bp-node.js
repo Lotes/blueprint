@@ -2,6 +2,7 @@ angular
   .module('blueprint')
   .directive('bpNode', function(registry) {
     return {
+      templateNamespace: 'svg',
       restrict: 'E',
       replace: true,
       require: '^bpCanvas',
