@@ -12,3 +12,18 @@
   stroke: red;
   fill: #EEEEEE;
 }
+
+.label {
+  font-size: 10px;
+  fill: black;
+  stroke: none;
+  font-weight: normal;
+}
+
+.label.active {
+  fill: blue;
+}
+
+.label.selected {
+  fill: red;
+}

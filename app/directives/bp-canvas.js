@@ -38,6 +38,13 @@ angular
         element.bind('mousemove', function(event) {
           scope.$broadcast('mousemove', event);
         });
+        element.bind('mousedown', function(event) {
+          if(event.target.id == 'grid'){ 
+            scope.$broadcast('unselect'); 
+            scope.selectedNode = null;
+            scope.$apply();
+          }
+        });
       }
     };
   });

@@ -1,1 +1,4 @@
-<circle ng-class="{ neuron: true, active: isActive, selected: isSelected}" cx="0" cy="0" r="13"/>
+<g class="neuron">
+  <circle ng-class="{ active: isActive, selected: isSelected}" cx="0" cy="0" r="13"/>
+  <text ng-class="{ label: true, active: isActive, selected: isSelected }" x="0" y="25" text-anchor="middle">{{data.label}}</text>
+</g>

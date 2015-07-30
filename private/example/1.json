@@ -1,11 +1,13 @@
 {  
   "nodes": [{
-    "name": "S",
+    "id": 1,
+    "label": "S",
     "templateName": "neuron",
      "position": [50, 20],
      "variables": {}
   }, {
-    "name": "D",
+    "id": 2,
+    "label": "D",
     "templateName": "neuron",
     "position": [100, 100],
     "variables": {}
@@ -13,14 +15,14 @@
   "connections": [{
     "templateName": "activator",
     "source": {
-      "node": "S",
+      "node": 1,
       "connector": "default"
     },
     "anchors": [{
       "position": [100, 200]
     }],
     "destination": {
-      "node": "D"
+      "node": 2
     },
     "variables": {
       "weight": 123456,

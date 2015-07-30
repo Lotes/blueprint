@@ -1,0 +1,41 @@
+<table class="properties" align="left">
+<tbody>
+  <tr>
+    <td colspan="2" class="properties-header">
+      Properties
+    </td>
+  </tr>
+  
+  <tr>
+    <td colspan="2" class="properties-category">
+      General information
+    </td>
+  </tr>
+   <tr>
+    <td>Id</td>
+    <td>{{entity.id}}</td>
+  </tr>
+  <tr>
+    <td>Label</td>
+    <td>
+      <input 
+        type="text" 
+        ng-model="entity.label"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Template</td>
+    <td>{{type}} / {{entity.templateName}}</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2" class="properties-category">
+      Layout
+    </td>
+  </tr>
+  <tr>
+    <td>Position</td>
+    <td>[{{entity.position[0]}}, {{entity.position[1]}}]</td>
+  </tr>
+</tbody>
+</table>
