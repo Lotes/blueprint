@@ -14,36 +14,37 @@ angular
           console.log("new connector: "+$scope.data.label+"->"+name);
         };
       },
-      link: function(scope, element, attrs, parentCtrl) {
+      link: function($scope, element, attrs, parentCtrl) {
         var oldNodePosition = null;
         var oldMousePosition = null;        
-        scope.isSelected = false;
-        scope.isMouseDown = false;
-        scope.isActive = false;
-        scope.onMouseDown = function(event) {
-          scope.isMouseDown = true;
+        $scope.isSelected = false;
+        $scope.isMouseDown = false;
+        $scope.isActive = false;
+        $scope.onMouseDown = function(event) {
+          $scope.isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
-          oldNodePosition = scope.data.position;
-          parentCtrl.unselect();
-          parentCtrl.selectNode(scope.data);          
-          scope.isSelected = true;
+          oldNodePosition = $scope.data.position;          
           event.preventDefault();
         };
-        scope.onMouseUp = function(event) {
-          scope.isMouseDown = false;
+        $scope.onMouseUp = function(event) {
+          $scope.isMouseDown = false;
           oldNodePosition = null;
           oldMousePosition = null;          
+          parentCtrl.unselect();
+          parentCtrl.selectNode($scope.data);          
+          $scope.isSelected = true;
+          event.preventDefault();
         };
-        scope.onMouseEnter = function(event) {
-          scope.isActive = true;
+        $scope.onMouseEnter = function(event) {
+          $scope.isActive = true;
         };
-        scope.onMouseLeave = function(event) {
-          scope.isActive = false;
-          scope.isMouseDown = false;
+        $scope.onMouseLeave = function(event) {
+          $scope.isActive = false;
+          $scope.isMouseDown = false;
         };
-        scope.$on('unselect', function() { scope.isSelected = false; });
-        scope.$on('mousemove', function(event, args) {
-          if(!parentCtrl.isEditing() || !scope.isSelected || oldMousePosition == null)
+        $scope.$on('unselect', function() { $scope.isSelected = false; });
+        $scope.$on('mousemove', function(event, args) {
+          if(!parentCtrl.isEditing() || !$scope.isSelected || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];
@@ -52,12 +53,12 @@ angular
             var delta = newMousePosition[index] - oldMousePosition[index]; 
             newNodePosition[index] = oldNodePosition[index] + delta;
           }
-          scope.$apply(function() {
-            scope.data.position = newNodePosition;
+          $scope.$apply(function() {
+            $scope.data.position = parentCtrl.snapToGrid(newNodePosition);
           });          
         });
-        scope.getTemplateUrl = function() {
-          return registry.getNode(scope.data.templateName).markupUrl;
+        $scope.getTemplateUrl = function() {
+          return registry.getNode($scope.data.templateName).markupUrl;
         }
       },
       template: '<g ng-include="getTemplateUrl()" ng-mousedown="onMouseDown($event)" ng-mouseup="onMouseUp($event)"  ng-mouseenter="onMouseEnter($event)" ng-mouseleave="onMouseLeave($event)"></g>'

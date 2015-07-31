@@ -13,15 +13,12 @@ angular
       link: function($scope, element, attrs, parentCtrl) {
         var oldNodePosition = null;
         var oldMousePosition = null;        
-        $scope.isSelected = false;
         $scope.isMouseDown = false;
         $scope.isActive = false;
         $scope.onMouseDown = function(event) {
           $scope.isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
           oldNodePosition = $scope.data.position;
-          parentCtrl.unselect();
-          $scope.isSelected = true;
           event.preventDefault();
         };
         $scope.onMouseUp = function(event) {
@@ -36,9 +33,8 @@ angular
           $scope.isActive = false;
           $scope.isMouseDown = false;
         };
-        $scope.$on('unselect', function() { $scope.isSelected = false; });
         $scope.$on('mousemove', function(event, args) {
-          if(!parentCtrl.isEditing() || !$scope.isSelected || oldMousePosition == null)
+          if(!parentCtrl.isEditing() || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];
@@ -48,7 +44,7 @@ angular
             newNodePosition[index] = oldNodePosition[index] + delta;
           }
           $scope.$apply(function() {
-            $scope.data.position = newNodePosition;
+            $scope.data.position = parentCtrl.snapToGrid(newNodePosition);
           });          
         });
       }

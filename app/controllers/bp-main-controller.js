@@ -6,6 +6,7 @@ angular
     $scope.mode = 'edit';
     $scope.selection = null;
     $scope.data = null;
+    $scope.snapToGrid = true;
     $scope.save = function() {
       if($scope.data != null) {
         $scope.saving = true;

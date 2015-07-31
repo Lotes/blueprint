@@ -6,6 +6,7 @@ angular
       transclude: true,
       replace: true,
       scope: {
+        isGridSnappingEnabled: '=snap',
         data: '=map',
         mode: '=',
         selectedNode: '=selection'
@@ -14,6 +15,14 @@ angular
       controller: function($scope) {
         this.getMode = function() { return $scope.mode; };
         this.isEditing = function() { return $scope.mode == 'edit'; };
+        this.snapToGrid = function(position) { 
+          if(!$scope.isGridSnappingEnabled)
+            return position;
+          return [
+            Math.round(position[0] / 25) * 25,
+            Math.round(position[1] / 25) * 25
+          ];
+        };
         this.isRunning = function() { return $scope.mode == 'run'; };
         this.unselect = function() { 
           $scope.$broadcast('unselect'); 

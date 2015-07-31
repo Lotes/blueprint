@@ -1,6 +1,6 @@
 .connection {
   stroke: black;
-  stroke-width: 1px;
+  stroke-width: 1;
   fill: none;
   cursor: pointer;
 }
@@ -14,8 +14,12 @@
 
 .anchor {
   stroke: none;
-  fill: rgba(255,255,255,0.3);
+  fill: rgba(255,255,255,0.01);
   cursor: pointer;
+}
+
+.anchor.active {
+  fill: rgba(255,255,255,0.5);;
 }
 
 .neuron {
@@ -24,11 +28,12 @@
   cursor: pointer;
 }
 
-.active {
+.neuron.active {
   stroke: blue;
+  fill: #DDDDFF;
 }
 
-.selected {
+.neuron.selected {
   stroke: red;
   fill: #FFDDDD;
 }

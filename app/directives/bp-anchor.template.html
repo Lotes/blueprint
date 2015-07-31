@@ -1,5 +1,6 @@
 <circle
   class="anchor"
+  ng-class="{ anchor: true, active: isActive }"
   ng-attr-cx="{{data.position[0]}}"
   ng-attr-cy="{{data.position[1]}}"
   ng-mousedown="onMouseDown($event)" 
