@@ -1,17 +1,22 @@
 {  
-  "nodes": [{
-    "id": 1,
-    "label": "S",
-    "templateName": "neuron",
-     "position": [50, 20],
-     "variables": {}
-  }, {
-    "id": 2,
-    "label": "D",
-    "templateName": "neuron",
-    "position": [100, 100],
-    "variables": {}
-  }],
+  "nodes": {
+    "1": {
+      "label": "S",
+      "templateName": "neuron",
+       "position": [50, 20],
+       "variables": {
+        "type": "activate"
+       }
+    }, 
+    "2": {
+      "label": "D",
+      "templateName": "neuron",
+      "position": [100, 100],
+      "variables": {
+        "type": "inhibit"
+      }
+    }
+  },
   "connections": [{
     "label": "go to",
     "source": {
@@ -23,6 +28,18 @@
     }],
     "destination": {
       "node": 2
+    },
+    "variables": {
+      "weight": 123456,
+      "level": 0
+    }
+  }, {
+    "label": "inhibit",
+    "source": {
+      "node": 2
+    },
+    "destination": {
+      "node": 1
     },
     "variables": {
       "weight": 123456,

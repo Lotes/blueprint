@@ -1,7 +1,14 @@
 .connection {
   stroke: black;
   stroke-width: 1px;
-  fill: black;
+  fill: none;
+}
+
+.connection-tip-activate,
+.connection-tip-inhibit {
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
 }
 
 .neuron {

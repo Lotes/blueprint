@@ -14,11 +14,8 @@ angular
         
       },
       link: function($scope, element, attrs, parentCtrl) {
-        $scope.source = null;
-        $scope.destination = null;
-        $scope.$watch('[nodes.length,data.source.node,data.destination.node]', function() {
-          alert("aa");
-        });
+        $scope.source = $scope.nodes[$scope.data.source.node];
+        $scope.destination = $scope.nodes[$scope.data.destination.node];
       },
       templateUrl: 'app/directives/bp-connection.template.html'
     };

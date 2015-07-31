@@ -1,4 +1,17 @@
 <g>
-  <circle class="connection" cx="100" cy="100" r="100"/>
-  <text ng-class="{ label: true }" x="0" y="25" text-anchor="middle">{{data.label}}</text>
+  <line 
+    class="connection" 
+    ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
+    ng-attr-x1="{{source.position[0]}}" 
+    ng-attr-y1="{{source.position[1]}}" 
+    ng-attr-x2="{{destination.position[0]}}" 
+    ng-attr-y2="{{destination.position[1]}}" 
+    />
+  <text 
+    ng-class="{ label: true }" 
+    ng-attr-x="{{ (source.position[0] + destination.position[0])/2 }}" 
+    ng-attr-y="{{ (source.position[1] + destination.position[1])/2 }}"
+    text-anchor="middle">
+    {{data.label}}
+  </text>
 </g>

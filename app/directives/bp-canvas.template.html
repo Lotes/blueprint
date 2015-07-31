@@ -2,16 +2,31 @@
   <defs>
     <pattern id="grid-pattern" width="25" height="25" patternUnits="userSpaceOnUse">
       <rect x="0" y="0" width="25" height="25" fill="#EEEEFF" stroke="black" stroke-dasharray="2,2" stroke-width="0.5"/>
-    </pattern>    
+    </pattern>  
+    <marker 
+      id="marker-connection-activate" 
+      markerWidth="10" 
+      markerHeight="10"
+      orient="auto" refY="5" refX="10">
+      <path d="M0,0 L10,5 0,10" class="connection-tip-activate"/>
+    </marker>
+    <marker 
+      id="marker-connection-inhibit" 
+      markerWidth="10" 
+      markerHeight="10"
+      orient="auto" refY="5">
+      <path d="M0,0 L 0,10" class="connection-tip-inhibit"/>
+    </marker>
   </defs>
-  <rect id="grid" x="0" y="0" width="100%" height="100%" fill="url('#grid-pattern')"/>
+  <rect id="grid" x="0" y="0" width="100%" height="100%" fill="url('#grid-pattern')"/>  
+  
+  <g ng-repeat="node in data.nodes" ng-attr-transform="{{ 'translate('+node.position[0]+' '+node.position[1]+')' }}">
+    <bp-node node="node"/>
+  </g>  
   
   <g ng-repeat="connection in data.connections">
     <bp-connection nodes="data.nodes" connection="connection"/>
   </g>
   
-  <g ng-repeat="node in data.nodes" ng-attr-transform="{{ 'translate('+node.position[0]+' '+node.position[1]+')' }}">
-    <bp-node node="node"/>
-  </g>  
   <g ng-transclude></g>
 </svg>
