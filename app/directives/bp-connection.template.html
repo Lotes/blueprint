@@ -1,17 +1,39 @@
 <g>
-  <line 
-    class="connection" 
-    ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
-    ng-attr-x1="{{source.position[0]}}" 
-    ng-attr-y1="{{source.position[1]}}" 
-    ng-attr-x2="{{destination.position[0]}}" 
-    ng-attr-y2="{{destination.position[1]}}" 
-    />
-  <text 
-    ng-class="{ label: true }" 
-    ng-attr-x="{{ (source.position[0] + destination.position[0])/2 }}" 
-    ng-attr-y="{{ (source.position[1] + destination.position[1])/2 }}"
-    text-anchor="middle">
-    {{data.label}}
-  </text>
+  <g ng-if="data.anchors != null && data.anchors.length > 0">
+    <g ng-repeat="anchor in data.anchors">
+      <line 
+        class="connection"       
+        ng-attr-x1="{{$first ? source.position[0] : data.anchors[$index-1].position[0]}}" 
+        ng-attr-y1="{{$first ? source.position[1] : data.anchors[$index-1].position[1]}}" 
+        ng-attr-x2="{{anchor.position[0]}}" 
+        ng-attr-y2="{{anchor.position[1]}}" 
+        />
+      <bp-anchor anchor="anchor"/>
+    </g>
+    <line 
+      class="connection" 
+      ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
+      ng-attr-x1="{{data.anchors[data.anchors.length-1].position[0]}}" 
+      ng-attr-y1="{{data.anchors[data.anchors.length-1].position[1]}}" 
+      ng-attr-x2="{{destination.position[0]}}" 
+      ng-attr-y2="{{destination.position[1]}}" 
+      />
+  </g>
+  <g ng-if="data.anchors == null || data.anchors.length == 0">
+    <line 
+      class="connection" 
+      ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
+      ng-attr-x1="{{source.position[0]}}" 
+      ng-attr-y1="{{source.position[1]}}" 
+      ng-attr-x2="{{destination.position[0]}}" 
+      ng-attr-y2="{{destination.position[1]}}" 
+      />
+    <!--text 
+      ng-class="{ label: true }" 
+      ng-attr-x="{{ (source.position[0] + destination.position[0])/2 }}" 
+      ng-attr-y="{{ (source.position[1] + destination.position[1])/2 }}"
+      text-anchor="middle">
+      {{data.label}}
+    </text-->
+  </g>
 </g>

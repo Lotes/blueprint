@@ -2,6 +2,7 @@
   stroke: black;
   stroke-width: 1px;
   fill: none;
+  cursor: pointer;
 }
 
 .connection-tip-activate,
@@ -9,6 +10,12 @@
   stroke: black;
   stroke-width: 1px;
   fill: none;
+}
+
+.anchor {
+  stroke: none;
+  fill: rgba(255,255,255,0.3);
+  cursor: pointer;
 }
 
 .neuron {

@@ -9,8 +9,10 @@ angular
       scope: {
         data: '=node'
       },
-      controller: function($scope) {
-        this.isMouseDown = function() { return $scope.isMouseDown; };        
+      controller: function($scope) {        
+        this.addConnector = function(name, connectorCtrl) { 
+          console.log("new connector: "+$scope.data.label+"->"+name);
+        };
       },
       link: function(scope, element, attrs, parentCtrl) {
         var oldNodePosition = null;

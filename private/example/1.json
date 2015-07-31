@@ -3,7 +3,7 @@
     "1": {
       "label": "S",
       "templateName": "neuron",
-       "position": [50, 20],
+       "position": [50, 50],
        "variables": {
         "type": "activate"
        }
@@ -18,13 +18,12 @@
     }
   },
   "connections": [{
-    "label": "go to",
     "source": {
       "node": 1,
       "connector": "default"
     },
     "anchors": [{
-      "position": [100, 200]
+      "position": [50, 100]
     }],
     "destination": {
       "node": 2
@@ -34,7 +33,6 @@
       "level": 0
     }
   }, {
-    "label": "inhibit",
     "source": {
       "node": 2
     },

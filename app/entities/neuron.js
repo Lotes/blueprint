@@ -14,8 +14,8 @@ angular
       },
       events: {
         startDragConnection: function(connector) { /* return connection */ },
-        endDragConnection: function(connector, connection) { /* return if ok/notOK */ },
-        dropConnection: function(connector, connection) { /* add connection to internal list */ },
+        canDropConnection: function(connector, connection) { /* return if ok/notOK */ },
+        connect: function(connector, connection) { /* add connection to internal list */ },
         removeConnection: function(connection) { /* remove connection from internal list */ }
       }
     });
