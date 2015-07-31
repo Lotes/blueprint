@@ -17,6 +17,6 @@ angular
         $scope.source = $scope.nodes[$scope.data.source.node];
         $scope.destination = $scope.nodes[$scope.data.destination.node];
       },
-      templateUrl: 'app/directives/bp-connection.template.html'
+      templateUrl: 'app/directives/bp-connection.template.xml'
     };
   });

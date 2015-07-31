@@ -2,7 +2,6 @@ angular
   .module('blueprint')
   .factory('registry', function() {
     var nodes = {}; 
-    var connections = {}; 
    
     function Node(name, definition) {    
       var self = this;
@@ -11,22 +10,12 @@ angular
       self.markupUrl = definition.markupUrl;      
     }
     
-    function Connection(definition) {    
-      
-    }
-    
     return {    
       addNode: function(name, definition) {
         nodes[name] = new Node(name, definition);
       },
-      addConnection: function(name, definition) {
-        connections[name] = new Connection(definition);
-      },
       getNode: function(name) {
         return nodes[name];
       },
-      getConnection: function(name) {
-        return connections[name];
-      }
     };
   });

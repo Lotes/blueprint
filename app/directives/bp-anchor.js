@@ -9,7 +9,7 @@ angular
       scope: {
         data: '=anchor',
       },
-      templateUrl: 'app/directives/bp-anchor.template.html',
+      templateUrl: 'app/directives/bp-anchor.template.xml',
       link: function($scope, element, attrs, parentCtrl) {
         var oldNodePosition = null;
         var oldMousePosition = null;        

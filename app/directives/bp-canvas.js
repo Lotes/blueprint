@@ -11,7 +11,7 @@ angular
         mode: '=',
         selectedNode: '=selection'
       },
-      templateUrl: 'app/directives/bp-canvas.template.html',
+      templateUrl: 'app/directives/bp-canvas.template.xml',
       controller: function($scope) {
         this.getMode = function() { return $scope.mode; };
         this.isEditing = function() { return $scope.mode == 'edit'; };

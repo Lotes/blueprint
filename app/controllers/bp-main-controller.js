@@ -23,15 +23,12 @@ angular
           }); 
       }
     };
-    bpData.load(name, revision)
+    bpData.load(name)
       .then(function(res) {
         $scope.data = res.data;
       }, function() {
-        if(revision) {
-          alert('No revision '+revision+' for blueprint "'+name+'"!');
-          $location.path('/'+name); 
-        } else if(name) {
-          alert('No blueprint "'+name+'"!');
+        if(name) {
+          console.log('No blueprint "'+name+'"! Redirect to "/".');
           $location.path('/');
         } else
           $location.path('/');
