@@ -7,13 +7,15 @@ angular
     $scope.selection = null;
     $scope.data = null;
     $scope.snapToGrid = true;
+    $scope.saving = false;
     $scope.save = function() {
       if($scope.data != null) {
         $scope.saving = true;
         bpData
-          .save(name, JSON.stringify($scope.data, null, 2))
+          .save(JSON.stringify($scope.data, null, 2))
           .success(function(res) {
             $scope.saving = false;
+            $location.path('/'+res.name); 
           })
           .error(function() { 
             alert("Error while saving!"); 

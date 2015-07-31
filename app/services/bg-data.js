@@ -9,11 +9,8 @@ angular
           url += '/' + revision;
         return $http.get(url);
       },
-      save: function(name, data) {
-        name = name || 'example';
-        var url = 'data';
-        url += '/'+name;
-        return $http.post(url, data);
+      save: function( data) {
+        return $http.post('data', data);
       }
     };
   });
