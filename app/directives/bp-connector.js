@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpConnector', function(registry) {
+  .directive('bpConnector', function(registry, bpEditor) {
     return {
       templateNamespace: 'svg',
       restrict: 'A',
@@ -9,7 +9,8 @@ angular
         name: '@bpConnector',
       },
       link: function($scope, element, attrs, parentCtrl) {
-        parentCtrl.addConnector($scope.name, element);        
+        var name = $scope.name;
+        parentCtrl.addConnector(name, element); 
       }
     };
   });

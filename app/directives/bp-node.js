@@ -9,12 +9,35 @@ angular
       scope: {
         data: '=node'
       },
-      controller: function($scope) {        
-        this.addConnector = function(name, connectorCtrl) { 
+      controller: function($scope) { 
+        $scope.connectors = {};
+        $scope.$on('editorModeChange', function() {
+          var bind = bpEditor.mode === 'connect' ? 'bind' : 'unbind';
+          for(var connectorName in $scope.connectors) {
+            var connector = $scope.connectors[connectorName];
+            for(var property in connector)
+              if(property !== 'element')
+                connector.element[bind](property, connector[property]);
+          }  
+        });
+        this.addConnector = function(name, element) { 
           console.log("new connector: "+$scope.data.label+"->"+name);
-        };
+          $scope.connectors[name] = {
+            element: element,
+            mousedown: function(event) { 
+              console.log($scope.data.label+'->'+name+" mousedown");
+            },
+            mouseenter: function(event) { 
+              console.log($scope.data.label+'->'+name+" mouseenter");
+            },
+            mouseleave: function(event) { 
+              console.log($scope.data.label+'->'+name+" mouseleave");
+            },
+          };
+        };        
       },
       link: function($scope, element, attrs, parentCtrl) {
+        //selection/drag/drop
         var oldNodePosition = null;
         var oldMousePosition = null;        
         $scope.isSelected = false;
@@ -59,7 +82,7 @@ angular
         });
         $scope.getTemplateUrl = function() {
           return registry.getNode($scope.data.templateName).markupUrl;
-        }
+        };        
       },
       template: '<g ng-include="getTemplateUrl()" ng-mousedown="onMouseDown($event)" ng-mouseup="onMouseUp($event)"  ng-mouseenter="onMouseEnter($event)" ng-mouseleave="onMouseLeave($event)"></g>'
     };

@@ -27,6 +27,10 @@ angular
       },
       snapToGrid: true,
       mode: 'select',
+      setMode: function(newMode) {
+        editor.mode = newMode;
+        $rootScope.$broadcast('editorModeChange');
+      },
       selectionType: null, //could be: node, connection, anchor
       selection: null,
       snapPosition: function(position) { 

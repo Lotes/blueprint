@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse">
       <button type="button" class="btn btn-save navbar-btn" ng-click="save()" ng-disabled="{{saving}}">
-        <span class=" glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         Save
       </button>
     </div><!-- /.navbar-collapse -->
@@ -17,7 +17,7 @@
     type="button"     
     ng-repeat="(mode, data) in editor.modes track by $index"
     ng-class="{btn: true, 'btn-default': true, active: editor.mode == mode}" 
-    ng-click="editor.mode = mode"
+    ng-click="editor.setMode(mode)"
     ng-attr-title="{{data.description}}">
     <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
   </button>

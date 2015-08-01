@@ -31,7 +31,6 @@ angular
             return;
           switch(bpEditor.mode) {
             case 'neuron':
-              console.log(event);
               var position = [event.offsetX, event.offsetY];
               var newId = 0;
               var duplicate;
