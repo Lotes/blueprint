@@ -5,26 +5,27 @@
     </div>
 
     <div class="collapse navbar-collapse">
-      <button type="button" class="btn btn-primary navbar-btn" ng-click="save()" ng-disabled="{{saving}}">
+      <button type="button" class="btn btn-save navbar-btn" ng-click="save()" ng-disabled="{{saving}}">
         <span class=" glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
         Save
       </button>
-      <button type="button" class="btn btn-success navbar-btn">        
-        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-        Run
-      </button>
-      <span>
-        <input type="checkbox" ng-model="snapToGrid"/>
-        Snap to grid
-      </span>      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="toolbar">
+  <button type="button" class="btn btn-default">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+  </button>
+  <span>
+    <input type="checkbox" ng-model="editor.snapToGrid"/>
+    Snap to grid
+  </span>
+</div>
 <div class="main-view-left">
-  <bp-properties map="data" selection="selection">
+  <bp-properties map="data" selection="editor.selection">
   </bp-properties>
 </div>
 <div class="main-view-right">
-  <bp-canvas map="data" mode="mode" selection="selection" snap="snapToGrid">
+  <bp-canvas map="data" mode="editor.mode" selection="editor.selection" snap="editor.snapToGrid">
   </bp-canvas>
 </div>  

@@ -1,3 +1,8 @@
+.grid {
+  fill: #AAAAFF;
+  stroke: white;
+}
+
 .connection {
   stroke: black;
   stroke-width: 1;

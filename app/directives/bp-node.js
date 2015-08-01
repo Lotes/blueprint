@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpNode', function(registry) {
+  .directive('bpNode', function(registry, bpEditor) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -30,8 +30,8 @@ angular
           $scope.isMouseDown = false;
           oldNodePosition = null;
           oldMousePosition = null;          
-          parentCtrl.unselect();
-          parentCtrl.selectNode($scope.data);          
+          bpEditor.unselect();
+          bpEditor.selectNode($scope.data);          
           $scope.isSelected = true;
           event.preventDefault();
         };
@@ -44,7 +44,7 @@ angular
         };
         $scope.$on('unselect', function() { $scope.isSelected = false; });
         $scope.$on('mousemove', function(event, args) {
-          if(!parentCtrl.isEditing() || !$scope.isSelected || oldMousePosition == null)
+          if(!bpEditor == 'select' || !$scope.isSelected || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];
@@ -54,7 +54,7 @@ angular
             newNodePosition[index] = oldNodePosition[index] + delta;
           }
           $scope.$apply(function() {
-            $scope.data.position = parentCtrl.snapToGrid(newNodePosition);
+            $scope.data.position = bpEditor.snapPosition(newNodePosition);
           });          
         });
         $scope.getTemplateUrl = function() {

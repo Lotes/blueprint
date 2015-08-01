@@ -1,7 +1,7 @@
 <svg ng-attr-width="{{width}}" ng-attr-height="{{height}}">
   <defs>
     <pattern id="grid-pattern" width="25" height="25" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="25" height="25" fill="#EEEEFF" stroke="black" stroke-dasharray="2,2" stroke-width="0.5"/>
+      <rect x="0" y="0" width="25" height="25" class="grid" stroke-dasharray="2,2" stroke-width="0.5"/>
     </pattern>  
     <marker 
       id="marker-connection-activate" 
@@ -27,6 +27,4 @@
   <g ng-repeat="connection in data.connections">
     <bp-connection nodes="data.nodes" connection="connection"/>
   </g>
-  
-  <g ng-transclude></g>
 </svg>

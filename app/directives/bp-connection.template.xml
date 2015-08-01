@@ -1,5 +1,5 @@
 <g>
-  <g ng-if="data.anchors != null && data.anchors.length > 0">
+  <g ng-if="data.anchors != null &amp;&amp; data.anchors.length &gt; 0">
     <g ng-repeat="anchor in data.anchors">
       <line 
         class="connection"       

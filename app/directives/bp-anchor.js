@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpAnchor', function(registry) {
+  .directive('bpAnchor', function(registry, bpEditor) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -9,8 +9,8 @@ angular
       scope: {
         data: '=anchor',
       },
-      templateUrl: 'app/directives/bp-anchor.template.xml',
-      link: function($scope, element, attrs, parentCtrl) {
+      templateUrl: 'app/directives/bp-anchor.template.xml',      
+      controller: function($scope) {
         var oldNodePosition = null;
         var oldMousePosition = null;        
         $scope.isMouseDown = false;
@@ -34,7 +34,7 @@ angular
           $scope.isMouseDown = false;
         };
         $scope.$on('mousemove', function(event, args) {
-          if(!parentCtrl.isEditing() || oldMousePosition == null)
+          if(!bpEditor.mode == 'select' || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];
@@ -44,7 +44,7 @@ angular
             newNodePosition[index] = oldNodePosition[index] + delta;
           }
           $scope.$apply(function() {
-            $scope.data.position = parentCtrl.snapToGrid(newNodePosition);
+            $scope.data.position = bpEditor.snapPosition(newNodePosition);
           });          
         });
       }

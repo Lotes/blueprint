@@ -1,12 +1,9 @@
 angular
   .module('blueprint')
-  .controller('bpMainController', function($scope, bpData, $routeParams, $location) {
+  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor) {
     var name = $routeParams.name;
-    var revision = $routeParams.revision;
-    $scope.mode = 'edit';
-    $scope.selection = null;
+    $scope.editor = bpEditor;
     $scope.data = null;
-    $scope.snapToGrid = true;
     $scope.saving = false;
     $scope.save = function() {
       if($scope.data != null) {

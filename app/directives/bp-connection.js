@@ -11,9 +11,9 @@ angular
         nodes: '=',
       },
       controller: function($scope) {
-        
+
       },
-      link: function($scope, element, attrs, parentCtrl) {
+      link: function($scope, element, attrs, parentCtrl) {        
         $scope.source = $scope.nodes[$scope.data.source.node];
         $scope.destination = $scope.nodes[$scope.data.destination.node];
       },
