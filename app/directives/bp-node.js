@@ -44,7 +44,7 @@ angular
         };
         $scope.$on('unselect', function() { $scope.isSelected = false; });
         $scope.$on('mousemove', function(event, args) {
-          if(!bpEditor == 'select' || !$scope.isSelected || oldMousePosition == null)
+          if(bpEditor.mode != 'select' || !$scope.isSelected || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];

@@ -7,26 +7,26 @@ angular
         select: { 
           label: 'Select',
           description: 'Select/move/delete nodes, connections and anchors',
-          icon: null
+          iconClass: 'glyphicon-hand-up'
         },
         connect: {
           label: 'Connect',
           description: 'Connect nodes',
-          icon: null          
+          iconClass: 'glyphicon-resize-small'          
         },
         neuron: {
           label: 'Add neuron',
           description: '...',
-          icon: null
+          iconClass: 'glyphicon-plus'
         },
         run: { 
           label: 'Run',
           description: 'Execute neuronal net.',
-          icon: null
+          iconClass: 'glyphicon-play'
         },
       },
       snapToGrid: true,
-      currentMode: 'select',
+      mode: 'select',
       selectionType: null, //could be: node, connection, anchor
       selection: null,
       snapPosition: function(position) { 

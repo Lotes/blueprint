@@ -34,7 +34,7 @@ angular
           $scope.isMouseDown = false;
         };
         $scope.$on('mousemove', function(event, args) {
-          if(!bpEditor.mode == 'select' || oldMousePosition == null)
+          if(bpEditor.mode != 'select' || oldMousePosition == null)
             return;
           args.preventDefault();
           var newMousePosition = [args.clientX, args.clientY];

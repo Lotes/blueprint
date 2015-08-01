@@ -13,8 +13,13 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="toolbar">
-  <button type="button" class="btn btn-default">
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+  <button 
+    type="button"     
+    ng-repeat="(mode, data) in editor.modes track by $index"
+    ng-class="{btn: true, 'btn-default': true, active: editor.mode == mode}" 
+    ng-click="editor.mode = mode"
+    ng-attr-title="{{data.description}}">
+    <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
   </button>
   <span>
     <input type="checkbox" ng-model="editor.snapToGrid"/>
