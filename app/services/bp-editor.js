@@ -9,15 +9,15 @@ angular
           description: 'Select/move/delete nodes, connections and anchors',
           iconClass: 'glyphicon-hand-up'
         },
-        connect: {
-          label: 'Connect',
-          description: 'Connect nodes',
-          iconClass: 'glyphicon-resize-small'          
-        },
         neuron: {
           label: 'Add neuron',
           description: '...',
           iconClass: 'glyphicon-plus'
+        },
+        connect: {
+          label: 'Connect',
+          description: 'Connect nodes',
+          iconClass: 'glyphicon-resize-small'          
         },
         run: { 
           label: 'Run',

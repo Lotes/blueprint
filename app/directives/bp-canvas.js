@@ -27,10 +27,32 @@ angular
           $scope.$broadcast('mousemove', event);
         });
         element.bind('mousedown', function(event) {
-          if(event.target.id == 'grid') {
-            bpEditor.unselect();
-            $scope.$apply();
-          }
+          if(event.target.id != 'grid')
+            return;
+          switch(bpEditor.mode) {
+            case 'neuron':
+              console.log(event);
+              var position = [event.offsetX, event.offsetY];
+              var newId = 0;
+              var duplicate;
+              do {
+                newId++;
+                duplicate = false
+                for(var name in $scope.data.nodes)  
+                  if(newId == name)
+                    duplicate = true;
+              } while(duplicate);                
+              $scope.data.nodes[newId] = {
+                label: 'New',
+                templateName: 'neuron',
+                position: position                
+              };
+              $scope.$apply();
+              break;
+            default:
+              bpEditor.unselect();
+              $scope.$apply();
+          }          
         });
       }
     };
