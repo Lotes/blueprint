@@ -28,12 +28,5 @@
       ng-attr-x2="{{destination.position[0]}}" 
       ng-attr-y2="{{destination.position[1]}}" 
       />
-    <!--text 
-      ng-class="{ label: true }" 
-      ng-attr-x="{{ (source.position[0] + destination.position[0])/2 }}" 
-      ng-attr-y="{{ (source.position[1] + destination.position[1])/2 }}"
-      text-anchor="middle">
-      {{data.label}}
-    </text-->
   </g>
 </g>

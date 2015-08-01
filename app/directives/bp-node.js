@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpNode', function(registry, bpEditor) {
+  .directive('bpNode', function(registry, bpEditor, bpSvg) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -15,24 +15,48 @@ angular
           var bind = bpEditor.mode === 'connect' ? 'bind' : 'unbind';
           for(var connectorName in $scope.connectors) {
             var connector = $scope.connectors[connectorName];
-            for(var property in connector)
-              if(property !== 'element')
-                connector.element[bind](property, connector[property]);
+            for(var property in connector.events)
+              connector.$element[bind](property, connector.events[property]);
           }  
         });
-        this.addConnector = function(name, element) { 
-          console.log("new connector: "+$scope.data.label+"->"+name);
+        this.addConnector = function(name, $element) { 
+          var element = $element[0];
+          var connectAt;          
+          switch(element.nodeName) {
+            case 'circle':
+              connectAt = function(anchorPosition) {
+                var relativePosition = [element.cx.value, element.cy.value];
+                var radius = element.r.value;                
+                var absolutePosition = bpSvg.getAbsolutePosition(element);
+                var dx = absolutePosition[0] - anchorPosition[0];
+                var dy = absolutePosition[1] - anchorPosition[1];
+                var distance = Math.sqrt(dx*dx + dy*dy);
+                var part = radius / distance;
+                return [
+                  absolutePosition[0] * part + anchorPosition[0] * (1-part),
+                  absolutePosition[1] * part + anchorPosition[1] * (1-part)
+                ];
+              };
+              break;
+            default:
+              connectAt = function(anchorPosition) {
+                return null;
+              };
+          }
           $scope.connectors[name] = {
-            element: element,
-            mousedown: function(event) { 
-              console.log($scope.data.label+'->'+name+" mousedown");
-            },
-            mouseenter: function(event) { 
-              console.log($scope.data.label+'->'+name+" mouseenter");
-            },
-            mouseleave: function(event) { 
-              console.log($scope.data.label+'->'+name+" mouseleave");
-            },
+            $element: $element,            
+            connectAt: connectAt,
+            events: {
+              mousedown: function(event) { 
+                console.log($scope.data.label+'->'+name+" mousedown");
+              },
+              mouseenter: function(event) { 
+                console.log($scope.data.label+'->'+name+" mouseenter");
+              },
+              mouseleave: function(event) { 
+                console.log($scope.data.label+'->'+name+" mouseleave");
+              } 
+            }
           };
         };        
       },
