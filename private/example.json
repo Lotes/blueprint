@@ -26,7 +26,8 @@
       "position": [500, 200]
     }],
     "destination": {
-      "node": 2
+      "node": 2,
+      "connector": "default"
     },
     "variables": {
       "weight": 123456,
@@ -34,14 +35,16 @@
     }
   }, {
     "source": {
-      "node": 2
-    },
-    "destination": {
-      "node": 1
+      "node": 2,
+      "connector": "default"
     },
     "anchors": [{
       "position": [200, 500]
     }],
+    "destination": {
+      "node": 1,
+      "connector": "default"
+    },
     "variables": {
       "weight": 123456,
       "level": 0

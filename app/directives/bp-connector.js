@@ -8,9 +8,9 @@ angular
       scope: {
         name: '@bpConnector',
       },
-      link: function($scope, element, attrs, parentCtrl) {
-        var name = $scope.name;
-        parentCtrl.addConnector(name, element); 
+      controller: function($scope, $element) {
+        var parentCtrl = $element.controller('bpNode');
+        parentCtrl.addConnector($scope.name, $element);
       }
     };
   });

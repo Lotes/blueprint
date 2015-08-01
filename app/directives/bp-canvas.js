@@ -9,7 +9,16 @@ angular
       },
       templateUrl: 'app/directives/bp-canvas.template.xml',
       controller: function($scope) {        
-       
+        var nodeControllers = {};
+        this.addNode = function(id, controller) { 
+          nodeControllers[id] = controller; 
+        };
+        this.removeNode = function(id) { 
+          delete nodeControllers[id]; 
+        };
+        this.getNode = function(id) { 
+          return nodeControllers[id]; 
+        };
       },
       link: function($scope, element, attrs) {
         //auto-resize canvas

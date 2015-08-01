@@ -5,16 +5,17 @@ angular
       templateNamespace: 'svg',
       restrict: 'E',
       replace: true,
-      require: '^bpCanvas',
+      require: ['bpNode', '^bpCanvas'], //HACK to access current controller during linkage
       scope: {
+        id: '=nodeId',
         data: '=node'
       },
       controller: function($scope) { 
-        $scope.connectors = {};
+        var connectors = {};
         $scope.$on('editorModeChange', function() {
           var bind = bpEditor.mode === 'connect' ? 'bind' : 'unbind';
-          for(var connectorName in $scope.connectors) {
-            var connector = $scope.connectors[connectorName];
+          for(var connectorName in connectors) {
+            var connector = connectors[connectorName];
             for(var property in connector.events)
               connector.$element[bind](property, connector.events[property]);
           }  
@@ -25,16 +26,16 @@ angular
           switch(element.nodeName) {
             case 'circle':
               connectAt = function(anchorPosition) {
-                var relativePosition = [element.cx.value, element.cy.value];
-                var radius = element.r.value;                
-                var absolutePosition = bpSvg.getAbsolutePosition(element);
+                var relativePosition = [element.cx.baseVal.value, element.cy.baseVal.value];
+                var radius = element.r.baseVal.value + 2;                
+                var absolutePosition = bpSvg.getAbsolutePosition(element, relativePosition);
                 var dx = absolutePosition[0] - anchorPosition[0];
                 var dy = absolutePosition[1] - anchorPosition[1];
                 var distance = Math.sqrt(dx*dx + dy*dy);
                 var part = radius / distance;
                 return [
-                  absolutePosition[0] * part + anchorPosition[0] * (1-part),
-                  absolutePosition[1] * part + anchorPosition[1] * (1-part)
+                  absolutePosition[0] * (1-part) + anchorPosition[0] * part,
+                  absolutePosition[1] * (1-part) + anchorPosition[1] * part
                 ];
               };
               break;
@@ -43,7 +44,7 @@ angular
                 return null;
               };
           }
-          $scope.connectors[name] = {
+          connectors[name] = {
             $element: $element,            
             connectAt: connectAt,
             events: {
@@ -58,9 +59,17 @@ angular
               } 
             }
           };
-        };        
+        };    
+        this.getConnector = function(name) {
+          return connectors[name];
+        };
       },
-      link: function($scope, element, attrs, parentCtrl) {
+      link: function($scope, element, attrs, controllers) {
+        var controller = controllers[0];
+        var parentCtrl = controllers[1];
+        //registration
+        parentCtrl.addNode($scope.id, controller);
+        $scope.$on('$destroy', function() { parentCtrl.removeNode($scope.id); })
         //selection/drag/drop
         var oldNodePosition = null;
         var oldMousePosition = null;        
