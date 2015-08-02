@@ -26,15 +26,16 @@
 }
 
 .anchor {
-  stroke: none;
-  fill: rgba(255,255,255,0.01);
+  stroke: rgba(0,0,0,0.3);
+  fill: rgba(255,255,255,0.3);
   cursor: pointer;
 }
 
-.anchor.active  {
-  fill: rgba(255,255,255,0.5);
+.anchor .active  {
+  stroke: rgba(0,0,255,0.5);
+  fill: rgba(192,192,255,0.5);
 }
-.anchor.selected  {  
+.anchor .selected  {  
   stroke: rgba(255,0,0,0.5);
   fill: rgba(255,192,192,0.5);
 }

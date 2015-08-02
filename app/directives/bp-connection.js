@@ -10,7 +10,7 @@ angular
         data: '=connection', 
         nodes: '=',
       },
-      controller: function($scope, $element) {
+      controller: function($scope, $element, $filter) {
         var parentCtrl = $element.controller('bpCanvas');
         var sourceId = $scope.data.source.node;
         var destinationId = $scope.data.destination.node;
@@ -25,21 +25,21 @@ angular
         function updateSource() {
           var anchorPosition = 
             $scope.data.anchors && $scope.data.anchors.length > 0 ? 
-              $scope.data.anchors[0].position
+              $filter('coordinateAdd')($scope.data.anchors[0].position, $scope.data.anchors[0]['in'].position)
               : $scope.destination.position;
           $scope.sourcePosition = sourceConnectorController.connectAt(anchorPosition);
         } 
         function updateDestination() {
           var anchorPosition = 
             $scope.data.anchors && $scope.data.anchors.length > 0 ? 
-              $scope.data.anchors[$scope.data.anchors.length-1].position
+              $filter('coordinateAdd')($scope.data.anchors[$scope.data.anchors.length-1].position, $scope.data.anchors[$scope.data.anchors.length-1]['out'].position)
               : $scope.source.position;
           $scope.destinationPosition = destinationConnectorController.connectAt(anchorPosition);
         }
         $scope.$watch('source.position', updateSource);
         $scope.$watch('destination.position', updateDestination);
-        $scope.$watch('data.anchors[0].position', updateSource);
-        $scope.$watch('data.anchors[data.anchors.length-1].position', updateDestination);
+        $scope.$watch('[data.anchors[0].position,data.anchors[0].in.position]', updateSource);
+        $scope.$watch('[data.anchors[data.anchors.length-1].position,data.anchors[data.anchors.length-1].out.position]', updateDestination);
         updateSource();
         updateDestination();
       },

@@ -5,7 +5,9 @@ angular
       restrict: 'A',
       scope: {
         type: '@selectionType',
-        data: '=bpSelectable'
+        data: '=bpSelectable',
+        selectionChanged: '&onSelectionChanged',
+        snapping: '@inheritSnapping'
       },
       controller: function($scope, $element) {
         var oldNodePosition = null;
@@ -25,6 +27,8 @@ angular
             $element.addClass('selected');
           else
             $element.removeClass('selected');
+          if($scope.selectionChanged)
+            $scope.selectionChanged({ $selected: state.isSelected });
         });
         $element.bind('mousedown', function(event) {
           state.isMouseDown = true;
@@ -67,7 +71,7 @@ angular
               var delta = newMousePosition[index] - oldMousePosition[index]; 
               newNodePosition[index] = oldNodePosition[index] + delta;
             }
-            $scope.data.position = bpEditor.snapPosition(newNodePosition);
+            $scope.data.position = $scope.snapping === 'false' ? newNodePosition : bpEditor.snapPosition(newNodePosition);
             $scope.$apply();
           });
       }

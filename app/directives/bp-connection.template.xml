@@ -1,23 +1,25 @@
 <g>
   <g ng-if="data.anchors != null &amp;&amp; data.anchors.length &gt; 0">
-    <line 
-      class="connection" 
-      ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
-      ng-attr-x1="{{data.anchors[data.anchors.length-1].position[0]}}" 
-      ng-attr-y1="{{data.anchors[data.anchors.length-1].position[1]}}" 
-      ng-attr-x2="{{destinationPosition[0]}}" 
-      ng-attr-y2="{{destinationPosition[1]}}" 
-      />
-    <g ng-repeat="anchor in data.anchors">
-      <line 
-        class="connection"       
-        ng-attr-x1="{{$first ? sourcePosition[0] : data.anchors[$index-1].position[0]}}" 
-        ng-attr-y1="{{$first ? sourcePosition[1] : data.anchors[$index-1].position[1]}}" 
-        ng-attr-x2="{{anchor.position[0]}}" 
-        ng-attr-y2="{{anchor.position[1]}}" 
-        />
-      <bp-anchor anchor="anchor"/>
-    </g>
+    <path 
+        class="connection"
+        ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
+        ng-attr-d="{{ 'M'+(data.anchors[data.anchors.length-1].position | coordinate)+' Q'+(data.anchors[data.anchors.length-1].position | coordinateAdd : data.anchors[data.anchors.length-1].out.position | coordinate)+' '+(destinationPosition | coordinate) }}" 
+    />
+    <path 
+        class="connection"
+        ng-attr-d="{{ 'M'+(sourcePosition | coordinate)+' Q'+(data.anchors[0].position | coordinateAdd : data.anchors[0].in.position | coordinate)+' '+(data.anchors[0].position | coordinate) }}" 
+    />    
+    <path 
+        ng-repeat="anchor in data.anchors"
+        ng-if="!$first"
+        class="connection"
+        ng-attr-d="{{ 'M'+(data.anchors[$index-1].position | coordinate)+' C'+(data.anchors[$index-1].position | coordinateAdd : data.anchors[$index-1].out.position | coordinate)+' '+(data.anchors[$index].position | coordinateAdd : data.anchors[$index].in.position | coordinate)+' '+(data.anchors[$index].position | coordinate) }}" 
+    />            
+    <bp-anchor anchor="data.anchors[0]"/>
+    <bp-anchor 
+        ng-repeat="anchor in data.anchors"
+        ng-if="!$first"
+        anchor="anchor"/>
   </g>
   <g ng-if="data.anchors == null || data.anchors.length == 0">
     <line 

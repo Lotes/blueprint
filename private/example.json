@@ -1,67 +1,136 @@
-{ 
+{
   "constants": {
     "learning constant L": {
       "type": "RealPositive",
-      "value": 1.0
+      "value": 1
     }
   },
   "nodes": {
     "1": {
       "label": "S",
       "templateName": "neuron",
-       "position": [200, 200],
-       "variables": {
+      "position": [
+        575,
+        700
+      ],
+      "variables": {
         "type": "activate"
-       }
-    }, 
+      }
+    },
     "2": {
       "label": "D",
       "templateName": "neuron",
-      "position": [500, 500],
+      "position": [
+        500,
+        500
+      ],
       "variables": {
         "type": "inhibit"
       }
-    }, 
+    },
     "3": {
       "label": "Q1",
       "templateName": "quad",
-      "position": [350, 350],
+      "position": [
+        575,
+        275
+      ],
       "variables": {
         "type": "inhibit"
       }
     }
   },
-  "connections": [{
-    "source": {
-      "node": 1,
-      "connector": "default"
+  "connections": [
+    {
+      "source": {
+        "node": 1,
+        "connector": "default"
+      },
+      "anchors": [
+        {
+          "in": {
+            "position": [
+              116.27553482998916,
+              80.49844718999249
+            ]
+          },
+          "out": {
+            "position": [
+              -156,
+              -108
+            ]
+          },
+          "position": [
+            275,
+            700
+          ],
+          "$$hashKey": "object:43"
+        },
+        {
+          "in": {
+            "position": [
+              -167.0230340701412,
+              -37.004136120229155
+            ]
+          },
+          "out": {
+            "position": [
+              86.36093989630703,
+              19.133360815681492
+            ]
+          },
+          "position": [
+            400,
+            375
+          ],
+          "$$hashKey": "object:44"
+        }
+      ],
+      "destination": {
+        "node": 2,
+        "connector": "default"
+      },
+      "variables": {
+        "weight": 123456,
+        "level": 0
+      },
+      "$$hashKey": "object:23"
     },
-    "anchors": [{
-      "position": [500, 200]
-    }],
-    "destination": {
-      "node": 2,
-      "connector": "default"
-    },
-    "variables": {
-      "weight": 123456,
-      "level": 0
+    {
+      "source": {
+        "node": 3,
+        "connector": "por"
+      },
+      "anchors": [
+        {
+          "in": {
+            "position": [
+              -8.235579090712118,
+              -141.18135584077916
+            ]
+          },
+          "out": {
+            "position": [
+              7,
+              120
+            ]
+          },
+          "position": [
+            875,
+            450
+          ],
+          "$$hashKey": "object:52"
+        }
+      ],
+      "destination": {
+        "node": 1,
+        "connector": "default"
+      },
+      "variables": {
+        "weight": 123456,
+        "level": 0
+      },
+      "$$hashKey": "object:24"
     }
-  }, {
-    "source": {
-      "node": 3,
-      "connector": "por"
-    },
-    "anchors": [{
-      "position": [200, 500]
-    }],
-    "destination": {
-      "node": 1,
-      "connector": "default"
-    },
-    "variables": {
-      "weight": 123456,
-      "level": 0
-    }
-  }]
+  ]
 }
