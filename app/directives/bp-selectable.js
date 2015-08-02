@@ -29,7 +29,8 @@ angular
         $element.bind('mousedown', function(event) {
           state.isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
-          oldNodePosition = $scope.data.position;          
+          if($scope.data.position)
+            oldNodePosition = $scope.data.position;          
           event.preventDefault();
           $scope.$apply();
         });
@@ -55,19 +56,20 @@ angular
         $scope.$on('unselect', function() { 
           state.isSelected = false; 
         });
-        $scope.$on('mousemove', function(event, args) {
-          if(bpEditor.mode != 'select' || !state.isSelected || oldMousePosition == null)
-            return;
-          args.preventDefault();
-          var newMousePosition = [args.clientX, args.clientY];
-          var newNodePosition = [0, 0];
-          for(var index=0; index<2; index++) {
-            var delta = newMousePosition[index] - oldMousePosition[index]; 
-            newNodePosition[index] = oldNodePosition[index] + delta;
-          }
-          $scope.data.position = bpEditor.snapPosition(newNodePosition);
-          $scope.$apply();
-        });
+        if($scope.data.position)
+          $scope.$on('mousemove', function(event, args) {
+            if(bpEditor.mode != 'select' || !state.isSelected || oldMousePosition == null)
+              return;
+            args.preventDefault();
+            var newMousePosition = [args.clientX, args.clientY];
+            var newNodePosition = [0, 0];
+            for(var index=0; index<2; index++) {
+              var delta = newMousePosition[index] - oldMousePosition[index]; 
+              newNodePosition[index] = oldNodePosition[index] + delta;
+            }
+            $scope.data.position = bpEditor.snapPosition(newNodePosition);
+            $scope.$apply();
+          });
       }
     };
   });

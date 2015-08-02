@@ -43,8 +43,8 @@
     }
   }, {
     "source": {
-      "node": 2,
-      "connector": "default"
+      "node": 3,
+      "connector": "por"
     },
     "anchors": [{
       "position": [200, 500]

@@ -39,6 +39,7 @@ angular
           if(event.target.id != 'grid')
             return;
           switch(bpEditor.mode) {
+            case 'quad':
             case 'neuron':
               var position = [event.offsetX, event.offsetY];
               var newId = 0;
@@ -52,7 +53,7 @@ angular
               } while(duplicate);                
               $scope.data.nodes[newId] = {
                 label: 'New',
-                templateName: 'neuron',
+                templateName: bpEditor.mode,
                 position: position                
               };
               $scope.$apply();

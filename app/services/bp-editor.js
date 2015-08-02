@@ -14,6 +14,11 @@ angular
           description: '...',
           iconClass: 'glyphicon-plus'
         },
+        quad: {
+          label: 'Add quad',
+          description: '...',
+          iconClass: 'glyphicon-plus'
+        },
         connect: {
           label: 'Connect',
           description: 'Connect nodes',
@@ -53,7 +58,6 @@ angular
       },
       select: function(type, node) { 
         editor.selectionType = type;
-        console.log("selected "+type);
         editor.selection = node;
       }
     };
