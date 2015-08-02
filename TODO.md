@@ -17,14 +17,29 @@ Eigenschaftsfenster
   -Name (eindeutig)
   -Typ: aktivierend, hemmend, verknüpfend, entknüpfend
   -Schwelle (Typ: reell >= 0)
-  -Potential (absolut und in Relation zur Schwelle, Typ: reell >= 0)
-  -Maximalpotenzial
-  -Verstärkungsfaktor
+  -eingehendes Potenzial (reell, berechnet aus eingehenden Verbindungen)
+  -ausgehendes Potenzial (reell >= 0)
+  -Maximalpotenzial MAXIMUM
+  -Verstärkungsfaktor V 
+  -eingehende Verbindungen (je Connector)
+  -ausgehende Verbindungen (je Connector)
 -Quads
   -Position
   -Name
+  -eingehende Verbindungen je Connector
+  -ausgehende Verbindungen je Connector
 -Verbindungen
+  -Gewicht (Typ: reell >= 0)
+  -eingehendes Potenzial (reell >= 0)
+  -ausgehendes Potenzial (reell)
+  -Typ: abhängig vom Quellknoten (implizit)
+  -Lernkonstante L (Verknüpfungskonstante)
+  -Entknüpfungskonstante D
+  -Zerfallskonstante K  
+  -Quelle
+  -Ziel
 -später:
+  -globale Variablen
   -Verzögerungsketten
   -Zeitgefühl
   -Eingabe:
