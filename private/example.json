@@ -15,6 +15,14 @@
       "variables": {
         "type": "inhibit"
       }
+    }, 
+    "3": {
+      "label": "Q1",
+      "templateName": "quad",
+      "position": [350, 350],
+      "variables": {
+        "type": "inhibit"
+      }
     }
   },
   "connections": [{

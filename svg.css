@@ -47,6 +47,22 @@
   fill: #FFDDDD;
 }
 
+.quad {
+  fill: white;
+  stroke: black;
+  cursor: pointer;
+}
+
+.active .quad {
+  stroke: blue;
+  fill: #DDDDFF;
+}
+
+.selected .quad {
+  stroke: red;
+  fill: #FFDDDD;
+}
+
 .label {
   font-size: 10px;
   fill: black;
@@ -59,5 +75,19 @@
 }
 
 .selected .label {
+  fill: red;
+}
+
+.quad-connector {
+  font-family: monospace;
+  font-size: 10px;
+  stroke: none;
+  fill: black;
+}
+
+.active .quad-connector {
+  fill: blue;
+}
+.selected .quad-connector {
   fill: red;
 }

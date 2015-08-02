@@ -1,5 +1,5 @@
 <g>
-  <!-- HACK: group needed to avoid 'multiple directie resource contention' exception -->
+  <!-- HACK: group needed to avoid 'multiple directive resource contention' exception -->
   <circle
     class="anchor"
     bp-selectable="data"
