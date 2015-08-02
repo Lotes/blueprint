@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor) {
+  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor, bpNet) {    
     var name = $routeParams.name;
     $scope.editor = bpEditor;
     $scope.data = null;

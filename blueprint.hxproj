@@ -39,6 +39,10 @@
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <hidden path="obj" />
+    <hidden path="app\models\model.js" />
+    <hidden path="Slim" />
+    <hidden path="node_modules" />
+    <hidden path="components" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />
