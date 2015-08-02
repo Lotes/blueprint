@@ -11,13 +11,26 @@ module.exports = function(grunt) {
           open: true
         }
       }
-    }    
+    },
+    haxe: {
+        model: {
+            main: 'Main',
+            classpath:['app/models'],
+            output:'app/models/model.js'
+        }
+    },
+    watch: {
+      files: 'app/models/**/*.hx',
+      tasks: [ 'haxe:model' ]
+    }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-php');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-haxe');
 
   // Default task(s).
-  grunt.registerTask('default', ['php']);
+  grunt.registerTask('default', ['haxe:model', 'php']);
 
 };
