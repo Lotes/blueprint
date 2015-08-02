@@ -1,11 +1,11 @@
-<circle
-  class="anchor"
-  ng-class="{ anchor: true, active: isActive }"
-  ng-attr-cx="{{data.position[0]}}"
-  ng-attr-cy="{{data.position[1]}}"
-  ng-mousedown="onMouseDown($event)" 
-  ng-mouseup="onMouseUp($event)"
-  ng-mouseenter="onMouseEnter($event)" 
-  ng-mouseleave="onMouseLeave($event)"
-  r="10"
-/>
+<g>
+  <!-- HACK: group needed to avoid 'multiple directie resource contention' exception -->
+  <circle
+    class="anchor"
+    bp-selectable="data"
+    selection-type="anchor"
+    ng-attr-cx="{{data.position[0]}}"
+    ng-attr-cy="{{data.position[1]}}"  
+    r="10"
+  />
+</g>

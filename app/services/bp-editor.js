@@ -19,6 +19,11 @@ angular
           description: 'Connect nodes',
           iconClass: 'glyphicon-resize-small'          
         },
+        anchor: {
+          label: 'Add anchor',
+          description: '...',
+          iconClass: 'glyphicon-plus'
+        },
         run: { 
           label: 'Run',
           description: 'Execute neuronal net.',
@@ -46,8 +51,9 @@ angular
         editor.selectionType = null;
         editor.selection = null;
       },
-      selectNode: function(node) { 
-        editor.selectionType = 'node';
+      select: function(type, node) { 
+        editor.selectionType = type;
+        console.log("selected "+type);
         editor.selection = node;
       }
     };

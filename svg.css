@@ -23,8 +23,12 @@
   cursor: pointer;
 }
 
-.anchor.active {
-  fill: rgba(255,255,255,0.5);;
+.anchor.active  {
+  fill: rgba(255,255,255,0.5);
+}
+.anchor.selected  {  
+  stroke: rgba(255,0,0,0.5);
+  fill: rgba(255,192,192,0.5);
 }
 
 .neuron {
@@ -33,12 +37,12 @@
   cursor: pointer;
 }
 
-.neuron.active {
+.active .neuron {
   stroke: blue;
   fill: #DDDDFF;
 }
 
-.neuron.selected {
+.selected .neuron {
   stroke: red;
   fill: #FFDDDD;
 }
@@ -50,10 +54,10 @@
   font-weight: normal;
 }
 
-.label.active {
+.active .label {
   fill: blue;
 }
 
-.label.selected {
+.selected .label {
   fill: red;
 }
