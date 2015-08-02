@@ -4,7 +4,7 @@ import js.Error;
 class Main extends Worker
 {  
   private function initialize(netData: Dynamic) {
-    throw new Error("penis");
+    
   }
   
   private function answerSuccess(id: Int, message: Dynamic) {

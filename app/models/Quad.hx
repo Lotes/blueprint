@@ -3,9 +3,9 @@ package;
 class Quad
 {
 
-	public function new() 
+	public function new()
 	{
-		
+		super();
 	}
 	
 }

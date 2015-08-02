@@ -20,9 +20,9 @@ Variablen
   -Konstantenverweis (eindeutiger Name)
 -Konstante
 	-Name
-  -Namespace/Kategorie
+  //-Namespace/Kategorie
   -Typ
-	-Wert/Binding
+	-Wert
 -Typ
   -reell
   -reell >= 0
@@ -73,6 +73,7 @@ Eigenschaftsfenster
     -Servos
     -Motor
     -Ventile
+    -Verlaufsplotter
 
 Ausführung
 ----------

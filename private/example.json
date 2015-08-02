@@ -1,4 +1,10 @@
-{  
+{ 
+  "constants": {
+    "learning constant L": {
+      "type": "RealPositive",
+      "value": 1.0
+    }
+  },
   "nodes": {
     "1": {
       "label": "S",
