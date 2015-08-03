@@ -38,8 +38,10 @@ angular
         }
         $scope.$watch('source.position', updateSource);
         $scope.$watch('destination.position', updateDestination);
-        $scope.$watch('[data.anchors[0].position,data.anchors[0].in.position]', updateSource);
-        $scope.$watch('[data.anchors[data.anchors.length-1].position,data.anchors[data.anchors.length-1].out.position]', updateDestination);
+        $scope.$watch('data.anchors[0].position', updateSource);
+        $scope.$watch('data.anchors[0].in.position', updateSource);
+        $scope.$watch('data.anchors[data.anchors.length-1].position', updateDestination);
+        $scope.$watch('data.anchors[data.anchors.length-1].out.position', updateDestination);
         updateSource();
         updateDestination();
       },

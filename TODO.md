@@ -5,7 +5,6 @@ TODO
 - Beim Anklicken Objekt nach ganz vorne holen
 - Knoten verbinden
 - Anker hinzufügen
-- Kurven statt Linien (wie aus einem Malprogramm, je Anker zwei Richthelfer)
 - Beschriftungen als eigene Direktive und Raus aus Entitäten
 
 Variablen
@@ -20,13 +19,16 @@ Variablen
   -Konstantenverweis (eindeutiger Name)
 -Konstante
 	-Name
-  //-Namespace/Kategorie
   -Typ
 	-Wert
 -Typ
   -reell
   -reell >= 0
   -Neurontyp: aktivierend, hemmend, verknüpfend, entknüpfend
+  -ja/nein
+  -Ganzzahl
+  -Ganzzahl >= 0
+  -Zeichenkette
 
 Eigenschaftsfenster
 -------------------
@@ -38,8 +40,8 @@ Eigenschaftsfenster
   -Name (eindeutig oder leer)
   -Typ: aktivierend, hemmend, verknüpfend, entknüpfend
   -Schwelle (Typ: reell >= 0)
-  -eingehendes Potenzial (reell, berechnet aus eingehenden Verbindungen)
-  -ausgehendes Potenzial (reell >= 0)
+  -eingehende Potenziale ai*gi (reell, berechnet aus eingehenden Verbindungen)
+  -ausgehendes Potenzial A (reell >= 0)
   -Maximalpotenzial MAXIMUM (reell >= 0)
   -Verstärkungsfaktor V (reell >= 0)
   -eingehende Verbindungen (je Connector)
@@ -69,6 +71,8 @@ Eigenschaftsfenster
     -Schieberegler
     -Schalter
     -Netzhaut
+    -RandomNeuron
+    -Funktionsgenerator
   -Ausgabe:
     -Servos
     -Motor
@@ -80,4 +84,9 @@ Ausführung
 
 -Zustand des Netzes
 -Verbindungsmatrix für jeden Knoten
--abwechselnde Berechnung von Neuronen- und Verbindungspotenzialen
+-Berechnung von Neuronenpotenzialen
+-Anzeige der Eingabepotenziale (alter Zustand in rot)
+-Anzeige der Ausgabepotenziale (neuer Zustand in grün)
+-je größer das Potenzial, desto dicker die Verbindung (\x -> max(sqrt x, 5))
+-Potenzial von 0 -> grau
+-Step-Mode, Continous-Mode

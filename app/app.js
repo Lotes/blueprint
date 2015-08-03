@@ -10,9 +10,4 @@ angular
       when('/:name', options).
       when('/:name/:revision', options).
       otherwise({ redirectTo: '/' });
-  })
-  .run(function ($templateCache, $http) {
-      //HACK: preload entity templates such that the connector are built before connections
-      $http.get('app/entities/neuron.template.xml', { cache: $templateCache });
-      $http.get('app/entities/quad.template.xml', { cache: $templateCache });
   });

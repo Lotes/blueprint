@@ -41,7 +41,7 @@ angular
               break;
             default:
               connectAt = function(anchorPosition) {
-                return null;
+                return [0, 0]; //TODO
               };
           }
           connectors[name] = {
@@ -50,6 +50,9 @@ angular
             events: {
               mousedown: function(event) { 
                 console.log($scope.data.label+'->'+name+" mousedown");
+              },
+              mouseup: function(event) { 
+                console.log($scope.data.label+'->'+name+" mouseup");
               },
               mouseenter: function(event) { 
                 console.log($scope.data.label+'->'+name+" mouseenter");

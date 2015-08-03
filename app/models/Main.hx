@@ -1,10 +1,11 @@
 package;
+
 import js.Error;
 
 class Main extends Worker
 {  
   private function initialize(netData: Dynamic) {
-    
+    var x: Quad = null; 
   }
   
   private function answerSuccess(id: Int, message: Dynamic) {

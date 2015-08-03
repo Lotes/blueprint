@@ -1,4 +1,13 @@
 <g class="anchor">
+  <rect   
+    bp-selectable="data"
+    selection-type="anchor"
+    on-selection-changed="selectionChanged('main', $selected)"
+    ng-attr-x="{{data.position[0] - size/2}}"
+    ng-attr-y="{{data.position[1] - size/2}}"  
+    ng-attr-width="{{size}}"
+    ng-attr-height="{{size}}"
+  />
   <g ng-if="selected">
       <g ng-repeat="side in ['in', 'out']">
           <line
@@ -20,13 +29,4 @@
           />
       </g>
   </g>
-  <rect   
-    bp-selectable="data"
-    selection-type="anchor"
-    on-selection-changed="selectionChanged('main', $selected)"
-    ng-attr-x="{{data.position[0] - size/2}}"
-    ng-attr-y="{{data.position[1] - size/2}}"  
-    ng-attr-width="{{size}}"
-    ng-attr-height="{{size}}"
-  />
 </g>
