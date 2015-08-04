@@ -3,7 +3,7 @@ package;
 class Quad
 {  
   private var neurons = new Map<String, Neuron>();
-  public function new(net: NeuronalNet) 
+  public function new(net: Net) 
   {
     var centralNeuron = net.addNeuron(NeuronType.ACTIVATE, 1, Math.POSITIVE_INFINITY, 1);
     neurons.set(QuadConnector.CENTRAL.getName(), centralNeuron);

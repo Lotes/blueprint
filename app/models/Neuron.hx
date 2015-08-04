@@ -2,7 +2,7 @@ package;
 
 class Neuron
 {
-  private var net: NeuronalNet;
+  private var net: Net;
   private var type: NeuronType;
   private var threshold: Float;
   private var factor: Float;
@@ -22,7 +22,7 @@ class Neuron
    * @param factor will be multiplied with the outgoing potential (>=0)
    * @param maximum limits the outgoing potential (>=0)
    */
-	public function new(net: NeuronalNet, 
+	public function new(net: Net, 
     type: NeuronType, threshold: Float, factor: Float, maximum: Float) 
 	{
 		this.net = net;
@@ -32,9 +32,17 @@ class Neuron
     this.maximum = maximum;
 	}
 
-	public function getNet(): NeuronalNet { return this.net; }
+	public function getNet(): Net { return this.net; }
   public function getNeuronType(): NeuronType { return this.type; }
   public function getThreshold(): Float { return this.threshold; }
   public function getFactor(): Float { return this.factor; }
   public function getMaximum(): Float { return this.maximum; }
+  public function getIncomingConnections(): Array<Connection>
+  {
+    return this.net.getIncomingConnections(this);
+  }  
+  public function getOutgoingConnections(): Array<Connection>
+  {
+    return this.net.getOutgoingConnections(this);
+  }
 }

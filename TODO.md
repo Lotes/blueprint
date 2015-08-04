@@ -62,7 +62,7 @@ Eigenschaftsfenster
   -Quelle
   -Ziel
 -später:
-  -Labels
+  -Labels (MathJAX+Angular+Variables)
   -Eigenschaftsmonitore
   -globale Variablen
   -Verzögerungsketten

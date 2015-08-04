@@ -1,6 +1,6 @@
 package;
 
-class NeuronalNet
+class Net
 {
   private var neurons = new Array<Neuron>();
   private var connections = new Array<Connection>();
@@ -24,7 +24,7 @@ class NeuronalNet
   
   public function connect(source: Neuron, destination: Neuron): Connection
   {
-    var connection = new Connection(net, source, destination);
+    var connection = new Connection(this, source, destination);
     connections.push(connection);
     if (!connectionsBySource.exists(source))
       connectionsBySource.set(source, new Array<Connection>());
@@ -34,6 +34,10 @@ class NeuronalNet
     connectionsByDestination.get(destination).push(connection);
     return connection;
   }
+  
+  public function getNeurons(): Array<Neuron> { return this.neurons; }
+  
+  public function getConnections(): Array<Connection> { return this.connections; }  
   
   public function getIncomingConnections(neuron: Neuron): Array<Connection>
   {
