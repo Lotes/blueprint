@@ -31,28 +31,30 @@ angular
             $scope.selectionChanged({ $selected: state.isSelected });
         });
         $element.bind('mousedown', function(event) {
+          event.preventDefault();
           state.isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
           if($scope.data.position)
             oldNodePosition = $scope.data.position;          
-          event.preventDefault();
           $scope.$apply();
         });
         $element.bind('mouseup', function(event) {
+          event.preventDefault();
           state.isMouseDown = false;
           oldNodePosition = null;
           oldMousePosition = null;          
           bpEditor.unselect();
           bpEditor.select($scope.type, $scope.data);          
-          state.isSelected = true;
-          event.preventDefault();
+          state.isSelected = true;          
           $scope.$apply();
         });
         $element.bind('mouseenter', function(event) {
+          event.preventDefault();
           state.isActive = true;
           $scope.$apply();
         });
         $element.bind('mouseleave', function(event) {
+          event.preventDefault();
           state.isActive = false;
           state.isMouseDown = false;
           $scope.$apply();

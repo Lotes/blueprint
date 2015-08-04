@@ -10,11 +10,11 @@
   cursor: pointer;
 }
 
-.active .connection {
+.active.connection {
   stroke: blue;
 }
 
-.selected .connection {
+.selected.connection {
   stroke: red;
 }
 

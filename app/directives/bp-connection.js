@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpConnection', function(registry) {
+  .directive('bpConnection', function(registry, bpEditor) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -11,6 +11,27 @@ angular
         nodes: '=',
       },
       controller: function($scope, $element, $filter) {
+        //selection
+        $scope.isSelected = false;
+        $scope.isActive = false;
+        $scope.onMouseUp = function(event) {
+          event.preventDefault();
+          bpEditor.unselect();
+          bpEditor.select('connection', $scope.data);          
+          $scope.isSelected = true;
+        };
+        $scope.onMouseEnter = function(event) {
+          event.preventDefault();
+          $scope.isActive = true;
+        };
+        $scope.onMouseLeave = function(event) {
+          event.preventDefault();
+          $scope.isActive = false;
+        };
+        $scope.$on('unselect', function() { 
+          $scope.isSelected = false; 
+        });
+        //anchors
         var parentCtrl = $element.controller('bpCanvas');
         var sourceId = $scope.data.source.node;
         var destinationId = $scope.data.destination.node;
