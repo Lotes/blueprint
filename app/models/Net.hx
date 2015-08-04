@@ -6,8 +6,20 @@ class Net
   private var connections = new Array<Connection>();
   private var connectionsBySource = new Map<Neuron, Array<Connection>>();
   private var connectionsByDestination = new Map<Neuron, Array<Connection>>();
+  private var learningConstant: Float;
+  private var unlearningConstant: Float;
+  private var decayConstant: Float;
   
-  public function new() {}
+  public function new(learningConstant: Float, unlearningConstant: Float, decayConstant: Float) 
+  {
+    this.learningConstant = learningConstant;
+    this.unlearningConstant = unlearningConstant;
+    this.decayConstant = decayConstant;
+  }
+  
+  public function getLearningConstant() { return this.learningConstant; }
+  public function getUnlearningConstant() { return this.unlearningConstant; }
+  public function getDecayConstant() { return this.decayConstant; }
 
   public function addNeuron(type: NeuronType, threshold: Float, factor: Float, maximum: Float): Neuron 
   {    

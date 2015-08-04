@@ -15,5 +15,5 @@ class Connection
   
   public function getSource(): Neuron { return this.source; }
   public function getDestination(): Neuron { return this.destination; }
-  public function getConnectionType(): NeuronType { return this.source.getNeuronType(); }
+  public function getConnectionType(): NeuronType { return this.source.getNeuronType(); }  
 }

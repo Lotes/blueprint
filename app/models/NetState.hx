@@ -32,9 +32,9 @@ class NetState
   {
     connectionStates.set(connection, new ConnectionState(weight));  
   }
-  public function nextState(): NeuronState 
+  public function nextState(): NetState 
   {
-    var newState = new NetState();
+    var newState = new NetState(net);
     //update neurons
     for (neuron in net.getNeurons())
     {
@@ -60,21 +60,83 @@ class NetState
       newState.setNeuronState(neuron, potential);
     }    
     //update connections
-    /*
-     * berechne_assozierend:
-     *  if av > 0 then
-     *    gi := (sqrt(gi)+ai*av*gv*A*L)^2
-     *  else
-     *    if gi < T the
-     *      gi := sqrt(gi^2-K)
-     * 
-     * berechne_disassozierend:
-     *  if ad > 0 then
-     *    gi := sqrt(gi^2-ad*D*gd*A)
-     *  else
-     *    if gi < T the
-     *      gi := sqrt(gi^2-K)
+    /* PROBLEM associators/disassociators:
+     * -which one first?
+     * --> chosen associators before disassociators
      */
+    for (connection in net.getConnections()) 
+    {
+      var connectionState = this.getConnectionState(connection);
+      var weight = connectionState.getWeight();
+      var newWeight: Float = weight;
+      var connectionType = connection.getConnectionType();
+      if (connectionType == NeuronType.ACTIVATE || connectionType == NeuronType.INHIBIT)
+      {
+        var source = connection.getSource();
+        var sourceState = this.getNeuronState(source);
+        var sourcePotential = sourceState.getPotential();
+        var destination = connection.getDestination();
+        var destinationState = this.getNeuronState(destination);
+        var destinationPotential = destinationState.getPotential();
+        //get associators and disassociators
+        var associations = new Array<Connection>();
+        var disassociations = new Array<Connection>();
+        for (neighbourConnection in net.getIncomingConnections(destination))
+          switch(neighbourConnection.getConnectionType()) {
+            case NeuronType.ASSOCIATE: associations.push(neighbourConnection);
+            case NeuronType.DISASSOCIATE: disassociations.push(neighbourConnection);
+            default:
+          }
+        //associate
+        var gain = 0.0;
+        for (association in associations)
+        {
+          //gain_i = ai*av*gv*aj*L
+          //-> ai = source potential
+          //-> aj = destination potential
+          //-> av = associator potential
+          //-> gv = weight of connection (associator->destination)          
+          //-> L = learning constant
+          var associator = association.getSource();
+          var av = this.getNeuronState(associator).getPotential();
+          if (av > 0)
+          {
+            var ai = sourcePotential;
+            var aj = destinationPotential;
+            var gv = this.getConnectionState(association).getWeight();
+            var L = net.getLearningConstant();
+            gain += ai * aj * av * gv * L;
+          }
+        }
+        if (gain > 0)
+          newWeight = Math.pow(Math.sqrt(weight) + gain, 2);
+        //disassociate
+        var descent = 0.0;
+        for (disassociation in disassociations)
+        {
+          //descent_i = ad*gd*aj*D
+          //ad = disassociator potential
+          //gd = weight of connector (disassociator->destination)
+          //aj = destination potential
+          var disassociator = disassociation.getSource();
+          var ad = this.getNeuronState(disassociator).getPotential();
+          if (ad > 0)
+          {
+            var aj = destinationPotential;
+            var gd = this.getConnectionState(disassociation).getWeight();
+            var D = net.getUnlearningConstant();
+            descent += ad * gd * aj * D;
+          }
+        }
+        if (descent > 0)
+          newWeight = Math.sqrt(Math.pow(weight, 2) - descent);
+        //forget
+        var T = net.getDecayConstant();
+        if (gain == 0 && descent == 0 && weight < T)
+          newWeight = Math.sqrt(Math.pow(weight, 2) - net.getDecayConstant());          
+      }      
+      newState.setConnectionState(connection, newWeight);
+    }
     return newState;  
-  }
+  }  
 }
