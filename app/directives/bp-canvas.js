@@ -20,11 +20,12 @@ angular
           return nodeControllers[id]; 
         };
       },
-      link: function($scope, element, attrs) {
+      link: function($scope, $element, attrs) {
         //auto-resize canvas
+        var parent = $element.parent()[0];
         $scope.onResizeFunction = function() {
-          $scope.height = $window.innerHeight;
-          $scope.width = $window.innerWidth;
+          $scope.height = parent.clientHeight;
+          $scope.width = parent.clientWidth;
         };
         $scope.onResizeFunction();
         angular.element($window).bind('resize', function() {
@@ -32,10 +33,10 @@ angular
           $scope.$apply();
         });
         //mouse events
-        element.bind('mousemove', function(event) {
+        $element.bind('mousemove', function(event) {
           $scope.$broadcast('mousemove', event);
         });
-        element.bind('mousedown', function(event) {
+        $element.bind('mousedown', function(event) {
           if(event.target.id != 'grid')
             return;
           switch(bpEditor.mode) {

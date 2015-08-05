@@ -14,6 +14,20 @@ angular
         //selection
         $scope.isSelected = false;
         $scope.isActive = false;
+        $scope.onMouseDown = function(event, segmentIndex) {
+          if($scope.isSelected && bpEditor.mode == 'anchor') {
+            var newPosition = [event.layerX, event.layerY];
+            var newAnchor = {
+              position: newPosition,
+              'in': {position: [100, 100]},
+              'out': {position: [-100, -100]}
+            };
+            if(!$scope.data.anchors)
+              $scope.data.anchors = [];
+            $scope.data.anchors.splice(segmentIndex, 0, newAnchor);
+          }
+          event.preventDefault();
+        };
         $scope.onMouseUp = function(event) {
           event.preventDefault();
           bpEditor.unselect();

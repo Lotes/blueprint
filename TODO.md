@@ -1,11 +1,11 @@
 TODO
 ====
 
-- Forking ermöglichen -> ReadOnly-Versionen von Revisionen (Links zu editierbaren Ordnern)
-- Beim Anklicken Objekt nach ganz vorne holen
 - Knoten verbinden
 - Anker hinzufügen
+- Beim Anklicken Objekt nach ganz vorne holen
 - Beschriftungen als eigene Direktive und Raus aus Entitäten
+- NW.js-Editor bauen -> serverseitig auf node.js umsteigen
 
 Variablen
 ---------

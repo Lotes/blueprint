@@ -1,7 +1,6 @@
 body, svg {
   padding: 0;
   margin: 0;
-  overflow: hidden;
 }
 
 html, body {
@@ -37,6 +36,7 @@ html, body {
 .main-view-right {
   width: 83.3333%;
   float: left;
+  height: 100%;
 }
 
 .properties {

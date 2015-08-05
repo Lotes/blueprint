@@ -76,7 +76,7 @@ class NetState
         var sourceState = this.getNeuronState(source);
         var sourcePotential = sourceState.getPotential();
         var destination = connection.getDestination();
-        var destinationState = this.getNeuronState(destination);
+        var destinationState = newState.getNeuronState(destination); //ATTENTION! It's the next state of the neuron!!!
         var destinationPotential = destinationState.getPotential();
         //get associators and disassociators
         var associations = new Array<Connection>();
