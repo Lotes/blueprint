@@ -11,6 +11,7 @@ angular
         data: '=node'
       },
       controller: function($scope) { 
+        $scope.isSelected = false;
         var connectors = {};
         $scope.$on('editorModeChange', function() {
           var bind = bpEditor.mode === 'connect' ? 'bind' : 'unbind';
@@ -79,6 +80,6 @@ angular
           return registry.getNode($scope.data.templateName).markupUrl;
         };     
       },
-      template: '<g ng-include="getTemplateUrl()" bp-selectable="data" selection-type="node"></g>'
+      template: '<g ng-include="getTemplateUrl()" bp-draggable="data" selection-type="node" on-selection-changed="isSelected = $selected" ng-class="{selected: isSelected}"></g>'
     };
   });

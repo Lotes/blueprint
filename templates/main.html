@@ -17,7 +17,7 @@
     type="button"     
     ng-repeat="(mode, data) in editor.modes track by $index"
     ng-class="{btn: true, 'btn-default': true, active: editor.mode == mode}" 
-    ng-click="editor.setMode(mode)"
+    ng-click=""
     ng-attr-title="{{data.description}}">
     <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
   </button>

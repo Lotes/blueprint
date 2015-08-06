@@ -4,6 +4,11 @@ angular
     //tool/mode/mousemove/selection
     var editor = {
       modes: {
+        readOnly: {
+          label: 'Read only',
+          description: 'Don\'t touch this!',
+          iconClass: 'glyphicon-remove-circle'
+        },
         select: { 
           label: 'Select',
           description: 'Select/move/delete nodes, connections and anchors',
@@ -76,31 +81,6 @@ angular
             return typeof(value) === 'boolean';  
           }
         }
-      },
-      snapToGrid: true,
-      mode: 'select',
-      setMode: function(newMode) {
-        editor.mode = newMode;
-        $rootScope.$broadcast('editorModeChange');
-      },
-      selectionType: null, //could be: node, connection, anchor
-      selection: null,
-      snapPosition: function(position) { 
-        if(!editor.snapToGrid)
-          return position;
-        return [
-          Math.round(position[0] / 25) * 25,
-          Math.round(position[1] / 25) * 25
-        ];
-      },
-      unselect: function() { 
-        $rootScope.$broadcast('unselect'); 
-        editor.selectionType = null;
-        editor.selection = null;
-      },
-      select: function(type, node) { 
-        editor.selectionType = type;
-        editor.selection = node;
       }
     };
     return editor;

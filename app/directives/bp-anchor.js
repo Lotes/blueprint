@@ -1,24 +1,26 @@
 angular
   .module('blueprint')
-  .directive('bpAnchor', function(registry, bpEditor) {
+  .directive('bpAnchor', function(registry) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
+      require: '^bpCanvas',
       replace: true,
       scope: {
         data: '=anchor'
       },
       templateUrl: 'app/directives/bp-anchor.template.xml',
-      controller: function($scope, $element) {
-        var selections = {};
+      link: function($scope, $element, $attrs, editorController) {
+        $scope.selections = {};
         $scope.size = 6;  
-        $scope.selected = false;
+        $scope.isSelected = false;
         $scope.selectionChanged = function(point, selected) {
-          selections[point] = selected;          
-          $scope.selected = false;
-          if(bpEditor.mode === 'select')
-              for(var name in selections)
-                $scope.selected |= selections[name];
+          $scope.selections[point] = selected;          
+          $scope.isSelected = false;
+          if(editorController.getMode() === 'select')
+              for(var name in $scope.selections)
+                $scope.isSelected |= $scope.selections[name];
+          console.log($scope.selections);
         };
         function align(me) {
           var you = me === 'in' ? 'out' : 'in';
@@ -34,8 +36,8 @@ angular
             yourRelative[1] * (-part)
           ];
         }
-        $scope.$watch('data.in.position', function() { if(selections['in']) align('out'); });
-        $scope.$watch('data.out.position', function() { if(selections['out']) align('in'); });
+        $scope.$watch('data.in.position', function() { if($scope.selections['in']) align('out'); });
+        $scope.$watch('data.out.position', function() { if($scope.selections['out']) align('in'); });
       }
     };
   });

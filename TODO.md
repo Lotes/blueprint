@@ -2,7 +2,10 @@ TODO
 ====
 
 - Knoten verbinden
+- Verbindungen löschen
+- Knoten löschen
 - Anker hinzufügen
+- Anker löschen
 - Beim Anklicken Objekt nach ganz vorne holen
 - Beschriftungen als eigene Direktive und Raus aus Entitäten
 - NW.js-Editor bauen -> serverseitig auf node.js umsteigen

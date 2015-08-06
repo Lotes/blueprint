@@ -6,9 +6,11 @@ angular
       replace: true,
       scope: {
         data: '=map',
+        snapToGrid: '=snapping'
       },
       templateUrl: 'app/directives/bp-canvas.template.xml',
-      controller: function($scope) {        
+      controller: function($scope, $element) {        
+        var self = this;
         var nodeControllers = {};
         this.addNode = function(id, controller) { 
           nodeControllers[id] = controller; 
@@ -19,8 +21,26 @@ angular
         this.getNode = function(id) { 
           return nodeControllers[id]; 
         };
-      },
-      link: function($scope, $element, attrs) {
+        //mode
+        $scope.mode = 'select';
+        this.getMode = function() { return $scope.mode; };
+        this.setMode = function(mode) { return $scope.mode = mode; };
+        this.snapPosition = function(position) { 
+          if(!$scope.snapToGrid)
+            return position;
+          return [
+            Math.round(position[0] / 25) * 25,
+            Math.round(position[1] / 25) * 25
+          ];
+        };
+        //selection
+        $scope.selectionType = null;
+        $scope.selection = null;
+        this.select = function(type, node) { 
+          $scope.selectionType = type;
+          $scope.selection = node;
+          $scope.$broadcast('select', node);
+        };        
         //auto-resize canvas
         var parent = $element.parent()[0];
         $scope.onResizeFunction = function() {
@@ -60,7 +80,7 @@ angular
               $scope.$apply();
               break;
             default:
-              bpEditor.unselect();
+              self.select(null);
               $scope.$apply();
           }          
         });
