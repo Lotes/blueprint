@@ -20,7 +20,6 @@ angular
           if(editorController.getMode() === 'select')
               for(var name in $scope.selections)
                 $scope.isSelected |= $scope.selections[name];
-          console.log($scope.selections);
         };
         function align(me) {
           var you = me === 'in' ? 'out' : 'in';

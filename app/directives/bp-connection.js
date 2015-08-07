@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpConnection', function(registry, bpEditor) {
+  .directive('bpConnection', function(registry, $filter, bpSvg) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -10,9 +10,23 @@ angular
         data: '=connection', 
         nodes: '=',
       },
-      controller: function($scope, $element, $filter) {
+      link: function($scope, $element, $attrs, editorController) {
         //selection
         $scope.state = { isSelected: false };
+        //add anchors
+        $scope.onMouseDown = function($event, index) {
+          if(editorController.getMode() !== 'anchor')
+            return;
+          console.log($event);
+          var newPosition = bpSvg.getPositionInBoundingBox($event.target, [$event.offsetX, $event.offsetY]);          
+          //TODO http://stackoverflow.com/questions/18655135/divide-bezier-curve-into-two-equal-halves
+          //TODO what about quadratic curves?
+          $scope.data.anchors.splice(index, 0, {
+            position: newPosition,
+            'in': { position: [100,100] },
+            'out': { position: [-100,-100] }
+          });
+        };
         //anchors
         var parentCtrl = $element.controller('bpCanvas');
         var sourceId = $scope.data.source.node;

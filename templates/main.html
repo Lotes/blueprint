@@ -15,22 +15,22 @@
 <div class="toolbar">
   <button 
     type="button"     
-    ng-repeat="(mode, data) in editor.modes track by $index"
-    ng-class="{btn: true, 'btn-default': true, active: editor.mode == mode}" 
-    ng-click=""
+    ng-repeat="(mode, data) in modes track by $index"
+    ng-class="{btn: true, 'btn-default': true, active: tools.mode === mode}" 
+    ng-click="tools.mode = mode"
     ng-attr-title="{{data.description}}">
     <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
   </button>
   <span>
-    <input type="checkbox" ng-model="editor.snapToGrid"/>
+    <input type="checkbox" ng-model="tools.snapToGrid"/>
     Snap to grid
   </span>
 </div>
 <div class="main-view-left">
-  <bp-properties map="data" selection="editor.selection">
+  <bp-properties map="data" selection="tools.selection">
   </bp-properties>
 </div>
 <div class="main-view-right" ng-if="ready">
-  <bp-canvas map="data" mode="editor.mode" selection="editor.selection" snap="editor.snapToGrid">
+  <bp-canvas map="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid">
   </bp-canvas>
 </div>

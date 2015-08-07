@@ -8,8 +8,16 @@ angular
     $scope.ready = false;
     $q.all(templates).then(function() { $scope.ready = true; }, function() { alert('Unable to load templates!'); });    
     
+    //toolsbar
     var name = $routeParams.name;
-    $scope.editor = bpEditor;
+    $scope.modes = bpEditor.modes;
+    $scope.tools = {
+      mode: 'select',
+      snapToGrid: true,
+      selection: null
+    };
+    
+    //data
     $scope.data = null;
     $scope.saving = false;
     $scope.save = function() {

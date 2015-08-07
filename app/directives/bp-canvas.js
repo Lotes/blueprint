@@ -1,12 +1,14 @@
 angular
   .module('blueprint')
-  .directive('bpCanvas', function($window, bpEditor) {
+  .directive('bpCanvas', function($window) {
     return {
       restrict: 'E',
       replace: true,
       scope: {
         data: '=map',
-        snapToGrid: '=snapping'
+        mode: '=',
+        snapToGrid: '=snapping',
+        selection: '='
       },
       templateUrl: 'app/directives/bp-canvas.template.xml',
       controller: function($scope, $element) {        
@@ -22,7 +24,6 @@ angular
           return nodeControllers[id]; 
         };
         //mode
-        $scope.mode = 'select';
         this.getMode = function() { return $scope.mode; };
         this.setMode = function(mode) { return $scope.mode = mode; };
         this.snapPosition = function(position) { 
@@ -35,7 +36,6 @@ angular
         };
         //selection
         $scope.selectionType = null;
-        $scope.selection = null;
         this.select = function(type, node) { 
           $scope.selectionType = type;
           $scope.selection = node;
@@ -59,7 +59,7 @@ angular
         $element.bind('mousedown', function(event) {
           if(event.target.id != 'grid')
             return;
-          switch(bpEditor.mode) {
+          switch($scope.mode) {
             case 'quad':
             case 'neuron':
               var position = [event.offsetX, event.offsetY];
@@ -74,7 +74,7 @@ angular
               } while(duplicate);                
               $scope.data.nodes[newId] = {
                 label: 'New',
-                templateName: bpEditor.mode,
+                templateName: $scope.mode,
                 position: position                
               };
               $scope.$apply();
