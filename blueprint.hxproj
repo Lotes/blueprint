@@ -22,7 +22,7 @@
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="Main" />
+    <option mainClass="WorkerMain" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -35,6 +35,8 @@
     <compile path="src\Main.hx" />
     <compile path="app\src\Main.hx" />
     <compile path="app\models\Main.hx" />
+    <compile path="app\models\WorkerMain.hx" />
+    <compile path="app\models\EditorMain.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

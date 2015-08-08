@@ -1,11 +1,12 @@
-package;
+package computation;
+import computation.Neuron;
 
 class Net
 {
-  private var neurons = new Array<Neuron>();
+  private var neurons = new Array<computation.Neuron>();
   private var connections = new Array<Connection>();
-  private var connectionsBySource = new Map<Neuron, Array<Connection>>();
-  private var connectionsByDestination = new Map<Neuron, Array<Connection>>();
+  private var connectionsBySource = new Map<computation.Neuron, Array<Connection>>();
+  private var connectionsByDestination = new Map<computation.Neuron, Array<Connection>>();
   private var learningConstant: Float;
   private var unlearningConstant: Float;
   private var decayConstant: Float;
@@ -21,20 +22,20 @@ class Net
   public function getUnlearningConstant() { return this.unlearningConstant; }
   public function getDecayConstant() { return this.decayConstant; }
 
-  public function addNeuron(type: NeuronType, threshold: Float, factor: Float, maximum: Float): Neuron 
+  public function addNeuron(type: NeuronType, threshold: Float, factor: Float, maximum: Float): computation.Neuron 
   {    
-    var neuron = new Neuron(this, type, threshold, factor, maximum); 
+    var neuron = new computation.Neuron(this, type, threshold, factor, maximum); 
     neurons.push(neuron);
     return neuron;
   }
   
-  public function addQuad(): Quad 
+  public function addQuad(): computation.Quad 
   { 
     //constructor uses addNeuron- and connect-methods
-    return new Quad(this); 
+    return new computation.Quad(this); 
   }
   
-  public function connect(source: Neuron, destination: Neuron): Connection
+  public function connect(source: computation.Neuron, destination: computation.Neuron): Connection
   {
     var connection = new Connection(this, source, destination);
     connections.push(connection);
@@ -47,18 +48,18 @@ class Net
     return connection;
   }
   
-  public function getNeurons(): Array<Neuron> { return this.neurons; }
+  public function getNeurons(): Array<computation.Neuron> { return this.neurons; }
   
   public function getConnections(): Array<Connection> { return this.connections; }  
   
-  public function getIncomingConnections(neuron: Neuron): Array<Connection>
+  public function getIncomingConnections(neuron: computation.Neuron): Array<Connection>
   {
     if (!connectionsByDestination.exists(neuron))
       return new Array<Connection>();
     return connectionsByDestination.get(neuron);
   }
   
-  public function getOutgoingConnections(neuron: Neuron): Array<Connection>
+  public function getOutgoingConnections(neuron: computation.Neuron): Array<Connection>
   {
     if (!connectionsBySource.exists(neuron))
       return new Array<Connection>();

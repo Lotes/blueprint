@@ -1,12 +1,13 @@
 package;
 
+import computation.Worker;
 import js.Error;
 
-class Main extends Worker
+class WorkerMain extends computation.Worker
 {  
   private function initialize(netData: Dynamic) {
-    var x: Quad = null; 
-    var x: NetState = null; 
+    var x: computation.Quad = null; 
+    var x: computation.NetState = null; 
   }
   
   private function answerSuccess(id: Int, message: Dynamic) {
@@ -51,6 +52,6 @@ class Main extends Worker
   }
   
   public static function main(){
-     Worker.export(new Main());
+     computation.Worker.export(new WorkerMain());
   }
 }

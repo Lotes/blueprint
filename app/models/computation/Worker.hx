@@ -1,4 +1,4 @@
-package;
+package computation;
 
 class Worker {
   public function new() {}

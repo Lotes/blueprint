@@ -40,7 +40,10 @@ angular
           $scope.selectionType = type;
           $scope.selection = node;
           $scope.$broadcast('select', node);
-        };        
+        };
+        this.deleteSelection = function() {
+          
+        };
         //auto-resize canvas
         var parent = $element.parent()[0];
         $scope.onResizeFunction = function() {
@@ -52,6 +55,12 @@ angular
           $scope.onResizeFunction();
           $scope.$apply();
         });
+        //key events
+        Mousetrap.bind('del', function() { 
+          if($scope.mode !== 'select')
+            return;
+          self.deleteSelection();
+        }, 'keydown');        
         //mouse events
         $element.bind('mousemove', function(event) {
           $scope.$broadcast('mousemove', event);

@@ -13,15 +13,20 @@ module.exports = function(grunt) {
       }
     },
     haxe: {
-        model: {
-            main: 'Main',
+        worker: {
+            main: 'WorkerMain',
             classpath:['app/models'],
-            output:'app/models/model.js'
+            output:'app/models/worker.js'
+        },
+        editor: {
+            main: 'EditorMain',
+            classpath:['app/models'],
+            output:'app/models/editor.js'
         }
     },
     watch: {
       files: 'app/models/**/*.hx',
-      tasks: [ 'haxe:model' ]
+      tasks: [ 'haxe' ]
     }
   });
 
@@ -31,6 +36,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-haxe');
 
   // Default task(s).
-  grunt.registerTask('default', ['haxe:model', 'php']);
+  grunt.registerTask('default', ['haxe', 'php']);
 
 };

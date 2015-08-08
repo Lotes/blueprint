@@ -1,9 +1,11 @@
-package;
+package computation;
+import computation.Net;
+import computation.Neuron;
 
 class Quad
 {  
-  private var neurons = new Map<String, Neuron>();
-  public function new(net: Net) 
+  private var neurons = new Map<String, computation.Neuron>();
+  public function new(net: computation.Net) 
   {
     var centralNeuron = net.addNeuron(NeuronType.ACTIVATE, 1, Math.POSITIVE_INFINITY, 1);
     neurons.set(QuadConnector.CENTRAL.getName(), centralNeuron);
@@ -15,7 +17,7 @@ class Quad
         net.connect(centralNeuron, neuron);
       }
   }
-  public function getNeuron(connector: QuadConnector): Neuron 
+  public function getNeuron(connector: QuadConnector): computation.Neuron 
   { 
     return neurons.get(connector.getName());
   }
