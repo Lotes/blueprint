@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="app\models\model.js" />
+    <movie path="app\models\editor.js" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -22,7 +22,7 @@
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="WorkerMain" />
+    <option mainClass="EditorMain" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -35,7 +35,6 @@
     <compile path="src\Main.hx" />
     <compile path="app\src\Main.hx" />
     <compile path="app\models\Main.hx" />
-    <compile path="app\models\WorkerMain.hx" />
     <compile path="app\models\EditorMain.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->

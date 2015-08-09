@@ -1,4 +1,5 @@
 {
+  "name": "Example",
   "constants": {
     "learning constant L": {
       "type": "RealPositive",

@@ -15,11 +15,14 @@ class PropertiesObject
     changedHandlers.get(name).push(handler);
   }
   
-  public function offPropertyChanged(name: String, handler: Void->Void): Void
+  public function offPropertyChanged(name: String, handler: Void->Void = null): Void
   {
     if (!hasProperty(name))
       return;
-    changedHandlers.get(name).remove(handler);
+    if(handler != null)
+      changedHandlers.get(name).remove(handler);
+    else
+      changedHandlers.set(name, new Array<Void->Void>());
   }
   
   private function triggerPropertyChanged(name: String): Void 

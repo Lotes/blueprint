@@ -22,19 +22,38 @@ class Module extends PropertiesObject
         data.set("name", value); 
       }
     );
-	  //name: "system.IfThenElse" --> Location: /system/IfThenElse.json
-    //named nodes als Property
-      //condition: Neuron
-      //flowControl: Neuron
-      //thenBranch: Neuron
-      //elseBranch: Neuron
-    //Parameter als Property
-      //decayConstant: RealPositive = 0.005
-      //learningConstant: RealPositive = 0.0001
-    //Parameter <--> ChildrenNodes <--> Property
-      //lieber Module.Parameters.ParameterName
-      //oder Module.Nodes.NodeName
-      //oder Module.PropertyName
+    addProperty(
+      "nodes", 
+      function(data) { data.set("nodes", nodes); },
+      function(data) { data.remove("nodes"); },
+      function(data) { return cast(data.get("nodes"), Array<Dynamic>); }
+    );
   }
   
+  public function getName(): String { return getPropertyValue("name"); }
+  public function setName(name: String) { setPropertyValue("name", name); }
+  
+  public function getNodes(): Array<Node> { return nodes; }
+   
+  public function addNode(node: Node): Void 
+  {
+    var oldParent = node.getParent();
+    if (oldParent != null)
+      oldParent.removeNode(node);
+    nodes.push(node);
+    node.setParent(this);  
+  }
+  public function removeNode(node: Node): Void
+  {
+    if (node.getParent() != this)
+      return;
+    nodes.remove(node);
+    node.setParent(null);
+  }
+  
+  public function addConnection(source: Connector, destination: Connector): Connection
+  {
+    return null;  
+  }
+  public function removeConnection(connection: Connection): Void {}
 }

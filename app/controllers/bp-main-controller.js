@@ -37,6 +37,7 @@ angular
     };
     bpData.load(name)
       .then(function(res) {
+        console.log(new blueprint.editor.JsonReader().read(res.data));
         $scope.data = res.data;
       }, function() {
         if(name) {
