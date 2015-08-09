@@ -2,9 +2,9 @@ package editor;
 
 class Node extends PropertiesObject
 {
-  public function new(model: DataModel) 
+  public function new() 
   {
-    super(model);
+    super();
     //position: [x,y]
     //name (unique)
   }

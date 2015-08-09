@@ -1,9 +1,9 @@
 package;
-import editor.DataModel;
+import editor.Module;
 
 class EditorMain
 {
   public static function main(){
-    var model: DataModel = null;
+    var model: Module = null;
   }
 }

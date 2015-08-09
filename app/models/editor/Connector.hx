@@ -3,9 +3,9 @@ package editor;
 class Connector extends PropertiesObject
 {
 
-  public function new(model: DataModel) 
+  public function new() 
   {
-    super(model);
+    super();
   }
   
 }

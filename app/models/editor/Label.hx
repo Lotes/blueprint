@@ -3,9 +3,9 @@ package editor;
 class Label extends PropertiesObject
 {
 
-  public function new(model: DataModel) 
+  public function new() 
   {
-    super(model);
+    super();
   }
   
 }

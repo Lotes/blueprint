@@ -26,7 +26,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: 'app/models/**/*.hx',
-      tasks: [ 'haxe' ]
+      tasks: [ 'haxe:editor', 'haxe:worker' ]
     }
   });
 
