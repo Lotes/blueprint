@@ -17,16 +17,11 @@ module.exports = function(grunt) {
             main: 'WorkerMain',
             classpath:['app/models'],
             output:'app/models/worker.js'
-        },
-        editor: {
-            main: 'EditorMain',
-            classpath:['app/models'],
-            output:'app/models/editor.js'
         }
     },
     watch: {
       files: 'app/models/**/*.hx',
-      tasks: [ 'haxe:editor', 'haxe:worker' ]
+      tasks: [ 'haxe:worker' ]
     }
   });
 

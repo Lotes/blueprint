@@ -1,44 +1,28 @@
 {
   "name": "Example",
-  "constants": {
-    "learning constant L": {
-      "type": "RealPositive",
-      "value": 1
-    }
-  },
+  "description": "A little example...",
   "nodes": {
     "1": {
-      "label": "S",
-      "templateName": "neuron",
+      "type": "neuron-activate",
       "position": [
         575,
         700
-      ],
-      "variables": {
-        "type": "activate"
-      }
+      ]
     },
     "2": {
-      "label": "D",
-      "templateName": "neuron",
+      "type": "neuron-inhibit",
       "position": [
         500,
         500
-      ],
-      "variables": {
-        "type": "inhibit"
-      }
+      ]
     },
     "3": {
-      "label": "Q1",
-      "templateName": "quad",
+      "type": "module-instance",
+      "moduleName": "quad",
       "position": [
         575,
         275
-      ],
-      "variables": {
-        "type": "inhibit"
-      }
+      ]
     }
   },
   "connections": [

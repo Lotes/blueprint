@@ -1,5 +1,5 @@
 angular
-  .module('blueprint', ['ngRoute'])
+  .module('blueprint', ['ngRoute', 'ngBackbone'])
   .config(function($routeProvider) {
     var options = {
       templateUrl: 'templates/main.html',

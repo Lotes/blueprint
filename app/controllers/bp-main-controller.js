@@ -1,13 +1,9 @@
 angular
   .module('blueprint')
-  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor, bpNet, $templateCache, $http, $q) {    
-    //HACK: preload entity templates such that the connector are built before connections
-    var templates = ['app/entities/neuron.template.xml', 'app/entities/quad.template.xml'];
-    for(var index=0; index<templates.length; index++)
-      templates[index] = $http.get(templates[index], { cache: $templateCache });
-    $scope.ready = false;
-    $q.all(templates).then(function() { $scope.ready = true; }, function() { alert('Unable to load templates!'); });    
-    
+  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor, bpNet, $templateCache, $http, $q, Module) {
+    var module = new Module({ id: 'example' });
+    module.fetch();
+
     //toolsbar
     var name = $routeParams.name;
     $scope.modes = bpEditor.modes;
@@ -17,7 +13,9 @@ angular
       selection: null
     };
     
-    //data
+    $scope.data = module;
+    
+    /*//data
     $scope.data = null;
     $scope.saving = false;
     $scope.save = function() {
@@ -37,7 +35,6 @@ angular
     };
     bpData.load(name)
       .then(function(res) {
-        console.log(new blueprint.editor.JsonReader().read(res.data));
         $scope.data = res.data;
       }, function() {
         if(name) {
@@ -45,5 +42,5 @@ angular
           $location.path('/');
         } else
           $location.path('/');
-      });
+      });*/
   });
