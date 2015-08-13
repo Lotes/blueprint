@@ -2,9 +2,9 @@ angular
   .module('blueprint')
   .factory('Connector', function(NgBackboneModel) {
     return NgBackboneModel.extend({
+      idAttribute: 'name',
       defaults: {
-        node: null
-        //use id as name
+        parentNode: null
       }
     });
   })

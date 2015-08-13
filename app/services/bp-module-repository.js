@@ -1,7 +1,7 @@
 angular
   .module('blueprint')
   .factory('bpModuleRepository', function(Module, $q, $http, NodeCollection, ConnectionCollection, Node, 
-      Position, Connection, Anchor, AnchorCollection, Neuron, ModuleInstance) {
+      Position, Connection, Anchor, AnchorCollection, Neuron, ModuleInstance, ConnectionEndPoint) {
     
     function parseModule(res) {
       var deferred = $q.defer();
@@ -45,8 +45,14 @@ angular
       var connections = _.map(res.connections, function(value) {
         var connection = new Connection({
           parentModule: self,
-          //source: nodes.get(value.source.node).getConnector(value.source.connector),
-          //destination: nodes.get(value.destination.node).getConnector(value.destination.connector)
+          source: new ConnectionEndPoint({
+            path: value.source.node,
+            connector: value.source.connector
+          }),
+          destination: new ConnectionEndPoint({
+            path: value.destination.node,
+            connector: value.destination.connector
+          })
         });
         var anchors = _.map(value.anchors, function(anchor) {
           return new Anchor({

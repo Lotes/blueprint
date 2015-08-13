@@ -8,14 +8,17 @@ angular
         position: null,
         connectors: null
       },
+      initialize: function() {
+        this.set({ connectors: new ConnectorCollection() });  
+      },
       getConnector: function(name) {
         return this.get('connectors').get(name);  
       },
       addConnector: function(name) {
         var self = this;
         self.get('connectors').push({
-          id: name,
-          node: self
+          name: name,
+          parentNode: self
         });
       }
     });

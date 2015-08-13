@@ -3,10 +3,11 @@ angular
   .factory('Neuron', function(Node, ConnectorCollection, Connector) {
     return Node.extend({
       defaults: _.extend(Node.prototype.defaults, {
+        //connectors, name, parentModule, position
         type: 'activate' //activate, inhibit, associate, disassociate  
       }),
       initialize: function() {
-        this.set({ connectors: new ConnectorCollection() });
+        Node.prototype.initialize.call(this, arguments);
         this.addConnector('default');
       }
     });

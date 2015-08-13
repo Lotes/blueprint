@@ -3,10 +3,10 @@ angular
   .factory('Connection', function(NgBackboneModel, Connector, AnchorCollection) {
     return NgBackboneModel.extend({
       defaults: {
-        parentModule: null,
-        source: null,
-        destination: null,
-        anchors: null
+        parentModule: null, //Module
+        source: null, //ConnectionEndPoint
+        destination: null, //ConnectionEndPoint
+        anchors: null //AnchorCollection
       }
     });
   })
