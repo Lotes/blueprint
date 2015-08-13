@@ -4,9 +4,9 @@ angular
     return NgBackboneModel.extend({
       defaults: {
         parentModule: null,
-        source: new Connector(),
-        destination: new Connector(),
-        anchors: new AnchorCollection()
+        source: null,
+        destination: null,
+        anchors: null
       }
     });
   })

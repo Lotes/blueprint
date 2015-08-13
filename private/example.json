@@ -2,21 +2,21 @@
   "name": "Example",
   "description": "A little example...",
   "nodes": {
-    "1": {
+    "act": {
       "type": "neuron-activate",
       "position": [
         575,
         700
       ]
     },
-    "2": {
+    "inh": {
       "type": "neuron-inhibit",
       "position": [
         500,
         500
       ]
     },
-    "3": {
+    "mod": {
       "type": "module-instance",
       "moduleName": "quad",
       "position": [
@@ -28,7 +28,7 @@
   "connections": [
     {
       "source": {
-        "node": 1,
+        "node": ["act"],
         "connector": "default"
       },
       "anchors": [
@@ -72,7 +72,7 @@
         }
       ],
       "destination": {
-        "node": 2,
+        "node": ["inh"],
         "connector": "default"
       },
       "variables": {
@@ -83,8 +83,8 @@
     },
     {
       "source": {
-        "node": 3,
-        "connector": "por"
+        "node": ["inh"],
+        "connector": "default"
       },
       "anchors": [
         {
@@ -108,7 +108,7 @@
         }
       ],
       "destination": {
-        "node": 1,
+        "node": ["act"],
         "connector": "default"
       },
       "variables": {

@@ -5,8 +5,8 @@ angular
       defaults: {
         name: null,
         parentModule: null,
-        position: new Position(),
-        connectors: new ConnectorCollection()
+        position: null,
+        connectors: null
       },
       getConnector: function(name) {
         return this.get('connectors').get(name);  

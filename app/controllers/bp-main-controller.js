@@ -1,9 +1,6 @@
 angular
   .module('blueprint')
-  .controller('bpMainController', function($scope, bpData, $routeParams, $location, bpEditor, bpNet, $templateCache, $http, $q, Module) {
-    var module = new Module({ id: 'example' });
-    module.fetch();
-
+  .controller('bpMainController', function($scope, bpModuleRepository, $routeParams, $location, bpEditor, bpNet, $templateCache, $http, $q, Module) {
     //toolsbar
     var name = $routeParams.name;
     $scope.modes = bpEditor.modes;
@@ -13,6 +10,7 @@ angular
       selection: null
     };
     
+    var module = bpModuleRepository.get('example');
     $scope.data = module;
     
     /*//data
