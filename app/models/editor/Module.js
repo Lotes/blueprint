@@ -8,6 +8,8 @@ angular
         nodes: null,
         connections: null
       }
+      //add/remove connections
+      //add/remove nodes
     });
   })
   .factory('ModuleCollection', function(NgBackboneCollection, Module) {

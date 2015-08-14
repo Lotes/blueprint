@@ -1,0 +1,23 @@
+<g class="neuron">
+  <g 
+    bp-draggable="data"
+    ng-class="{ selected: isSelected }"
+    on-selection-changed="selectionChanged($selected)"
+    ng-switch="data.$attributes.type"
+    >
+    <g ng-switch-when="activate" class="neuron-activate">
+      <circle cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
+    </g>
+    <g ng-switch-when="inhibit" class="neuron-inhibit">
+      <circle cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
+    </g>
+    <g ng-switch-when="associate" class="neuron-associate">
+      <circle class="outer" cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
+      <circle class="inner" cx="0" cy="0" ng-attr-r="{{ innerRadius }}" />
+    </g>
+    <g ng-switch-when="disassociate" class="neuron-disassociate">
+      <circle class="outer" cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
+      <circle class="inner" cx="0" cy="0" ng-attr-r="{{ innerRadius }}" />
+    </g>
+  </g>    
+</g>

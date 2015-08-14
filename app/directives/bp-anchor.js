@@ -4,7 +4,7 @@ angular
     return {
       templateNamespace: 'svg',
       restrict: 'E',
-      require: '^bpCanvas',
+      require: '^bpEditor',
       replace: true,
       scope: {
         data: '=anchor'

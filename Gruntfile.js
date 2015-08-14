@@ -19,9 +19,16 @@ module.exports = function(grunt) {
             output:'app/models/worker.js'
         }
     },
+    less: {
+      svg: {
+        files: {
+          "svg.css": "svg.less"
+        }
+      }
+    },
     watch: {
-      files: 'app/models/**/*.hx',
-      tasks: [ 'haxe:worker' ]
+      files: ['app/models/**/*.hx', 'svg.less'],
+      tasks: [ 'haxe:worker', 'less:svg' ]
     }
   });
 
@@ -29,8 +36,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-php');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-haxe');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   // Default task(s).
-  grunt.registerTask('default', ['haxe', 'php']);
+  grunt.registerTask('default', ['haxe', 'less', 'php']);
 
 };

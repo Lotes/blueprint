@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpDraggable', function(bpSelectableDirective, registry) {
+  .directive('bpDraggable', function(bpSelectableDirective) {
     var parentDirective = bpSelectableDirective[0];
     var scope = angular.copy(parentDirective.scope, {});
     scope.data = '=bpDraggable'; //overwrites parent directive, must contain a .position (=[x,y]) property
@@ -10,7 +10,7 @@ angular
     scope.snapping = '@inheritSnapping';
     return {
       restrict: 'A',
-      require: '^bpCanvas',
+      require: '^bpEditor',
       scope: scope,
       link: function($scope, $element, $attrs, editorController) {
         //call parent
@@ -23,7 +23,7 @@ angular
           event.preventDefault();
           isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
-          oldDraggablePosition = $scope.data.position;          
+          oldDraggablePosition = $scope.data.$attributes.position.toArray();          
         });
         $element.bind('mouseup', function(event) {
           event.preventDefault();
@@ -41,7 +41,7 @@ angular
             var delta = newMousePosition[index] - oldMousePosition[index]; 
             newDraggablePosition[index] = oldDraggablePosition[index] + delta;
           }
-          $scope.data.position = $scope.snapping === 'false' ? newDraggablePosition : editorController.snapPosition(newDraggablePosition);
+          $scope.data.$attributes.position.fromArray($scope.snapping === 'false' ? newDraggablePosition : editorController.snapPosition(newDraggablePosition));
           $scope.$apply();
         });
       }

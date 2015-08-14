@@ -1,6 +1,8 @@
 TODO
 ====
 
+- Verschieben der Ansicht
+- Ursprungspunkt
 - Knoten verbinden
 - Verbindungen löschen
 - Knoten löschen

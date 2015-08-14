@@ -1,45 +1,52 @@
 angular
   .module('blueprint')
-  .factory('bpEditor', function($rootScope) {
+  .factory('bpEditorData', function($rootScope) {
     //tool/mode/mousemove/selection
     var editor = {
-      modes: {
-        readOnly: {
+      modes: [
+        {
+          name: 'readOnly',
           label: 'Read only',
           description: 'Don\'t touch this!',
           iconClass: 'glyphicon-remove-circle'
         },
-        select: { 
+        { 
+          name: 'select',
           label: 'Select',
           description: 'Select/move/delete nodes, connections and anchors',
           iconClass: 'glyphicon-hand-up'
         },
-        neuron: {
+        {
+          name: 'neuron',
           label: 'Add neuron',
           description: '...',
           iconClass: 'glyphicon-plus'
         },
-        quad: {
-          label: 'Add quad',
-          description: '...',
+        {
+          name: 'module',
+          label: 'Add module',
+          description: 'Add a complete neuron module.',
           iconClass: 'glyphicon-plus'
         },
-        connect: {
+        {
+          name: 'connect',
           label: 'Connect',
           description: 'Connect nodes',
           iconClass: 'glyphicon-resize-small'          
         },
-        anchor: {
+        {
+          name: 'anchor',
           label: 'Add anchor',
           description: '...',
           iconClass: 'glyphicon-plus'
         },
-        run: { 
+        { 
+          name: 'run',
           label: 'Run',
           description: 'Execute neuronal net.',
           iconClass: 'glyphicon-play'
         },
-      },
+      ],
       types: {
         'string': {
           label: 'String',

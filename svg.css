@@ -1,102 +1,45 @@
 .grid {
-  fill: #AAAAFF;
-  stroke: white;
+  fill: #aaaaff;
+  stroke: #ffffff;
 }
-
+.neuron {
+  cursor: pointer;
+  stroke: #000000;
+  stroke-width: 1px;
+}
+.neuron .selected {
+  stroke: #ff0000;
+}
+.neuron .neuron-activate {
+  fill: #ffffff;
+}
+.neuron .neuron-inhibit {
+  fill: #808080;
+}
+.neuron .neuron-associate .outer {
+  fill: #808080;
+}
+.neuron .neuron-associate .inner {
+  fill: #ffffff;
+}
+.neuron .neuron-disassociate .outer {
+  fill: #ffffff;
+}
+.neuron .neuron-disassociate .inner {
+  fill: #808080;
+}
 .connection {
   stroke: black;
   stroke-width: 1;
   fill: none;
   cursor: pointer;
 }
-
-.active .connection {
-  stroke: blue;
-}
-
 .selected .connection {
   stroke: red;
 }
-
 .connection-tip-activate,
 .connection-tip-inhibit {
   stroke: black;
   stroke-width: 2px;
   fill: none;
-}
-
-.anchor {
-  stroke: rgba(0,0,0,0.3);
-  fill: rgba(255,255,255,0.3);
-  cursor: pointer;
-}
-
-.anchor .active  {
-  stroke: rgba(0,0,255,0.5);
-  fill: rgba(192,192,255,0.5);
-}
-.anchor .selected  {  
-  stroke: rgba(255,0,0,0.5);
-  fill: rgba(255,192,192,0.5);
-}
-
-.neuron {
-  fill: white;
-  stroke: black;
-  cursor: pointer;
-}
-
-.active .neuron {
-  stroke: blue;
-  fill: #DDDDFF;
-}
-
-.selected .neuron {
-  stroke: red;
-  fill: #FFDDDD;
-}
-
-.quad {
-  fill: white;
-  stroke: black;
-  cursor: pointer;
-}
-
-.active .quad {
-  stroke: blue;
-  fill: #DDDDFF;
-}
-
-.selected .quad {
-  stroke: red;
-  fill: #FFDDDD;
-}
-
-.label {
-  font-size: 10px;
-  fill: black;
-  stroke: none;
-  font-weight: normal;
-}
-
-.active .label {
-  fill: blue;
-}
-
-.selected .label {
-  fill: red;
-}
-
-.quad-connector {
-  font-family: monospace;
-  font-size: 10px;
-  stroke: none;
-  fill: black;
-}
-
-.active .quad-connector {
-  fill: blue;
-}
-.selected .quad-connector {
-  fill: red;
 }

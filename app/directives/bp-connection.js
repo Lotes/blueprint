@@ -5,7 +5,7 @@ angular
       templateNamespace: 'svg',
       restrict: 'E',
       replace: true,
-      require: '^bpCanvas',
+      require: '^bpEditor',
       scope: {
         data: '=connection', 
         nodes: '=',
@@ -28,7 +28,7 @@ angular
           });
         };
         //anchors
-        var parentCtrl = $element.controller('bpCanvas');
+        var parentCtrl = $element.controller('bpEditor');
         var sourceId = $scope.data.source.node;
         var destinationId = $scope.data.destination.node;
         var sourceConnector = $scope.data.source.connector;

@@ -1,11 +1,10 @@
 angular
   .module('blueprint')
-  .directive('bpSelectable', function(registry) {
+  .directive('bpSelectable', function() {
     return {
       restrict: 'A',
-      require: '^bpCanvas',
+      require: '^bpEditor',
       scope: {
-        type: '@selectionType',
         data: '=bpSelectable',
         selectionChanged: '&onSelectionChanged',
       },
@@ -16,7 +15,7 @@ angular
         };
         $element.bind('mouseup', function(event) {
           event.preventDefault();
-          editorController.select($scope.type, $scope.data);  
+          editorController.select($scope.data);  
         });
         $scope.$on('select', function(event, selection) {          
           $scope.isSelected = selection === $scope.data;

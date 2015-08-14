@@ -6,7 +6,8 @@ angular
         name: null,
         parentModule: null,
         position: null,
-        connectors: null
+        connectors: null,
+        className: 'Node'
       },
       initialize: function() {
         this.set({ connectors: new ConnectorCollection() });  

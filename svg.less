@@ -1,0 +1,70 @@
+@background-color: #AAAAFF;
+@background-grid-color: #FFFFFF;
+
+.grid {
+  fill: @background-color;
+  stroke: @background-grid-color;
+}
+
+@neuron-white: #FFFFFF;
+@neuron-gray: #808080;
+@neuron-black: #000000;
+
+@selection-color: #FF0000;
+@neuron-stroke-color: #000000;
+@neuron-fill-color-activate: @neuron-white;
+@neuron-fill-color-inhibit: @neuron-gray;
+@neuron-fill-color-associate-inner: @neuron-white;
+@neuron-fill-color-associate-outer: @neuron-gray;
+@neuron-fill-color-disassociate-inner: @neuron-gray;
+@neuron-fill-color-disassociate-outer: @neuron-white;
+
+.neuron {
+  cursor: pointer;
+  stroke: @neuron-stroke-color;
+  stroke-width: 1px;
+
+  .selected {
+    stroke: @selection-color;
+  }
+  .neuron-activate {
+    fill: @neuron-fill-color-activate;  
+  }
+  .neuron-inhibit {
+    fill: @neuron-fill-color-inhibit;  
+  }
+  .neuron-associate {
+    .outer {
+      fill: @neuron-fill-color-associate-outer;
+    }
+    .inner {
+      fill: @neuron-fill-color-associate-inner;  
+    }
+  }
+  .neuron-disassociate {
+    .outer {
+      fill: @neuron-fill-color-disassociate-outer;
+    }
+    .inner {
+      fill: @neuron-fill-color-disassociate-inner;  
+    }
+  }  
+}
+
+.connection {
+  stroke: black;
+  stroke-width: 1;
+  fill: none;
+  cursor: pointer;
+}
+
+.selected .connection {
+  stroke: red;
+}
+
+.connection-tip-activate,
+.connection-tip-inhibit {
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+}

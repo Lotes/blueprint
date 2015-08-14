@@ -2,26 +2,40 @@
   "name": "Example",
   "description": "A little example...",
   "nodes": {
+    "asso": {
+      "type": "neuron-associate",
+      "position": [
+        100,
+        100
+      ]
+    },
+    "dis": {
+      "type": "neuron-disassociate",
+      "position": [
+        150,
+        100
+      ]
+    },
     "act": {
       "type": "neuron-activate",
       "position": [
-        575,
-        700
+        200,
+        100
       ]
     },
     "inh": {
       "type": "neuron-inhibit",
       "position": [
-        500,
-        500
+        250,
+        100
       ]
     },
     "mod": {
       "type": "module-instance",
       "moduleName": "quad",
       "position": [
-        575,
-        275
+        300,
+        300
       ]
     }
   },

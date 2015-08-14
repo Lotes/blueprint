@@ -2,9 +2,10 @@ angular
   .module('blueprint')
   .factory('ModuleInstance', function(Node) {
     return Node.extend({
-      defaults: _.extend(Node.prototype.defaults, {
+      defaults: _.extend({}, Node.prototype.defaults, {
         module: null,
         //connectors, name, parentModule, position
+        className: 'ModuleInstance'
       }),
       initialize: function() {
         Node.prototype.initialize.call(this, arguments);

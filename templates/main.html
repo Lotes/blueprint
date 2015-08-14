@@ -15,9 +15,9 @@
 <div class="toolbar">
   <button 
     type="button"     
-    ng-repeat="(mode, data) in modes track by $index"
-    ng-class="{btn: true, 'btn-default': true, active: tools.mode === mode}" 
-    ng-click="tools.mode = mode"
+    ng-repeat="data in modes track by $index"
+    ng-class="{btn: true, 'btn-default': true, active: tools.mode === data.name}" 
+    ng-click="tools.mode = data.name"
     ng-attr-title="{{data.description}}">
     <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
   </button>
@@ -31,6 +31,6 @@
   </bp-properties>
 </div>
 <div class="main-view-right" ng-if="ready">
-  <bp-canvas map="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid">
-  </bp-canvas>
+  <bp-editor module="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid">
+  </bp-editor>
 </div>
