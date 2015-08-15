@@ -84,11 +84,38 @@ angular
         self.on('select:mouseup', function(event) { 
           if(!$scope.showSelectionRectangle)
             return;
-          self.trigger('unselect');
+          if(!event.shiftKey && !event.metaKey)
+            self.trigger('unselect');
           event.preventDefault();
           self.trigger('selectRectangle', $scope.selectionRectangle);
           $scope.showSelectionRectangle = false; 
           $scope.$apply();
+        });
+        //center
+        var movePressed = false;
+        var moveOldCenter = [0, 0];
+        var moveStart = [0, 0];
+        $scope.center = [0, 0];
+        self.on('move:mousedown', function(event) { 
+          event.preventDefault();
+          movePressed = true;
+          moveStart = bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+          moveOldCenter = $scope.center;
+        });
+        self.on('move:mousemove', function(event) { 
+          event.preventDefault();
+          if(!movePressed)
+            return;
+          var currentPosition = bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+          $scope.center = [
+            moveOldCenter[0] + currentPosition[0] - moveStart[0],
+            moveOldCenter[1] + currentPosition[1] - moveStart[1]
+          ];
+          $scope.$apply();
+        });
+        self.on('move:mouseup', function(event) { 
+          event.preventDefault();
+          movePressed = false;
         });
       }
     };

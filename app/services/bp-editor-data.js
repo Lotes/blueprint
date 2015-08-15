@@ -16,6 +16,12 @@ angular
           iconClass: 'glyphicon-remove-circle'
         },
         { 
+          name: 'move',
+          label: 'Move',
+          description: 'Move environment',
+          iconClass: 'glyphicon-pushpin'
+        },
+        { 
           name: 'select',
           label: 'Select',
           description: 'Select/move/delete nodes, connections and anchors',

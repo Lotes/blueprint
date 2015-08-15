@@ -17,7 +17,8 @@ angular
         };
         $element.bind('mouseup', function(event) {
           event.preventDefault();
-          editorController.trigger('unselect');
+          if(!event.shiftKey && !event.metaKey)
+            editorController.trigger('unselect');
           select(true);
         });
         editorController.on('unselect', function() {
