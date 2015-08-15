@@ -5,37 +5,37 @@
     "asso": {
       "type": "neuron-associate",
       "position": [
-        100,
-        100
+        -100,
+        0
       ]
     },
     "dis": {
       "type": "neuron-disassociate",
       "position": [
-        150,
-        100
+        -150,
+        0
       ]
     },
     "act": {
       "type": "neuron-activate",
       "position": [
-        200,
-        100
+        50,
+        0
       ]
     },
     "inh": {
       "type": "neuron-inhibit",
       "position": [
-        250,
-        100
+        100,
+        0
       ]
     },
     "mod": {
       "type": "module-instance",
       "moduleName": "quad",
       "position": [
-        300,
-        300
+        250,
+        0
       ]
     }
   },

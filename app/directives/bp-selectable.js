@@ -21,17 +21,31 @@ angular
             editorController.trigger('unselect');
           select(true);
         });
-        editorController.on('unselect', function() {
-          select(false);
-        });
-        editorController.on('selectRectangle', function(selectionRect) {          
-          var element = $element[0];
-          var localRect = element.getBBox();
-          var localPosition = [localRect.x, localRect.y];
-          var absolutePosition = bpSvg.getAbsolutePosition(element, localPosition);
-          var absoluteRect = [absolutePosition[0], absolutePosition[1], localRect.width, localRect.height];
-          if(bpSvg.rectIntersectsRect(selectionRect, absoluteRect)) 
-            select(true);
+        var editorEvents = {
+          'unselect': function() {
+            select(false);
+          },
+          'selectRectangle': function(selectionRect) {          
+            var element = $element[0];
+            var localRect = element.getBBox();
+            var localPosition = [localRect.x, localRect.y];
+            var absolutePosition = bpSvg.getAbsolutePosition(element, localPosition);
+            var absoluteRect = [absolutePosition[0], absolutePosition[1], localRect.width, localRect.height];
+            if(bpSvg.rectIntersectsRect(selectionRect, absoluteRect)) 
+              select(true);
+          },
+          'deleteSelection': function() {
+            if($scope.isSelected && $scope.data.remove) {  
+              $scope.data.remove();
+              $scope.$apply();
+            }
+          }
+        };
+        for(var eventName in editorEvents)
+          editorController.on(eventName, editorEvents[eventName]);
+        $scope.$on('$destroy', function() {
+          for(var eventName in editorEvents)
+            editorController.off(eventName, editorEvents[eventName]);  
         });
       }
     };

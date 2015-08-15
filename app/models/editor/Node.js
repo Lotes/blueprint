@@ -25,6 +25,10 @@ angular
       getConvexHull: function() {
         //return a list of [x, y] positions
         return []; //override me!!!
+      },
+      remove: function() {
+        var parent = this.get('parentModule');
+        parent.get('nodes').remove(this);
       }
     });
   })

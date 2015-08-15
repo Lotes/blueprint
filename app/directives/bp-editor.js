@@ -42,13 +42,7 @@ angular
         angular.element($window).bind('resize', function() {
           $scope.onResizeFunction();
           $scope.$apply();
-        });
-        //key events
-        Mousetrap.bind('del', function() { 
-          if($scope.mode !== 'select')
-            return;
-          self.deleteSelection();
-        }, 'keydown');        
+        });        
         //mouse events
         var events = ['mousedown', 'mousemove', 'mouseup'];
         _.each(events, function(eventName) {
@@ -56,6 +50,9 @@ angular
             self.trigger($scope.mode+':'+eventName, event);
           });  
         });
+        function getEventPosition(event) {
+          return bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+        }
         //selection
         var selectionStart = [0, 0];
         $scope.showSelectionRectangle = false;
@@ -64,7 +61,7 @@ angular
           event.preventDefault();
           if(!angular.element(event.target).hasClass('grid'))
             return;
-          selectionStart = [event.offsetX, event.offsetY];
+          selectionStart = getEventPosition(event);
           $scope.selectionRectangle = [selectionStart[0], selectionStart[1], 0, 0];
           $scope.showSelectionRectangle = true;
           $scope.$apply();
@@ -73,7 +70,7 @@ angular
           if(!$scope.showSelectionRectangle)
             return;
           event.preventDefault();
-          var currentPosition = [event.offsetX, event.offsetY];
+          var currentPosition = getEventPosition(event);
           var width = Math.abs(currentPosition[0]-selectionStart[0]);
           var height = Math.abs(currentPosition[1]-selectionStart[1]);
           var x = Math.min(currentPosition[0], selectionStart[0]);
@@ -91,6 +88,11 @@ angular
           $scope.showSelectionRectangle = false; 
           $scope.$apply();
         });
+        Mousetrap.bind('del', function() { 
+          if($scope.mode !== 'select')
+            return;
+          self.trigger('deleteSelection');
+        }, 'keydown');
         //center
         var movePressed = false;
         var moveOldCenter = [0, 0];
@@ -99,14 +101,14 @@ angular
         self.on('move:mousedown', function(event) { 
           event.preventDefault();
           movePressed = true;
-          moveStart = bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+          moveStart = getEventPosition(event);
           moveOldCenter = $scope.center;
         });
         self.on('move:mousemove', function(event) { 
           event.preventDefault();
           if(!movePressed)
             return;
-          var currentPosition = bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+          var currentPosition = getEventPosition(event);
           $scope.center = [
             moveOldCenter[0] + currentPosition[0] - moveStart[0],
             moveOldCenter[1] + currentPosition[1] - moveStart[1]
