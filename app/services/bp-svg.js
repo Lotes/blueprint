@@ -2,6 +2,15 @@ angular
   .module('blueprint')
   .factory('bpSvg', function() {
     return {
+      rectIntersectsRect: function(a, b) { //a,b=[x,y,w,h]
+        var noIntersection =
+          a[0]+a[2] < b[0]
+          || a[1]+a[3] < b[1]
+          || b[0]+b[2] < a[0]
+          || b[1]+b[3] < a[1]
+          ;
+        return !noIntersection;
+      },
       mixPositions: function(a, b, part) {
         return [
           a[0] * part + b[0] * (1-part),

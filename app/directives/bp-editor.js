@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window, Position, ModuleInstance, bpEditorData) {
+  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg) {
     return {
       restrict: 'E',
       replace: true,
@@ -32,14 +32,6 @@ angular
             Math.round(position[1] / 25) * 25
           ];
         };
-        //selection
-        this.select = function(node) { 
-          $scope.selection = node;
-          $scope.$broadcast('select', node);
-        };
-        this.deleteSelection = function() {
-          
-        };
         //auto-resize canvas
         var parent = $element.parent()[0];
         $scope.onResizeFunction = function() {
@@ -70,6 +62,8 @@ angular
         $scope.selectionRectangle = [0, 0, 0, 0]; //x, y, w, h
         self.on('select:mousedown', function(event) { 
           event.preventDefault();
+          if(!angular.element(event.target).hasClass('grid'))
+            return;
           selectionStart = [event.offsetX, event.offsetY];
           $scope.selectionRectangle = [selectionStart[0], selectionStart[1], 0, 0];
           $scope.showSelectionRectangle = true;
@@ -90,8 +84,9 @@ angular
         self.on('select:mouseup', function(event) { 
           if(!$scope.showSelectionRectangle)
             return;
+          self.trigger('unselect');
           event.preventDefault();
-          //TODO select all entities in this rectangle
+          self.trigger('selectRectangle', $scope.selectionRectangle);
           $scope.showSelectionRectangle = false; 
           $scope.$apply();
         });
