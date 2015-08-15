@@ -3,12 +3,14 @@ angular
   .directive('bpSelectable', function(bpSvg) {
     return {
       restrict: 'A',
-      require: '^bpEditor',
+      require: ['^bpEditor', '^bpModuleInstance'],
       scope: {
         data: '=bpSelectable',
         selectionChanged: '&onSelectionChanged',
       },
-      link: function($scope, $element, $attrs, editorController) {
+      link: function($scope, $element, $attrs, controllers) {
+        var editorController = controllers[0];
+        var instanceController = controllers[1];
         $scope.isSelected = false;
         function select(value) {
           $scope.isSelected = value;
@@ -35,7 +37,10 @@ angular
               select(true);
           },
           'deleteSelection': function() {
-            if($scope.isSelected && $scope.data.remove) {  
+            if($scope.isSelected 
+               && (instanceController.isRoot() || instanceController.getModuleInstance() === $scope.data) 
+               && $scope.data.remove
+            ) {  
               $scope.data.remove();
               $scope.$apply();
             }

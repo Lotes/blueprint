@@ -10,7 +10,7 @@ angular
     scope.snapping = '@inheritSnapping';
     return {
       restrict: 'A',
-      require: '^bpEditor',
+      require: parentDirective.require,
       scope: scope,
       link: function($scope, $element, $attrs, editorController) {
         //call parent

@@ -11,6 +11,8 @@ angular
         canEdit: '@editable'
       },
       controller: function($scope) { 
+        this.isRoot = function() { return $scope.data.get('parentModule') === null; };
+        this.getModuleInstance = function() { return $scope.data; };
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
         $scope.convexHull = null;
