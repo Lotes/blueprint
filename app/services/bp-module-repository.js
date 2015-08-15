@@ -10,7 +10,7 @@ angular
       var promises = [];
       var nodes = new NodeCollection(_.map(res.nodes, function(value, key) {
         var attributes = {
-          id: key,
+          name: key,
           parentModule: result,
           position: new Position({ 
             x: value.position[0],

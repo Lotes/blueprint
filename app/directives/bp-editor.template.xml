@@ -19,18 +19,5 @@
     </marker>
   </defs>
   <rect id="grid" x="0" y="0" width="100%" height="100%" fill="url('#grid-pattern')"/>  
-  
-  <g 
-    ng-repeat="node in data.$attributes.nodes.$models" 
-    ng-attr-transform="{{ 'translate('+node.$attributes.position.$attributes.x+' '+node.$attributes.position.$attributes.y+')' }}"
-    ng-switch="node.$attributes.className"
-    >
-    <circle ng-switch-when="ModuleInstance" cx="0" cy="0" r="23"/>
-    <bp-neuron ng-switch-when="Neuron" neuron="node"/>
-    <rect ng-switch-default="" x="-10" y="-10" width="20" height="20" />
-  </g>  
-  
-  <!--g ng-repeat="connection in data.$attributes.connections.$models">
-    <bp-connection nodes="data.nodes" connection="connection"/>
-  </g-->
+  <bp-module-instance instance="rootInstance" editable="true" />
 </svg>

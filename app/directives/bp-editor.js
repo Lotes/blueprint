@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window) {
+  .directive('bpEditor', function($window, Position, ModuleInstance) {
     return {
       restrict: 'E',
       replace: true,
@@ -11,7 +11,14 @@ angular
         selection: '='
       },
       templateUrl: 'app/directives/bp-editor.template.xml',
-      controller: function($scope, $element) {        
+      controller: function($scope, $element) {     
+        //module position
+        $scope.rootInstance = new ModuleInstance({
+          module: $scope.data,
+          name: null,
+          parentModule: null,
+          position: new Position({ x: 0, y: 0 })
+        });
         //mode
         this.getMode = function() { return $scope.mode; };
         this.setMode = function(mode) { return $scope.mode = mode; };

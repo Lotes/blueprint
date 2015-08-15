@@ -1,8 +1,13 @@
 angular
   .module('blueprint')
-  .factory('bpEditorData', function($rootScope) {
-    //tool/mode/mousemove/selection
+  .factory('bpEditorData', function() {
     var editor = {
+      config: {
+        neuron: {
+          outerRadius: 15,
+          innerRadius: 10  
+        }
+      },
       modes: [
         {
           name: 'readOnly',

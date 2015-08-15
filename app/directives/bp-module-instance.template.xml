@@ -1,0 +1,21 @@
+<g 
+  class="module-instance"
+  >
+  <path 
+    class="convex-hull"
+    ng-if="convexHull!=null"
+    ng-attr-d="{{ convexHull | pathify }}"
+    />
+  <g 
+    ng-repeat="node in data.$attributes.module.$attributes.nodes.$models" 
+    ng-attr-transform="{{ 'translate('+node.$attributes.position.$attributes.x+' '+node.$attributes.position.$attributes.y+')' }}"
+    ng-switch="node.$attributes.className"
+    >
+    <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
+    <bp-neuron ng-switch-when="Neuron" neuron="node" editable="{{canEdit}}"/>
+  </g>  
+  <!--text x="0" y="0" fill="red" stroke="none">{{data.$attributes.name}}</text-->
+  <!--g ng-repeat="connection in data.$attributes.connections.$models">
+    <bp-connection nodes="data.nodes" connection="connection"/>
+  </g-->
+</g>

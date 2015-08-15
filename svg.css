@@ -2,6 +2,11 @@
   fill: #aaaaff;
   stroke: #ffffff;
 }
+.convex-hull {
+  fill: rgba(0, 0, 255, 0.2);
+  stroke: rgba(0, 0, 255, 0.5);
+  stroke-width: 1px;
+}
 .neuron {
   cursor: pointer;
   stroke: #000000;

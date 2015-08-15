@@ -2,8 +2,8 @@ angular
   .module('blueprint')
   .factory('Node', function(NgBackboneModel, Position, Connector, ConnectorCollection) {
     return NgBackboneModel.extend({
+      idAttribute: 'name',
       defaults: {
-        name: null,
         parentModule: null,
         position: null,
         connectors: null,
@@ -21,6 +21,10 @@ angular
           name: name,
           parentNode: self
         });
+      },
+      getConvexHull: function() {
+        //return a list of [x, y] positions
+        return []; //override me!!!
       }
     });
   })

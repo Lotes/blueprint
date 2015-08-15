@@ -1,4 +1,6 @@
-<g class="neuron">
+<g 
+  class="neuron"
+  >
   <g 
     bp-draggable="data"
     ng-class="{ selected: isSelected }"
@@ -20,4 +22,5 @@
       <circle class="inner" cx="0" cy="0" ng-attr-r="{{ innerRadius }}" />
     </g>
   </g>    
+  <!--text x="0" y="0" fill="red" stroke="none">{{data.$attributes.name}}</text-->
 </g>
