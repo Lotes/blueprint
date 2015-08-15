@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window, Position, ModuleInstance) {
+  .directive('bpEditor', function($window, Position, ModuleInstance, bpEditorData) {
     return {
       restrict: 'E',
       replace: true,
@@ -12,7 +12,9 @@ angular
       },
       templateUrl: 'app/directives/bp-editor.template.xml',
       controller: function($scope, $element) {     
-        //module position
+        var self = this;
+        _.extend(self, Backbone.Events);
+        //root object
         $scope.rootInstance = new ModuleInstance({
           module: $scope.data,
           name: null,
@@ -55,6 +57,44 @@ angular
             return;
           self.deleteSelection();
         }, 'keydown');        
+        //mouse events
+        var events = ['mousedown', 'mousemove', 'mouseup'];
+        _.each(events, function(eventName) {
+          $element.bind(eventName, function(event) {
+            self.trigger($scope.mode+':'+eventName, event);
+          });  
+        });
+        //selection
+        var selectionStart = [0, 0];
+        $scope.showSelectionRectangle = false;
+        $scope.selectionRectangle = [0, 0, 0, 0]; //x, y, w, h
+        self.on('select:mousedown', function(event) { 
+          event.preventDefault();
+          selectionStart = [event.offsetX, event.offsetY];
+          $scope.selectionRectangle = [selectionStart[0], selectionStart[1], 0, 0];
+          $scope.showSelectionRectangle = true;
+          $scope.$apply();
+        });
+        self.on('select:mousemove', function(event) { 
+          if(!$scope.showSelectionRectangle)
+            return;
+          event.preventDefault();
+          var currentPosition = [event.offsetX, event.offsetY];
+          var width = Math.abs(currentPosition[0]-selectionStart[0]);
+          var height = Math.abs(currentPosition[1]-selectionStart[1]);
+          var x = Math.min(currentPosition[0], selectionStart[0]);
+          var y = Math.min(currentPosition[1], selectionStart[1]);
+          $scope.selectionRectangle = [x, y, width, height];
+          $scope.$apply();
+        });
+        self.on('select:mouseup', function(event) { 
+          if(!$scope.showSelectionRectangle)
+            return;
+          event.preventDefault();
+          //TODO select all entities in this rectangle
+          $scope.showSelectionRectangle = false; 
+          $scope.$apply();
+        });
       }
     };
   });

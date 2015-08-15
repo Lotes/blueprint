@@ -2,9 +2,11 @@
   class="module-instance"
   >
   <path 
-    class="convex-hull"
     ng-if="convexHull!=null"
     ng-attr-d="{{ convexHull | pathify }}"
+    ng-class="{ 'convex-hull': true, selected: isSelected }"
+    bp-draggable="data"
+    on-selection-changed="selectionChanged($selected)"
     />
   <g 
     ng-repeat="node in data.$attributes.module.$attributes.nodes.$models" 

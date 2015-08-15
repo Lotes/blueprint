@@ -1,6 +1,11 @@
 @background-color: #AAAAFF;
 @background-grid-color: #FFFFFF;
 
+.selection-rectangle {
+  fill: rgba(255, 0, 0, 0.2);
+  stroke: rgba(255, 0, 0, 0.5);  
+}
+
 .grid {
   fill: @background-color;
   stroke: @background-grid-color;
@@ -10,6 +15,11 @@
   fill: rgba(0, 0, 255, 0.2);
   stroke: rgba(0, 0, 255, 0.5);
   stroke-width: 1px;
+  cursor: pointer;
+}
+.convex-hull.selected {
+  fill: rgba(255, 0, 0, 0.2);
+  stroke: rgba(255, 0, 0, 0.5);  
 }
 
 @neuron-white: #FFFFFF;
