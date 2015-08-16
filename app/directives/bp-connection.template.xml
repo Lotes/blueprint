@@ -1,57 +1,20 @@
-<g>  
-  <g     
-    ng-class="{selected: state.isSelected}"
+<g class="connection">  
+  <g ng-class="{ selected: state.isSelected }">
+    <g 
+      ng-repeat="segment in anchorSegments" 
+      ng-switch="segment.type"
+      bp-selectable="data"
+      on-selection-changed="state.isSelected = $selected"
+      ng-style="{ 'marker-end': $last ? 'url(#marker-connection-activate)' : 'none' }"
     >
-    <g ng-if="data.anchors != null &amp;&amp; data.anchors.length &gt; 0">
-      <!-- last segment -->
-      <path 
-        class="connection"
-        bp-selectable="data" 
-        selection-type="connection" 
-        on-selection-changed="state.isSelected = $selected"
-        ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
-        ng-attr-d="{{ 'M'+(data.anchors[data.anchors.length-1].position | coordinate)+' Q'+(data.anchors[data.anchors.length-1].position | coordinateAdd : data.anchors[data.anchors.length-1].out.position | coordinate)+' '+(destinationPosition | coordinate) }}" 
-        ng-mousedown="onMouseDown($event, data.anchors.length)"
-      />
-      <!-- first segment -->
-      <path 
-        class="connection"
-        bp-selectable="data" 
-        selection-type="connection" 
-        on-selection-changed="state.isSelected = $selected"
-        ng-attr-d="{{ 'M'+(sourcePosition | coordinate)+' Q'+(data.anchors[0].position | coordinateAdd : data.anchors[0].in.position | coordinate)+' '+(data.anchors[0].position | coordinate) }}" 
-        ng-mousedown="onMouseDown($event, 0)"
-      />    
-      <!-- all other segments in between -->
-      <path 
-        ng-repeat="anchor in data.anchors"
-        ng-if="!$first"
-        class="connection"
-        bp-selectable="data" 
-        selection-type="connection" 
-        on-selection-changed="state.isSelected = $selected"
-        ng-attr-d="{{ 'M'+(data.anchors[$index-1].position | coordinate)+' C'+(data.anchors[$index-1].position | coordinateAdd : data.anchors[$index-1].out.position | coordinate)+' '+(data.anchors[$index].position | coordinateAdd : data.anchors[$index].in.position | coordinate)+' '+(data.anchors[$index].position | coordinate) }}" 
-        ng-mousedown="onMouseDown($event, $index)"
-      />            
-      <!-- anchors  -->
-      <bp-anchor 
-        ng-repeat="anchor in data.anchors"
-        anchor="anchor"/>
+      <path ng-switch-when="L" ng-attr-d="{{ 'M'+(segment.source | coordinate)+' L'+(segment.destination | coordinate) }}" />
+      <path ng-switch-when="Q" ng-attr-d="{{ 'M'+(segment.source | coordinate)+' Q'+(segment.handle | coordinate)+' '+(segment.destination | coordinate) }}" />
+      <path ng-switch-when="C" ng-attr-d="{{ 'M'+(segment.source | coordinate)+' C'+(segment.outHandle | coordinate)+' '+(segment.inHandle | coordinate)+' '+(segment.destination | coordinate) }}" />
     </g>
-    <g ng-if="data.anchors == null || data.anchors.length == 0">
-      <!-- only one segment  -->
-      <line 
-        class="connection"
-        bp-selectable="data" 
-        selection-type="connection" 
-        on-selection-changed="state.isSelected = $selected"
-        ng-style="{ 'marker-end': 'url(#marker-connection-'+source.variables.type+')'}"
-        ng-attr-x1="{{sourcePosition[0]}}" 
-        ng-attr-y1="{{sourcePosition[1]}}" 
-        ng-attr-x2="{{destinationPosition[0]}}" 
-        ng-attr-y2="{{destinationPosition[1]}}" 
-        ng-mousedown="onMouseDown($event, 0)"
-        />
+    <g ng-if="canEdit">
+      <g ng-repeat="anchor in data.$attributes.anchors.$models">
+        <bp-anchor anchor="anchor" />
+      </g>
     </g>
   </g>  
 </g>

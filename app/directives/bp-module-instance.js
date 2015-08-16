@@ -10,11 +10,12 @@ angular
         data: '=instance',
         canEdit: '@editable'
       },
-      controller: function($scope) { 
+      controller: function($scope, $element) { 
         var self = this;
         
         this.isRoot = function() { return $scope.data.get('parentModule') === null; };
-        this.getModuleInstance = function() { return $scope.data; };        
+        this.getModuleInstance = function() { return $scope.data; };
+        this.getElement = function() { return $element[0]; };
         
         var childControllers = {};
         this.getNodeType = function() { return $scope.data.get('className'); };

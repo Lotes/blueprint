@@ -45,53 +45,10 @@
         "node": ["act"],
         "connector": "default"
       },
-      "anchors": [
-        {
-          "in": {
-            "position": [
-              116.27553482998916,
-              80.49844718999249
-            ]
-          },
-          "out": {
-            "position": [
-              -156,
-              -108
-            ]
-          },
-          "position": [
-            275,
-            700
-          ],
-          "$$hashKey": "object:43"
-        },
-        {
-          "in": {
-            "position": [
-              -167.0230340701412,
-              -37.004136120229155
-            ]
-          },
-          "out": {
-            "position": [
-              86.36093989630703,
-              19.133360815681492
-            ]
-          },
-          "position": [
-            400,
-            375
-          ],
-          "$$hashKey": "object:44"
-        }
-      ],
+      "anchors": [],
       "destination": {
         "node": ["inh"],
         "connector": "default"
-      },
-      "variables": {
-        "weight": 123456,
-        "level": 0
       },
       "$$hashKey": "object:23"
     },
@@ -115,8 +72,8 @@
             ]
           },
           "position": [
-            875,
-            450
+            -100,
+            -100
           ],
           "$$hashKey": "object:52"
         }
@@ -124,10 +81,6 @@
       "destination": {
         "node": ["act"],
         "connector": "default"
-      },
-      "variables": {
-        "weight": 123456,
-        "level": 0
       },
       "$$hashKey": "object:24"
     }

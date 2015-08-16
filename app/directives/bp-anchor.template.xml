@@ -2,14 +2,13 @@
   <rect   
     ng-class="{ selected: selections['main'] }"
     bp-draggable="data"
-    selection-type="anchor"
     on-selection-changed="selectionChanged('main', $selected)"
-    ng-attr-x="{{data.position[0] - size/2}}"
-    ng-attr-y="{{data.position[1] - size/2}}"  
+    ng-attr-x="{{data.$attributes.position.$attributes.x - size/2}}"
+    ng-attr-y="{{data.$attributes.position.$attributes.y - size/2}}"  
     ng-attr-width="{{size}}"
     ng-attr-height="{{size}}"
   />
-  <g ng-show="isSelected">
+  <!--g ng-show="isSelected">
       <g ng-repeat="side in ['in', 'out']">
           <line
             class="anchor-line"
@@ -30,5 +29,5 @@
             ng-attr-height="{{size}}"
           />
       </g>
-  </g>
+  </g-->
 </g>

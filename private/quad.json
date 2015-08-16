@@ -18,5 +18,15 @@
       ]
     }
   },
-  "connections": []
+  "connections": [{
+    "source": {
+      "node": ["1"],
+      "connector": "default"
+    },
+    "anchors": [],
+    "destination": {
+      "node": ["2"],
+      "connector": "default"
+    }
+  }]
 }

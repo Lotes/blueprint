@@ -5,16 +5,17 @@ angular
       templateNamespace: 'svg',
       restrict: 'E',
       replace: true,
-      require: ['^bpEditor', '^bpModuleInstance', 'bpConnection'],
+      require: ['^bpEditor', '^bpModuleInstance'],
       scope: {
         data: '=connection',
         canEdit: '@editable'
       },
       templateUrl: 'app/directives/bp-connection.template.xml',
       link: function($scope, $element, $attrs, controllers) {
+        $scope.canEdit = $scope.canEdit === 'true';
+        
         var editorController = controllers[0];
         var instanceController = controllers[1]; 
-        var thisController = controllers[2]; 
         
         function getConnector(endPoint) {
           var path = endPoint.get('path');
@@ -23,9 +24,82 @@ angular
         }
         var sourceConnector = getConnector($scope.data.get('source'));
         var destinationConnector = getConnector($scope.data.get('destination'));
-        /*//selection
+        //anchors
+        $scope.anchorSegments = [];
+        function updateSegments() {
+          var result = [];  
+          var anchors = $scope.data.get('anchors');
+          if(anchors.length > 0) {
+            var first = anchors.at(0);
+          
+            result.push({
+              type: 'Q',
+              source: $scope.sourcePosition,  
+              handle: $filter('coordinateAdd')(first.get('position').toArray(), first.get('inHandle').toArray()), 
+              destination: first.get('position').toArray()
+            });
+            
+            for(var index=1; index<anchors.length; index++) {
+              var second = anchors.at(index);
+              var sourcePosition = first.get('position').toArray();
+              var destinationPosition = second.get('position').toArray();
+              result.push({
+                type: 'C',
+                source: sourcePosition,  
+                outHandle: $filter('coordinateAdd')(sourcePosition, first.get('outHandle').toArray()),
+                inHandle: $filter('coordinateAdd')(destinationPosition, second.get('inHandle').toArray()),
+                destination: destinationPosition
+              });
+              first = second;
+            }
+            
+            var last = anchors.at(anchors.length-1);
+            result.push({
+              type: 'Q',
+              source: last.get('position').toArray(),
+              handle: $filter('coordinateAdd')(last.get('position').toArray(), last.get('outHandle').toArray()), 
+              destination: $scope.destinationPosition
+            });
+          } else {
+            result.push({
+              type: 'L',
+              source: $scope.sourcePosition,  
+              destination: $scope.destinationPosition
+            });
+          }
+          $scope.anchorSegments = result;
+        }
+        function updateSource() {
+          var anchors = $scope.data.get('anchors');
+          var anchorPosition = destinationConnector.getCenter();
+          if(anchors.length > 0) {
+            var first = anchors.at(0);
+            anchorPosition = $filter('coordinateAdd')(first.get('position').toArray(), first.get('inHandle').toArray());
+          }
+          $scope.sourcePosition = sourceConnector.connectAt(anchorPosition);
+        } 
+        function updateDestination() {
+          var anchors = $scope.data.get('anchors');
+          var anchorPosition = sourceConnector.getCenter();
+          if(anchors.length > 0) {
+            var last = anchors.at(anchors.length - 1);
+            anchorPosition = $filter('coordinateAdd')(last.get('position').toArray(), last.get('outHandle').toArray());
+          }
+          $scope.destinationPosition = destinationConnector.connectAt(anchorPosition);
+        }
+        //$scope.$watch('source.position', updateSource);
+        //$scope.$watch('destination.position', updateDestination);
+        //$scope.$watch('data.anchors[0].position', updateSource);
+        //$scope.$watch('data.anchors[0].in.position', updateSource);
+        //$scope.$watch('data.anchors[data.anchors.length-1].position', updateDestination);
+        //$scope.$watch('data.anchors[data.anchors.length-1].out.position', updateDestination);
+        updateSource();
+        updateDestination();
+        updateSegments();
+        
+        //selection
         $scope.state = { isSelected: false };
-        //add anchors
+        /*//add anchors
         $scope.onMouseDown = function($event, index) {
           if(editorController.getMode() !== 'anchor')
             return;
@@ -38,31 +112,6 @@ angular
             'out': { position: [-100,-100] }
           });
         };*/
-        //anchors
-        /*var parentCtrl = editorController;
-        function updateSource() {
-          var anchors = $scope.data.get('anchors');
-          var anchorPosition = 
-            anchors.length > 0 ? 
-              $filter('coordinateAdd')(anchors[0].position, anchors[0]['in'].position)
-              : $scope.destination.position;
-          $scope.sourcePosition = sourceConnectorController.connectAt(anchorPosition);
-        } 
-        function updateDestination() {
-          var anchorPosition = 
-            $scope.data.anchors && $scope.data.anchors.length > 0 ? 
-              $filter('coordinateAdd')($scope.data.anchors[$scope.data.anchors.length-1].position, $scope.data.anchors[$scope.data.anchors.length-1]['out'].position)
-              : $scope.source.position;
-          $scope.destinationPosition = destinationConnectorController.connectAt(anchorPosition);
-        }
-        $scope.$watch('source.position', updateSource);
-        $scope.$watch('destination.position', updateDestination);
-        $scope.$watch('data.anchors[0].position', updateSource);
-        $scope.$watch('data.anchors[0].in.position', updateSource);
-        $scope.$watch('data.anchors[data.anchors.length-1].position', updateDestination);
-        $scope.$watch('data.anchors[data.anchors.length-1].out.position', updateDestination);
-        updateSource();
-        updateDestination();*/
       }
     };
   });

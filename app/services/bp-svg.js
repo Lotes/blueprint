@@ -32,6 +32,17 @@ angular
         var result = point.matrixTransform(matrix);
         return [result.x, result.y];
       },
+      getRelativePosition: function(element, parentElement, localPosition) {
+        var root = element;
+        while(root.nodeName != 'svg')
+          root = root.parentNode;
+        var point = root.createSVGPoint();
+        point.x = localPosition[0];
+        point.y = localPosition[1];
+        var matrix = element.getTransformToElement(parentElement);        
+        var result = point.matrixTransform(matrix);
+        return [result.x, result.y];
+      },
       getConvexHull: function(points) {
         function cross(o, a, b) {
           return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])

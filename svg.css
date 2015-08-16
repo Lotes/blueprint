@@ -62,3 +62,13 @@
   stroke-width: 2px;
   fill: none;
 }
+.anchor {
+  cursor: pointer;
+  stroke-width: 1px;
+  stroke: rgba(0, 0, 255, 0.5);
+  fill: rgba(0, 0, 255, 0.1);
+}
+.anchor .selected {
+  stroke: rgba(255, 0, 0, 0.5);
+  fill: rgba(255, 0, 0, 0.1);
+}

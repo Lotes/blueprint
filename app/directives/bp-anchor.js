@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpAnchor', function(registry) {
+  .directive('bpAnchor', function() {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -11,8 +11,8 @@ angular
       },
       templateUrl: 'app/directives/bp-anchor.template.xml',
       link: function($scope, $element, $attrs, editorController) {
-        $scope.selections = {};
         $scope.size = 6;  
+        $scope.selections = {};
         $scope.isSelected = false;
         $scope.selectionChanged = function(point, selected) {
           $scope.selections[point] = selected;          
@@ -21,7 +21,7 @@ angular
               for(var name in $scope.selections)
                 $scope.isSelected |= $scope.selections[name];
         };
-        function align(me) {
+        /*function align(me) {
           var you = me === 'in' ? 'out' : 'in';
           var myData = $scope.data[me];
           var yourData = $scope.data[you];
@@ -36,7 +36,7 @@ angular
           ];
         }
         $scope.$watch('data.in.position', function() { if($scope.selections['in']) align('out'); });
-        $scope.$watch('data.out.position', function() { if($scope.selections['out']) align('in'); });
+        $scope.$watch('data.out.position', function() { if($scope.selections['out']) align('in'); });*/
       }
     };
   });

@@ -1,6 +1,4 @@
-<g 
-  class="module-instance"
-  >
+<g class="module-instance">
   <path 
     ng-if="convexHull!=null"
     ng-attr-d="{{ convexHull | pathify }}"
@@ -16,7 +14,7 @@
     <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
     <bp-neuron ng-switch-when="Neuron" neuron="node" editable="{{canEdit}}"/>
   </g>  
-  <!--g ng-repeat="connection in data.$attributes.connections.$models">
-    <bp-connection nodes="data.nodes" connection="connection"/>
-  </g-->
+  <g ng-repeat="connection in data.$attributes.module.$attributes.connections.$models">
+    <bp-connection connection="connection" editable="{{canEdit}}"/>
+  </g>
 </g>
