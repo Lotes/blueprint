@@ -7,20 +7,19 @@
     on-selection-changed="selectionChanged($selected)"
     ng-switch="data.$attributes.type"
     >
-    <g ng-switch-when="activate" class="neuron-activate">
+    <g ng-switch-when="activate" class="neuron-activate" bp-connector="default">
       <circle cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
     </g>
-    <g ng-switch-when="inhibit" class="neuron-inhibit">
+    <g ng-switch-when="inhibit" class="neuron-inhibit" bp-connector="default">
       <circle cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
     </g>
-    <g ng-switch-when="associate" class="neuron-associate">
+    <g ng-switch-when="associate" class="neuron-associate" bp-connector="default">
       <circle class="outer" cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
       <circle class="inner" cx="0" cy="0" ng-attr-r="{{ innerRadius }}" />
     </g>
-    <g ng-switch-when="disassociate" class="neuron-disassociate">
+    <g ng-switch-when="disassociate" class="neuron-disassociate" bp-connector="default">
       <circle class="outer" cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />
       <circle class="inner" cx="0" cy="0" ng-attr-r="{{ innerRadius }}" />
     </g>
   </g>    
-  <!--text x="0" y="0" fill="red" stroke="none">{{data.$attributes.name}}</text-->
 </g>

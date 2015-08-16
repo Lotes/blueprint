@@ -38,7 +38,7 @@ angular
           },
           'deleteSelection': function() {
             if($scope.isSelected 
-               && (instanceController.isRoot() || instanceController.getModuleInstance() === $scope.data) 
+               && (instanceController.isRoot() || instanceController.getModuleInstance() === $scope.data) //TODO that seems to be wrong!
                && $scope.data.remove
             ) {  
               $scope.data.remove();

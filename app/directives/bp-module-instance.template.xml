@@ -16,7 +16,6 @@
     <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
     <bp-neuron ng-switch-when="Neuron" neuron="node" editable="{{canEdit}}"/>
   </g>  
-  <!--text x="0" y="0" fill="red" stroke="none">{{data.$attributes.name}}</text-->
   <!--g ng-repeat="connection in data.$attributes.connections.$models">
     <bp-connection nodes="data.nodes" connection="connection"/>
   </g-->
