@@ -53,7 +53,7 @@
   fill: none;
   cursor: pointer;
 }
-.selected .connection {
+.connection .selected {
   stroke: red;
 }
 .connection-tip-activate,

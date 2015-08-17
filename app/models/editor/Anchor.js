@@ -1,12 +1,12 @@
 angular
   .module('blueprint')
-  .factory('Anchor', function(NgBackboneModel, Position) {
+  .factory('Anchor', function(NgBackboneModel, Position, AnchorHandle) {
     return NgBackboneModel.extend({
       defaults: {
         parentConnection: null,
         position: new Position(),
-        inHandle: new Position(),
-        outHandle: new Position()
+        inHandle: new AnchorHandle(),
+        outHandle: new AnchorHandle()
       }
     });
   })

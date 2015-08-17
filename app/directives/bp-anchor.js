@@ -11,7 +11,7 @@ angular
       },
       templateUrl: 'app/directives/bp-anchor.template.xml',
       link: function($scope, $element, $attrs, editorController) {
-        $scope.size = 6;  
+        $scope.size = 10;  
         $scope.selections = {};
         $scope.isSelected = false;
         $scope.selectionChanged = function(point, selected) {

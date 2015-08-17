@@ -87,12 +87,10 @@ angular
           }
           $scope.destinationPosition = destinationConnector.connectAt(anchorPosition);
         }
-        //$scope.$watch('source.position', updateSource);
-        //$scope.$watch('destination.position', updateDestination);
-        //$scope.$watch('data.anchors[0].position', updateSource);
-        //$scope.$watch('data.anchors[0].in.position', updateSource);
-        //$scope.$watch('data.anchors[data.anchors.length-1].position', updateDestination);
-        //$scope.$watch('data.anchors[data.anchors.length-1].out.position', updateDestination);
+        $scope.data.get('anchors').on('change', function() {
+            try { updateSegments(); } catch(ex) { }
+            $scope.$apply();
+        });
         updateSource();
         updateDestination();
         updateSegments();

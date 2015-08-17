@@ -1,7 +1,7 @@
 angular
   .module('blueprint')
   .factory('bpModuleRepository', function(Module, $q, $http, NodeCollection, ConnectionCollection, Node, 
-      Position, Connection, Anchor, AnchorCollection, Neuron, ModuleInstance, ConnectionEndPoint) {
+      Position, Connection, Anchor, AnchorCollection, AnchorHandle, Neuron, ModuleInstance, ConnectionEndPoint) {
     
     function parseModule(res) {
       var deferred = $q.defer();
@@ -58,8 +58,8 @@ angular
           return new Anchor({
             parentConnection: connection,
             position: new Position({ x: anchor.position[0], y: anchor.position[1] }),
-            inHandle: new Position({ x: anchor['in'].position[0], y: anchor['in'].position[1] }),
-            outHandle: new Position({ x: anchor['out'].position[0], y: anchor['out'].position[1] })
+            inHandle: new AnchorHandle({ position: new Position({ x: anchor['in'].position[0], y: anchor['in'].position[1] }) }),
+            outHandle: new AnchorHandle({ position: new Position({ x: anchor['out'].position[0], y: anchor['out'].position[1] }) })
           });
         });
         connection.set({ anchors: new AnchorCollection(anchors) });

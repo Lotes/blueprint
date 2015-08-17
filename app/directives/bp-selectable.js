@@ -27,7 +27,7 @@ angular
           'unselect': function() {
             select(false);
           },
-          'selectRectangle': function(selectionRect) {          
+          'selectRectangle': function(selectionRect) {
             var element = $element[0];
             var localRect = element.getBBox();
             var localPosition = [localRect.x, localRect.y];

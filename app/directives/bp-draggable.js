@@ -12,7 +12,9 @@ angular
       restrict: 'A',
       require: parentDirective.require,
       scope: scope,
-      link: function($scope, $element, $attrs, editorController) {
+      link: function($scope, $element, $attrs, controllers) {
+        var editorController = controllers[0];
+        var instanceController = controllers[1];
         //call parent
         parentDirective.link.apply(parentDirective, arguments);
         //do dragging stuff
@@ -31,11 +33,11 @@ angular
           oldDraggablePosition = null;
           oldMousePosition = null;          
         });
-        $scope.$on('mousemove', function(event, args) {
+        editorController.on('select:mousemove', function(event) {
           if(editorController.getMode() !== 'select' || !$scope.isSelected || oldMousePosition == null)
             return;
-          args.preventDefault();
-          var newMousePosition = [args.clientX, args.clientY];
+          event.preventDefault();
+          var newMousePosition = [event.clientX, event.clientY];
           var newDraggablePosition = [0, 0];
           for(var index=0; index<2; index++) {
             var delta = newMousePosition[index] - oldMousePosition[index]; 

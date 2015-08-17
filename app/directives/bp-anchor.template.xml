@@ -8,26 +8,25 @@
     ng-attr-width="{{size}}"
     ng-attr-height="{{size}}"
   />
-  <!--g ng-show="isSelected">
-      <g ng-repeat="side in ['in', 'out']">
-          <line
-            class="anchor-line"
-            ng-attr-x1="{{data.position[0]}}"
-            ng-attr-y1="{{data.position[1]}}"  
-            ng-attr-x2="{{data.position[0] + data[side].position[0]}}"
-            ng-attr-y2="{{data.position[1] + data[side].position[1]}}"  
-          />
-          <rect    
-            ng-class="{ selected: selections[side] }"
-            bp-draggable="data[side]"
-            selection-type="anchor"
-            on-selection-changed="selectionChanged(side, $selected)"
-            inherit-snapping="false"
-            ng-attr-x="{{data.position[0] + data[side].position[0] - size/2}}"
-            ng-attr-y="{{data.position[1] + data[side].position[1] - size/2}}"  
-            ng-attr-width="{{size}}"
-            ng-attr-height="{{size}}"
-          />
-      </g>
-  </g-->
+  <g ng-show="isSelected">
+    <g ng-repeat="side in ['inHandle', 'outHandle']">
+      <line
+        class="anchor-line"
+        ng-attr-x1="{{data.$attributes.position.$attributes.x}}"
+        ng-attr-y1="{{data.$attributes.position.$attributes.y}}"  
+        ng-attr-x2="{{data.$attributes.position.$attributes.x + data.$attributes[side].$attributes.position.$attributes.x}}"
+        ng-attr-y2="{{data.$attributes.position.$attributes.y + data.$attributes[side].$attributes.position.$attributes.y}}"  
+      />
+      <rect    
+        ng-class="{ selected: selections[side] }"
+        bp-draggable="data.$attributes[side]"
+        on-selection-changed="selectionChanged(side, $selected)"
+        inherit-snapping="false"
+        ng-attr-x="{{data.$attributes.position.$attributes.x + data.$attributes[side].$attributes.position.$attributes.x - size/2}}"
+        ng-attr-y="{{data.$attributes.position.$attributes.y + data.$attributes[side].$attributes.position.$attributes.y - size/2}}"  
+        ng-attr-width="{{size}}"
+        ng-attr-height="{{size}}"
+      />
+    </g>
+  </g>
 </g>
