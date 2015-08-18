@@ -29,12 +29,14 @@ angular
           },
           'selectRectangle': function(selectionRect) {
             var element = $element[0];
-            var localRect = element.getBBox();
-            var localPosition = [localRect.x, localRect.y];
-            var absolutePosition = bpSvg.getAbsolutePosition(element, localPosition);
-            var absoluteRect = [absolutePosition[0], absolutePosition[1], localRect.width, localRect.height];
-            if(bpSvg.rectIntersectsRect(selectionRect, absoluteRect)) 
-              select(true);
+            try {
+              var localRect = element.getBBox();
+              var localPosition = [localRect.x, localRect.y];
+              var absolutePosition = bpSvg.getAbsolutePosition(element, localPosition);
+              var absoluteRect = [absolutePosition[0], absolutePosition[1], localRect.width, localRect.height];
+              if(bpSvg.rectIntersectsRect(selectionRect, absoluteRect)) 
+                select(true);
+            } catch(ex) {} //HACK: happens in Firefox if element is NOT_FOUND_ERR visible
           },
           'deleteSelection': function() {
             if($scope.isSelected 
