@@ -15,12 +15,7 @@ angular
         var self = this;
         _.extend(self, Backbone.Events);
         //root object
-        $scope.rootInstance = new ModuleInstance({
-          module: $scope.data,
-          name: null,
-          parentModule: null,
-          position: new Position({ x: 0, y: 0 })
-        });
+        $scope.rootInstance = new ModuleInstance(null, $scope.data);
         //mode
         this.getMode = function() { return $scope.mode; };
         this.setMode = function(mode) { return $scope.mode = mode; };

@@ -1,11 +1,9 @@
-<g 
-  class="neuron"
-  >
+<g class="neuron">
   <g 
     bp-draggable="data"
     ng-class="{ selected: isSelected }"
     on-selection-changed="selectionChanged($selected)"
-    ng-switch="data.$attributes.type"
+    ng-switch="data.type"
     >
     <g ng-switch-when="activate" class="neuron-activate" bp-connector="default">
       <circle cx="0" cy="0" ng-attr-r="{{ outerRadius }}" />

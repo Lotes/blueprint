@@ -25,7 +25,7 @@ angular
           event.preventDefault();
           isMouseDown = true;
           oldMousePosition = [event.clientX, event.clientY];          
-          oldDraggablePosition = $scope.data.$attributes.position.toArray();          
+          oldDraggablePosition = $scope.data.position.toArray();          
         });
         $element.bind('mouseup', function(event) {
           event.preventDefault();
@@ -43,7 +43,7 @@ angular
             var delta = newMousePosition[index] - oldMousePosition[index]; 
             newDraggablePosition[index] = oldDraggablePosition[index] + delta;
           }
-          $scope.data.$attributes.position.fromArray($scope.snapping === 'false' ? newDraggablePosition : editorController.snapPosition(newDraggablePosition));
+          $scope.data.position.fromArray($scope.snapping === 'false' ? newDraggablePosition : editorController.snapPosition(newDraggablePosition));
           $scope.$apply();
         });
       }

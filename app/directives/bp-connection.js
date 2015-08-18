@@ -18,46 +18,46 @@ angular
         var instanceController = controllers[1]; 
         
         function getConnector(endPoint) {
-          var path = endPoint.get('path');
-          var connectorName = endPoint.get('connector');
+          var path = endPoint.path;
+          var connectorName = endPoint.connector;
           return instanceController.getConnector(path, connectorName);
         }
-        var sourceConnector = getConnector($scope.data.get('source'));
-        var destinationConnector = getConnector($scope.data.get('destination'));
+        var sourceConnector = getConnector($scope.data.source);
+        var destinationConnector = getConnector($scope.data.destination);
         //anchors
         $scope.anchorSegments = [];
         function updateSegments() {
           var result = [];  
-          var anchors = $scope.data.get('anchors');
+          var anchors = $scope.data.anchors;
           if(anchors.length > 0) {
-            var first = anchors.at(0);
+            var first = anchors[0];
           
             result.push({
               type: 'Q',
               source: $scope.sourcePosition,  
-              handle: $filter('coordinateAdd')(first.get('position').toArray(), first.get('inHandle').toArray()), 
-              destination: first.get('position').toArray()
+              handle: $filter('coordinateAdd')(first.position.toArray(), first.inHandle.position.toArray()), 
+              destination: first.position.toArray()
             });
             
             for(var index=1; index<anchors.length; index++) {
-              var second = anchors.at(index);
-              var sourcePosition = first.get('position').toArray();
-              var destinationPosition = second.get('position').toArray();
+              var second = anchors[index];
+              var sourcePosition = first.position.toArray();
+              var destinationPosition = second.position.toArray();
               result.push({
                 type: 'C',
                 source: sourcePosition,  
-                outHandle: $filter('coordinateAdd')(sourcePosition, first.get('outHandle').toArray()),
-                inHandle: $filter('coordinateAdd')(destinationPosition, second.get('inHandle').toArray()),
+                outHandle: $filter('coordinateAdd')(sourcePosition, first.outHandle.position.toArray()),
+                inHandle: $filter('coordinateAdd')(destinationPosition, second.inHandle.toArray()),
                 destination: destinationPosition
               });
               first = second;
             }
             
-            var last = anchors.at(anchors.length-1);
+            var last = anchors[anchors.length-1];
             result.push({
               type: 'Q',
-              source: last.get('position').toArray(),
-              handle: $filter('coordinateAdd')(last.get('position').toArray(), last.get('outHandle').toArray()), 
+              source: last.position.toArray(),
+              handle: $filter('coordinateAdd')(last.position.toArray(), last.outHandle.position.toArray()), 
               destination: $scope.destinationPosition
             });
           } else {
@@ -70,27 +70,24 @@ angular
           $scope.anchorSegments = result;
         }
         function updateSource() {
-          var anchors = $scope.data.get('anchors');
+          var anchors = $scope.data.anchors;
           var anchorPosition = destinationConnector.getCenter();
           if(anchors.length > 0) {
-            var first = anchors.at(0);
-            anchorPosition = $filter('coordinateAdd')(first.get('position').toArray(), first.get('inHandle').toArray());
+            var first = anchors[0];
+            anchorPosition = $filter('coordinateAdd')(first.position.toArray(), first.inHandle.position.toArray());
           }
           $scope.sourcePosition = sourceConnector.connectAt(anchorPosition);
         } 
         function updateDestination() {
-          var anchors = $scope.data.get('anchors');
+          var anchors = $scope.data.anchors;
           var anchorPosition = sourceConnector.getCenter();
           if(anchors.length > 0) {
-            var last = anchors.at(anchors.length - 1);
-            anchorPosition = $filter('coordinateAdd')(last.get('position').toArray(), last.get('outHandle').toArray());
+            var last = anchors[anchors.length - 1];
+            anchorPosition = $filter('coordinateAdd')(last.position.toArray(), last.outHandle.position.toArray());
           }
           $scope.destinationPosition = destinationConnector.connectAt(anchorPosition);
         }
-        $scope.data.get('anchors').on('change', function() {
-            try { updateSegments(); } catch(ex) { }
-            $scope.$apply();
-        });
+        //TODO watchers
         updateSource();
         updateDestination();
         updateSegments();

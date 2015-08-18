@@ -7,14 +7,14 @@
     on-selection-changed="selectionChanged($selected)"
     />
   <g 
-    ng-repeat="node in data.$attributes.module.$attributes.nodes.$models" 
-    ng-attr-transform="{{ 'translate('+node.$attributes.position.$attributes.x+' '+node.$attributes.position.$attributes.y+')' }}"
-    ng-switch="node.$attributes.className"
+    ng-repeat="node in data.module.nodes" 
+    ng-attr-transform="{{ 'translate('+node.position.coordinates[0]+' '+node.position.coordinates[1]+')' }}"
+    ng-switch="node.className"
     >
-    <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
     <bp-neuron ng-switch-when="Neuron" neuron="node" editable="{{canEdit}}"/>
+    <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
   </g>  
-  <g ng-repeat="connection in data.$attributes.module.$attributes.connections.$models">
+  <g ng-repeat="connection in data.module.connections">
     <bp-connection connection="connection" editable="{{canEdit}}"/>
   </g>
 </g>

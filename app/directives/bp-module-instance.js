@@ -13,12 +13,12 @@ angular
       controller: function($scope, $element) { 
         var self = this;
         
-        this.isRoot = function() { return $scope.data.get('parentModule') === null; };
+        this.isRoot = function() { return $scope.data.parentModule === null; };
         this.getModuleInstance = function() { return $scope.data; };
         this.getElement = function() { return $element[0]; };
         
         var childControllers = {};
-        this.getNodeType = function() { return $scope.data.get('className'); };
+        this.getNodeType = function() { return $scope.data.className; };
         this.addChild = function(name, controller) { childControllers[name] = controller; };
         this.getChild = function(name) { return childControllers[name]; };
         this.removeChild = function(name) { delete childControllers[name]; };
@@ -38,16 +38,16 @@ angular
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
         $scope.convexHull = null;
-        if($scope.canEdit !== 'true') 
-          $scope.convexHull = $scope.data.getConvexHull();
+        //if($scope.canEdit !== 'true') 
+          //$scope.convexHull = $scope.data.getConvexHull();
       },
       link: function($scope, $element, $attrs, controllers) {
         var editorController = controllers[0];
         var parentController = controllers[1];
         var thisController = controllers[2];
-        parentController.addChild($scope.data.get('name'), thisController);
+        parentController.addChild($scope.data.name, thisController);
         $scope.$on('$destroy', function() {
-          parentController.removeChild($scope.data.get('name'), thisController);
+          parentController.removeChild($scope.data.name);
         });
       },
       templateUrl: 'app/directives/bp-module-instance.template.xml',

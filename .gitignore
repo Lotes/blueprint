@@ -4,3 +4,4 @@
 /app/models/editor.js
 /app/models/worker.js
 /svg.min.css
+/app/services/editor.js

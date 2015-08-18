@@ -26,9 +26,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    coffee: {
+      editor: {
+        files: {
+          'app/services/editor.js': 'app/services/editor.coffee'
+        }
+      }
+    },
     watch: {
-      files: ['app/models/**/*.hx', 'svg.less'],
-      tasks: [ 'haxe:worker', 'less:svg' ]
+      files: ['app/models/**/*.hx', 'svg.less', 'app/services/**/*.coffee'],
+      tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor' ]
     }
   });
 
@@ -37,8 +44,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-haxe');
   grunt.loadNpmTasks('grunt-contrib-less');
-
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  
   // Default task(s).
-  grunt.registerTask('default', ['haxe', 'less', 'php']);
-
+  grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);
 };

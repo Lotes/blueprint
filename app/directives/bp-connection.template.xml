@@ -12,7 +12,7 @@
       <path ng-switch-when="C" ng-attr-d="{{ 'M'+(segment.source | coordinate)+' C'+(segment.outHandle | coordinate)+' '+(segment.inHandle | coordinate)+' '+(segment.destination | coordinate) }}" />
     </g>
     <g ng-if="canEdit">
-      <g ng-repeat="anchor in data.$attributes.anchors.$models">
+      <g ng-repeat="anchor in data.anchors">
         <bp-anchor anchor="anchor" />
       </g>
     </g>

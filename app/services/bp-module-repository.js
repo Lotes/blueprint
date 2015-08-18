@@ -1,75 +1,69 @@
 angular
   .module('blueprint')
-  .factory('bpModuleRepository', function(Module, $q, $http, NodeCollection, ConnectionCollection, Node, 
-      Position, Connection, Anchor, AnchorCollection, AnchorHandle, Neuron, ModuleInstance, ConnectionEndPoint) {
+  .factory('bpModuleRepository', function(Module, $q, $http, Node, 
+      Position, Connection, Anchor, AnchorHandle, Neuron, ModuleInstance, ConnectionEndPoint) {
     
     function parseModule(res) {
       var deferred = $q.defer();
-      var result = new Module({ id: res.name });
-      var description = res.description || "";
+      var result = new Module(res.name);
       var promises = [];
-      var nodes = new NodeCollection(_.map(res.nodes, function(value, key) {
-        var attributes = {
-          name: key,
-          parentModule: result,
-          position: new Position({ 
-            x: value.position[0],
-            y: value.position[1]
-          })
-        };
+      //add nodes
+      var nodes = _.map(res.nodes, function(value, key) {
+        var name = key;
+        var parentModule = result;
+        var position = new Position(value.position[0], value.position[1]);
         switch(value.type) {
           case 'neuron-activate':
-            attributes.type = 'activate';
-            return new Neuron(attributes);  
+            var node = new Neuron(name, 'activate');
+            node.parentModule = parentModule;
+            node.position = position;
+            return node;  
           case 'neuron-inhibit':
-            attributes.type = 'inhibit';
-            return new Neuron(attributes);  
+            var node = new Neuron(name, 'inhibit');
+            node.parentModule = parentModule;
+            node.position = position;
+            return node;  
           case 'neuron-associate':
-            attributes.type = 'associate';
-            return new Neuron(attributes);  
+            var node = new Neuron(name, 'associate');
+            node.parentModule = parentModule;
+            node.position = position;
+            return node;  
           case 'neuron-disassociate':
-            attributes.type = 'disassociate';
-            return new Neuron(attributes);  
+            var node = new Neuron(name, 'disassociate');
+            node.parentModule = parentModule;
+            node.position = position;
+            return node;  
           case 'module-instance':
-            var instance = new ModuleInstance(attributes);
+            var instance = new ModuleInstance(name);
+            instance.parentModule = parentModule;
+            instance.position = position;
             var promise = repository.get(value.moduleName);
             promises.push(promise);
             promise
-              .then(function(module) { instance.set({ module: module }); },
+              .then(function(module) { instance.module = module; },
                     function(err) {  });
             return instance;
           default:
             throw new Error('Unknown node type: '+value.type);
         }
-      }));
+      });
+      //add connections
       var connections = _.map(res.connections, function(value) {
-        var connection = new Connection({
-          parentModule: self,
-          source: new ConnectionEndPoint({
-            path: value.source.node,
-            connector: value.source.connector
-          }),
-          destination: new ConnectionEndPoint({
-            path: value.destination.node,
-            connector: value.destination.connector
-          })
+        var connection = new Connection();
+        connection.parentModule = result;
+        connection.source = new ConnectionEndPoint(value.source.node, value.source.connector);
+        connection.destination = new ConnectionEndPoint(value.destination.node, value.destination.connector);
+        connection.anchors = _.map(value.anchors, function(anchor) {
+          var anchorObj = new Anchor(anchor.position[0], anchor.position[1]);
+          anchorObj.parentConnection = connection;
+          anchorObj.inHandle = new AnchorHandle(anchor['in'].position[0], anchor['in'].position[1]),
+          anchorObj.outHandle = new AnchorHandle(anchor['out'].position[0], anchor['out'].position[1])
+          return anchorObj;
         });
-        var anchors = _.map(value.anchors, function(anchor) {
-          return new Anchor({
-            parentConnection: connection,
-            position: new Position({ x: anchor.position[0], y: anchor.position[1] }),
-            inHandle: new AnchorHandle({ position: new Position({ x: anchor['in'].position[0], y: anchor['in'].position[1] }) }),
-            outHandle: new AnchorHandle({ position: new Position({ x: anchor['out'].position[0], y: anchor['out'].position[1] }) })
-          });
-        });
-        connection.set({ anchors: new AnchorCollection(anchors) });
         return connection;
       });
-      result.set({
-        description: description,
-        nodes: nodes,
-        connections: new ConnectionCollection(connections)
-      });
+      result.nodes = nodes;
+      result.connections = connections;
       if(promises.length == 0)
         deferred.resolve(result);
       else
