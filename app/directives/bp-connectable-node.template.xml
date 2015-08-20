@@ -1,0 +1,10 @@
+<g class="connectable-node">
+  <g 
+    bp-draggable="data"
+    ng-class="{ selected: isSelected }"
+    on-selection-changed="selectionChanged($selected)"
+    ng-switch="data.className"
+    >
+    <bp-neuron ng-switch-when="Neuron" neuron="data" editable="{{canEdit}}"/>
+  </g>    
+</g>

@@ -11,8 +11,8 @@
     ng-attr-transform="{{ 'translate('+node.position.coordinates[0]+' '+node.position.coordinates[1]+')' }}"
     ng-switch="node.className"
     >
-    <bp-neuron ng-switch-when="Neuron" neuron="node" editable="{{canEdit}}"/>
-    <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"/>
+    <bp-module-instance ng-switch-when="ModuleInstance" instance="node" editable="false"></bp-module-instance>
+    <bp-connectable-node ng-switch-default="" node="node" editable="{{canEdit}}"></bp-connectable-node>
   </g>  
   <g ng-repeat="connection in data.module.connections">
     <bp-connection connection="connection" editable="{{canEdit}}"/>

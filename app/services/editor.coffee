@@ -36,17 +36,10 @@ class Module
     @connections = []
     
 class Node
-  className: '(override me)'
+  className: '(abstract Node)'
   constructor: (@name) ->
     @parentModule = null;
     @position = new Position(0, 0)
-    @connectors = []
-  getConnector: (name) ->
-    _.find(@connectors, (connector) -> connector.name == name) || null
-  addConnector: (name) ->
-    connector = new Connector(name)
-    connector.parentNode = @
-    @connectors.push(connector)
   #getConvexHull: () -> [] #return a list of [x, y] positions, override me!!
   remove: () ->
     if(@parentModule)
@@ -80,7 +73,20 @@ class ModuleInstance extends Node
   }
   ###     
      
-class Neuron extends Node
+class ConnectableNode extends Node  
+  className: '(abstract ConnectableNode)'
+  constructor: (@name) ->
+    @parentModule = null;
+    @position = new Position(0, 0)
+    @connectors = []
+  getConnector: (name) ->
+    _.find(@connectors, (connector) -> connector.name == name) || null
+  addConnector: (name) ->
+    connector = new Connector(name)
+    connector.parentNode = @
+    @connectors.push(connector)
+    
+class Neuron extends ConnectableNode
   className: 'Neuron'
   constructor: (name, @type) ->
     super(name)
@@ -108,6 +114,7 @@ angular.module('blueprint')
   .factory('Connector', () -> Connector)
   .factory('Module', () -> Module)
   .factory('Node', () -> Node)
+  .factory('ConnectableNode', () -> ConnectableNode)
   .factory('Neuron', () -> Neuron)
   .factory('ModuleInstance', () -> ModuleInstance)
   ;

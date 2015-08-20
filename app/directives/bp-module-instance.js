@@ -19,7 +19,10 @@ angular
         
         var childControllers = {};
         this.getNodeType = function() { return $scope.data.className; };
-        this.addChild = function(name, controller) { childControllers[name] = controller; };
+        this.addChild = function(name, controller) { 
+          childControllers[name] = controller; 
+          //console.log($scope.data, 'add node "'+name+'" to instance node "'+$scope.data.name+'"');
+        };
         this.getChild = function(name) { return childControllers[name]; };
         this.removeChild = function(name) { delete childControllers[name]; };
         

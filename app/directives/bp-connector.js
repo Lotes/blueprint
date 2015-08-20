@@ -4,20 +4,22 @@ angular
     return {
       templateNamespace: 'svg',
       restrict: 'A',
-      require: ['^bpNeuron', 'bpConnector', '^bpModuleInstance'],
+      require: ['^bpConnectableNode', 'bpConnector', '^bpModuleInstance'],
       scope: {
         name: '@bpConnector',
       },
-      controller: function($scope, $element) {},
+      controller: function($scope, $element) {
+        
+      },
       link: function($scope, $element, $attrs, controllers) {
-        var neuronController = controllers[0];
+        var connectableController = controllers[0];
         var thisController = controllers[1];
         var instanceController = controllers[2];
         
         //register connector
-        neuronController.addConnector($scope.name, thisController);
+        connectableController.addConnector($scope.name, thisController);
         $scope.$on('$destroy', function() {
-          neuronController.removeConnector($scope.name);          
+          connectableController.removeConnector($scope.name);          
         });
         
         //define controller
