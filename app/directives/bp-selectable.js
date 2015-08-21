@@ -36,11 +36,12 @@ angular
               var absoluteRect = [absolutePosition[0], absolutePosition[1], localRect.width, localRect.height];
               if(bpSvg.rectIntersectsRect(selectionRect, absoluteRect)) 
                 select(true);
-            } catch(ex) {} //HACK: happens in Firefox if element is NOT_FOUND_ERR visible
+            } catch(ex) {} //HACK: happens in Firefox if element is not visible
           },
           'deleteSelection': function() {
             if($scope.isSelected 
-               && (instanceController.isRoot() || instanceController.getModuleInstance() === $scope.data) //TODO that seems to be wrong!
+               && (instanceController.isRoot() || instanceController.getModuleInstance() === $scope.data) 
+               //TODO that seems to be wrong!
                && $scope.data.remove
             ) {  
               $scope.data.remove();

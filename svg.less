@@ -46,9 +46,6 @@
   stroke: @neuron-stroke-color;
   stroke-width: 1px;
 
-  .selected {
-    stroke: @selection-color;
-  }
   .neuron-activate {
     fill: @neuron-fill-color-activate;  
   }
@@ -71,6 +68,12 @@
       fill: @neuron-fill-color-disassociate-inner;  
     }
   }  
+}
+
+.selected {
+  .neuron {
+    stroke: @selection-color;
+  }
 }
 
 .connection {

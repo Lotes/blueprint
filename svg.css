@@ -26,9 +26,6 @@
   stroke: #000000;
   stroke-width: 1px;
 }
-.neuron .selected {
-  stroke: #ff0000;
-}
 .neuron .neuron-activate {
   fill: #ffffff;
 }
@@ -46,6 +43,9 @@
 }
 .neuron .neuron-disassociate .inner {
   fill: #808080;
+}
+.selected .neuron {
+  stroke: #ff0000;
 }
 .connection {
   stroke: black;

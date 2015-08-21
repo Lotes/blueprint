@@ -54,30 +54,7 @@ class Node
 class ModuleInstance extends Node
   className: 'ModuleInstance'
   constructor: (name, @module) ->
-    super(name)
-  ###
-  'public override array getConvexHull': function() {
-    var points = [];
-    //merge node hulls
-    _.each(this.module.nodes, function(node) {
-      var hull = node.getConvexHull();
-      var relativePosition = node.position.toArray();
-      var relativeHull = _.map(hull, function(point) {
-        return [
-          relativePosition[0] + point[0],
-          relativePosition[1] + point[1]
-        ];  
-      });
-      points = points.concat(relativeHull);
-    });
-    //merge connection hulls
-    //TODO
-    //create convex hull        
-    if(points.length <= 3)
-      return points;
-    return bpSvg.getConvexHull(points);
-  }
-  ###     
+    super(name)     
      
 class ConnectableNode extends Node  
   className: '(abstract ConnectableNode)'
@@ -97,19 +74,6 @@ class Neuron extends ConnectableNode
   constructor: (name, @type) ->
     super(name)
     @addConnector('default')
-  ###
-  'public override array getConvexHull': function() {
-    var result = [];
-    var radius = bpEditorData.config.neuron.outerRadius + 10;
-    var parts = 24;
-    for(var index=0; index<parts; index++)
-      result.push([
-        radius * Math.cos(index/parts * Math.PI * 2),
-        radius * Math.sin(index/parts * Math.PI * 2)
-      ]);
-    return result;
-  }
-  ###
      
 angular.module('blueprint')
   .factory('Position', () -> Position)

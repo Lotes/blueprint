@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpModuleInstance', function(RecursionHelper) {
+  .directive('bpModuleInstance', function(RecursionHelper, bpSvg) {
     return {
       templateNamespace: 'svg',
       restrict: 'E',
@@ -13,18 +13,21 @@ angular
       controller: function($scope, $element) { 
         var self = this;
         
+        $scope.convexHull = null;
+        function updateHull() {
+          if($scope.canEdit !== 'true')
+            $scope.convexHull = self.getConvexHull();  
+        }        
+        
         this.isRoot = function() { return $scope.data.parentModule === null; };
         this.getModuleInstance = function() { return $scope.data; };
         this.getElement = function() { return $element[0]; };
         
         var childControllers = {};
         this.getNodeType = function() { return $scope.data.className; };
-        this.addChild = function(name, controller) { 
-          childControllers[name] = controller; 
-          //console.log($scope.data, 'add node "'+name+'" to instance node "'+$scope.data.name+'"');
-        };
+        this.addChild = function(name, controller) { childControllers[name] = controller; updateHull() };
         this.getChild = function(name) { return childControllers[name]; };
-        this.removeChild = function(name) { delete childControllers[name]; };
+        this.removeChild = function(name) { delete childControllers[name]; updateHull(); };
         
         this.getConnector = function(nodePath, connectorName) {
           var nodeController = self; 
@@ -38,11 +41,31 @@ angular
           return nodeController.getConnector(connectorName);
         };
         
+        this.getPosition = function() { return $scope.data.position.toArray(); };
+        this.getConvexHull = function() {
+          var points = [];
+          //merge node hulls
+          _.each(childControllers, function(node) {
+            var hull = node.getConvexHull();
+            var relativePosition = node.getPosition();
+            var relativeHull = _.map(hull, function(point) {
+              return [
+                relativePosition[0] + point[0],
+                relativePosition[1] + point[1]
+              ];  
+            });
+            points = points.concat(relativeHull);
+          });
+          //merge connection hulls
+          //TODO
+          //create convex hull        
+          if(points.length <= 3)
+            return points;
+          return bpSvg.getConvexHull(points);  
+        };
+        
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
-        $scope.convexHull = null;
-        //if($scope.canEdit !== 'true') 
-          //$scope.convexHull = $scope.data.getConvexHull();
       },
       link: function($scope, $element, $attrs, controllers) {
         var editorController = controllers[0];
