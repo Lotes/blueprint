@@ -21,6 +21,7 @@ angular
         $scope.$on('$destroy', function() {
           connectableController.removeConnector($scope.name);          
         });
+        thisController.getNode = function() { return connectableController; };
         
         //define controller
         var circles = $element.find('circle');

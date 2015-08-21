@@ -11,6 +11,10 @@ angular
         canEdit: '@editable'
       },
       controller: function($scope) { 
+        var self = this;
+        _.extend(self, Backbone.Events);
+        $scope.$watch('data.position.coordinates', function() { self.trigger('change:position'); });
+        
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
         

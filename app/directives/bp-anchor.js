@@ -21,22 +21,22 @@ angular
               for(var name in $scope.selections)
                 $scope.isSelected |= $scope.selections[name];
         };
-        /*function align(me) {
-          var you = me === 'in' ? 'out' : 'in';
+        function align(me) {
+          var you = me === 'inHandle' ? 'outHandle' : 'inHandle';
           var myData = $scope.data[me];
           var yourData = $scope.data[you];
-          var myRelative = myData.position;
-          var yourRelative = yourData.position;
+          var myRelative = myData.position.toArray();
+          var yourRelative = yourData.position.toArray();
           var myDistance = Math.sqrt(myRelative[0]*myRelative[0] + myRelative[1]*myRelative[1]);
           var yourDistance = Math.sqrt(yourRelative[0]*yourRelative[0] + yourRelative[1]*yourRelative[1]);
           var part = myDistance / yourDistance;
-          myData.position = [
+          myData.position.fromArray([
             yourRelative[0] * (-part),
             yourRelative[1] * (-part)
-          ];
+          ]);
         }
-        $scope.$watch('data.in.position', function() { if($scope.selections['in']) align('out'); });
-        $scope.$watch('data.out.position', function() { if($scope.selections['out']) align('in'); });*/
+        $scope.$watch('data.inHandle.position.coordinates', function() { if($scope.selections['inHandle']) align('outHandle'); });
+        $scope.$watch('data.outHandle.position.coordinates', function() { if($scope.selections['outHandle']) align('inHandle'); });
       }
     };
   });
