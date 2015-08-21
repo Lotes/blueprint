@@ -16,6 +16,10 @@ angular
         _.extend(self, Backbone.Events);
         //root object
         $scope.rootInstance = new ModuleInstance(null, $scope.data);
+        //object registration
+        var selectables = [];
+        self.registerSelectable = function(obj) { selectables.push(obj); };
+        self.unregisterSelectable = function(obj) { selectables = _.without(selectables, obj); };
         //mode
         this.getMode = function() { return $scope.mode; };
         this.setMode = function(mode) { return $scope.mode = mode; };
@@ -49,9 +53,19 @@ angular
           return bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
         }
         //selection
+        $scope.selection = [];
         var selectionStart = [0, 0];
         $scope.showSelectionRectangle = false;
         $scope.selectionRectangle = [0, 0, 0, 0]; //x, y, w, h
+        self.unselect = function() {
+          _.each(selectables, function(selectable) { selectable.select(false); });
+          $scope.selection = [];
+        };
+        self.selectObject = function(selectable, append) {
+          if(!append) self.unselect();
+          selectable.select(true);
+          $scope.selection.push(selectable);
+        };
         self.on('select:mousedown', function(event) { 
           event.preventDefault();
           if(!angular.element(event.target).hasClass('grid'))
@@ -76,19 +90,26 @@ angular
         self.on('select:mouseup', function(event) { 
           if(!$scope.showSelectionRectangle)
             return;
-          if(!event.shiftKey && !event.metaKey)
-            self.trigger('unselect');
           event.preventDefault();
-          self.trigger('selectRectangle', $scope.selectionRectangle);
-          $scope.showSelectionRectangle = false; 
+          $scope.showSelectionRectangle = false;
+          if(!event.shiftKey && !event.metaKey)
+            self.unselect();
+          _.each(selectables, function(selectable) {
+            if(selectable.canSelect($scope.selectionRectangle)) {
+              selectable.select(true);
+              $scope.selection.push(selectable);
+            }
+          });
           $scope.$apply();
         });
         Mousetrap.bind('del', function() { 
           if($scope.mode !== 'select')
             return;
-          self.trigger('deleteSelection');
+          _.each($scope.selection, function(selectable) {
+            selectable.remove();
+          });
         }, 'keydown');
-        //center
+        //move scene
         var movePressed = false;
         var moveOldCenter = [0, 0];
         var moveStart = [0, 0];

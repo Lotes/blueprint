@@ -10,11 +10,15 @@ angular
     scope.snapping = '@inheritSnapping';
     return {
       restrict: 'A',
-      require: parentDirective.require,
+      require: ['^bpEditor', '^bpModuleInstance', 'bpDraggable'],
       scope: scope,
+      controller: function() {
+        parentDirective.controller.apply(parentDirective, arguments);
+      },
       link: function($scope, $element, $attrs, controllers) {
         var editorController = controllers[0];
         var instanceController = controllers[1];
+        var thisController = controllers[2];
         //call parent
         parentDirective.link.apply(parentDirective, arguments);
         //do dragging stuff

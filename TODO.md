@@ -1,11 +1,13 @@
 TODO
 ====
 
+- mehrere Objekte auf einmal verschieben
 - Knoten verbinden
-- Anker löschen
-- Beim Anklicken Objekt nach ganz vorne holen
-- Beschriftungen als eigene Direktive und Raus aus Entitäten
-- NW.js-Editor bauen -> serverseitig auf node.js umsteigen
+//- Beim Anklicken Objekt nach ganz vorne holen
+- Beschriftungen als eigene Direktive (Labels)
+- Connector-Eigenschaften
+  - AllowedIn: {'activate':-1, 'inhibit':1}
+  - Out: 'activate'
 
 Variablen
 ---------
