@@ -8,7 +8,6 @@ angular
     $routeProvider.
       when('/', options).
       when('/:name', options).
-      when('/:name/:revision', options).
       otherwise({ redirectTo: '/' });
   })
   .run(function ($templateCache, $http) {

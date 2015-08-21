@@ -45,18 +45,32 @@ angular
           }
           $scope.destinationPosition = destinationConnector.connectAt(anchorPosition);
         }
+        function sourceUpdated() { 
+          updateSource();
+          if($scope.data.anchors.length == 0)
+            updateDestination();
+        }
+        function destinationUpdated() {
+          updateDestination();
+          if($scope.data.anchors.length == 0)
+            updateSource();  
+        }
         updateSource();
         updateDestination();
-        
-        sourceNode.on('change:position', updateSource);
-        destinationNode.on('change:position', updateDestination);
+        sourceNode.on('change:position', sourceUpdated);
+        destinationNode.on('change:position', destinationUpdated);
         $scope.$watch('data.anchors[0].position.coordinates', updateSource);
         $scope.$watch('data.anchors[0].inHandle.position.coordinates', updateSource);
         $scope.$watch('data.anchors[data.anchors.length-1].position.coordinates', updateDestination);
         $scope.$watch('data.anchors[data.anchors.length-1].outHandle.position.coordinates', updateDestination);
+        //endpoint nodes were deleted
+        function removeMe() { $scope.data.remove(); }
+        sourceNode.on('destroy', removeMe);
+        destinationNode.on('destroy', removeMe);
+        //destructor
         $scope.$on('$destroy', function() {
-          sourceNode.off('change:position', updateSource);
-          destinationNode.off('change:position', updateDestination);  
+          sourceNode.off('change:position', sourceUpdated);
+          destinationNode.off('change:position', destinationUpdated);  
         });
         //selection
         $scope.state = { isSelected: false };

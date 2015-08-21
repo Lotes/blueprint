@@ -16,7 +16,10 @@ class Anchor
     @inHandle = new AnchorHandle(0, 0)
     @outHandle = new AnchorHandle(0, 0)
     @parentConnection = null;
-    
+  remove: () ->
+    if(@parentConnection)
+      @parentConnection.anchors = _.without(@parentConnection.anchors, @)
+      
 class ConnectionEndPoint
   constructor: (@path, @connector) -> 
     #path: [String], connector: String
@@ -25,6 +28,9 @@ class Connection
   constructor: (@source, @destination) ->
     @parentModule = null;
     @anchors = [];
+  remove: () ->
+    if(@parentModule)
+      @parentModule.connections = _.without(@parentModule.connections, @)
     
 class Connector
   constructor: (@name) ->

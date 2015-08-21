@@ -24,8 +24,8 @@
     x="0" 
     y="0"
     ng-attr-transform="{{ 'translate('+(-25+(width/2 + center[0])%25)+' '+(-25+(height/2 + center[1])%25)+')' }}"
-    ng-attr-width="{{ 2*width }}" 
-    ng-attr-height="{{ 2*height }}" 
+    ng-attr-width="{{ width+50 }}" 
+    ng-attr-height="{{ height+50 }}" 
     fill="url('#grid-pattern')"
   />  
   

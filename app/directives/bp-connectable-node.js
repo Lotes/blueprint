@@ -34,6 +34,7 @@ angular
         instanceController.addChild($scope.data.name, connectableController);
         $scope.$on('$destroy', function() {
           instanceController.removeChild($scope.data.name);
+          connectableController.trigger('destroy');
         });
       },
       templateUrl: 'app/directives/bp-connectable-node.template.xml'
