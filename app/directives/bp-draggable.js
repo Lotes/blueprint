@@ -23,32 +23,30 @@ angular
         parentDirective.link.apply(parentDirective, arguments);
         //do dragging stuff
         var oldDraggablePosition = null;
-        var oldMousePosition = null; 
         var isMouseDown = false;
+        thisController.isDraggable = function() { return true; };
+        thisController.startDragging = function() { oldDraggablePosition = $scope.data.position.toArray(); };
+        thisController.stopDragging = function() { oldDraggablePosition = null; isMouseDown = false; };
+        thisController.drag = function(delta) {
+          var newDraggablePosition = [
+            oldDraggablePosition[0] + delta[0],
+            oldDraggablePosition[1] + delta[1]
+          ];
+          $scope.data.position.fromArray(newDraggablePosition);  
+        };
         $element.bind('mousedown', function(event) {
           event.preventDefault();
           isMouseDown = true;
-          oldMousePosition = [event.clientX, event.clientY];          
-          oldDraggablePosition = $scope.data.position.toArray();          
+        });
+        $element.bind('mousemove', function(event) {
+          event.preventDefault();
+          if(isMouseDown)
+            editorController.startDragging(event);
         });
         $element.bind('mouseup', function(event) {
           event.preventDefault();
           isMouseDown = false;
-          oldDraggablePosition = null;
-          oldMousePosition = null;          
-        });
-        editorController.on('select:mousemove', function(event) {
-          if(editorController.getMode() !== 'select' || !$scope.isSelected || oldMousePosition == null)
-            return;
-          event.preventDefault();
-          var newMousePosition = [event.clientX, event.clientY];
-          var newDraggablePosition = [0, 0];
-          for(var index=0; index<2; index++) {
-            var delta = newMousePosition[index] - oldMousePosition[index]; 
-            newDraggablePosition[index] = oldDraggablePosition[index] + delta;
-          }
-          $scope.data.position.fromArray($scope.snapping === 'false' ? newDraggablePosition : editorController.snapPosition(newDraggablePosition));
-          $scope.$apply();
+          editorController.stopDragging();
         });
       }
     };

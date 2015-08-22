@@ -16,6 +16,8 @@ angular
         
         $scope.isSelected = false;
         
+        thisController.getEntity = function() { return $scope.data; };
+        thisController.isDraggable = function() { return false; };
         thisController.isSelected = function() { return $scope.isSelected; };
         thisController.canSelect = function(selectionRect) {
           var element = $element[0];
@@ -40,6 +42,8 @@ angular
         
         $element.bind('mouseup', function(event) {
           event.preventDefault();
+          if(editorController.isDragging())
+            return;
           editorController.selectObject(thisController, event.shiftKey || event.metaKey)
           $scope.$apply();
         });

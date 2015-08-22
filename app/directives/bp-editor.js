@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg) {
+  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg, AnchorHandle) {
     return {
       restrict: 'E',
       replace: true,
@@ -88,7 +88,7 @@ angular
           $scope.$apply();
         });
         self.on('select:mouseup', function(event) { 
-          if(!$scope.showSelectionRectangle)
+          if(!$scope.showSelectionRectangle || $scope.selectionRectangle[2] == 0 || $scope.selectionRectangle[3] == 0)
             return;
           event.preventDefault();
           $scope.showSelectionRectangle = false;
@@ -109,6 +109,45 @@ angular
             selectable.remove();
           });
         }, 'keydown');
+        //dragging
+        var isDragging = false;
+        var dragStartPosition = [0, 0];
+        var draggables = [];
+        self.isDragging = function() { return isDragging; };
+        self.startDragging = function(event) {
+          isDragging = true;
+          dragStartPosition = getEventPosition(event);
+          var selectedItems = selectables.filter(function(selectable) { 
+            if(selectable.isSelected())
+              return selectable.isDraggable(); 
+          });
+          draggables = selectedItems.length <= 1 ? selectedItems : selectedItems.filter(function(selectable) {
+            return !(selectable.getEntity() instanceof AnchorHandle);
+          });
+          _.each(draggables, function(draggable) { draggable.startDragging(); });
+        };
+        self.stopDragging = function() { 
+          isDragging = false;
+          _.each(draggables, function(draggable) { draggable.stopDragging(); }); 
+          draggables = [];
+        };
+        self.drag = function(delta) {
+          _.each(draggables, function(draggable) { draggable.drag(delta); });  
+        };
+        self.on('select:mouseup', function(event) { 
+          if(isDragging)
+            self.stopDragging();
+        });
+        self.on('select:mousemove', function(event) {
+          if(!isDragging)
+            return;
+          var dragEndPosition = getEventPosition(event);
+          self.drag([
+            dragEndPosition[0] - dragStartPosition[0],
+            dragEndPosition[1] - dragStartPosition[1]
+          ]);
+          $scope.$apply();
+        });
         //move scene
         var movePressed = false;
         var moveOldCenter = [0, 0];
