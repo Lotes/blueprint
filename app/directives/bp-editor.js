@@ -111,11 +111,13 @@ angular
         }, 'keydown');
         //dragging
         var isDragging = false;
+        var dragObjectPosition = [0, 0];
         var dragStartPosition = [0, 0];
         var draggables = [];
         self.isDragging = function() { return isDragging; };
-        self.startDragging = function(event) {
+        self.startDragging = function(position, event) {
           isDragging = true;
+          dragObjectPosition = position.toArray();
           dragStartPosition = getEventPosition(event);
           var selectedItems = selectables.filter(function(selectable) { 
             var entity = selectable.getEntity();
@@ -143,9 +145,17 @@ angular
           if(!isDragging)
             return;
           var dragEndPosition = getEventPosition(event);
-          self.drag([
+          var delta = [
             dragEndPosition[0] - dragStartPosition[0],
             dragEndPosition[1] - dragStartPosition[1]
+          ];
+          var dragObjectNewPosition = self.snapPosition([
+            dragObjectPosition[0] + delta[0],
+            dragObjectPosition[1] + delta[1]
+          ]);
+          self.drag([
+            dragObjectNewPosition[0] - dragObjectPosition[0],
+            dragObjectNewPosition[1] - dragObjectPosition[1]
           ]);
           $scope.$apply();
         });

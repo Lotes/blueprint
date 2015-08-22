@@ -38,7 +38,7 @@ angular
         $element.bind('mousemove', function(event) {
           event.preventDefault();
           if(isMouseDown)
-            editorController.startDragging(event);
+            editorController.startDragging($scope.data.position, event);
         });
         $element.bind('mouseup', function(event) {
           event.preventDefault();
