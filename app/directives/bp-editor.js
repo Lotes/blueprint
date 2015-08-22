@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg, AnchorHandle, Connection, ConnectionEndPoint) {
+  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg, AnchorHandle, Connection, ConnectionEndPoint, Anchor) {
     return {
       restrict: 'E',
       replace: true,
@@ -106,7 +106,8 @@ angular
           if($scope.mode !== 'select')
             return;
           _.each($scope.selection, function(selectable) {
-            selectable.remove();
+            if(selectable.getEntity().getModule() == $scope.data)
+              selectable.remove();
           });
           $scope.$apply();
         }, 'keydown');
@@ -189,8 +190,6 @@ angular
         //connect nodes
         var connectingSource = null;
         $scope.isConnecting = false;
-        $scope.connectingSourcePosition = [0, 0];
-        $scope.connectingDestinationPosition = [0, 0];
         self.startConnecting = function(sourceConnector) {
           $scope.isConnecting = true;
           connectingSource = sourceConnector;
@@ -204,6 +203,19 @@ angular
           var destination = new ConnectionEndPoint(destinationConnector.getNode().getPath(), destinationConnector.getName());
           var newConnection = new Connection(source, destination);
           newConnection.parentModule = $scope.data;
+          if(connectingSource === destinationConnector) {
+            var center = connectingSource.getCenter($element.find('g')[0]); //TODO ugly solution
+            var anchor1 = new Anchor(center[0]+50, center[1]-100);
+            anchor1.parentConnection = newConnection;
+            anchor1.inHandle = new AnchorHandle(anchor1, -50, 0);
+            anchor1.outHandle = new AnchorHandle(anchor1, +25, 0);
+            newConnection.anchors.push(anchor1);
+            var anchor2 = new Anchor(center[0]+100, center[1]-50);
+            anchor2.parentConnection = newConnection;
+            anchor2.inHandle = new AnchorHandle(anchor2, 0, -25);
+            anchor2.outHandle = new AnchorHandle(anchor2, 0, +50);
+            newConnection.anchors.push(anchor2);
+          }
           $scope.data.connections.push(newConnection);
           $scope.$apply();
         };
@@ -216,7 +228,6 @@ angular
         self.on('connect:mousemove', function(event) {
           if(!$scope.isConnecting)
             return;
-          
           $scope.$apply();
         });
         self.on('connect:mouseup', function(event) {
