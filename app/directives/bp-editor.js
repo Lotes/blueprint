@@ -88,7 +88,7 @@ angular
           $scope.$apply();
         });
         self.on('select:mouseup', function(event) { 
-          if(!$scope.showSelectionRectangle || $scope.selectionRectangle[2] == 0 || $scope.selectionRectangle[3] == 0)
+          if(!$scope.showSelectionRectangle)
             return;
           event.preventDefault();
           $scope.showSelectionRectangle = false;
@@ -118,7 +118,8 @@ angular
           isDragging = true;
           dragStartPosition = getEventPosition(event);
           var selectedItems = selectables.filter(function(selectable) { 
-            if(selectable.isSelected())
+            var entity = selectable.getEntity();
+            if(selectable.isSelected() && entity.getModule() == $scope.data)
               return selectable.isDraggable(); 
           });
           draggables = selectedItems.length <= 1 ? selectedItems : selectedItems.filter(function(selectable) {

@@ -4,9 +4,6 @@ angular
     var parentDirective = bpSelectableDirective[0];
     var scope = angular.copy(parentDirective.scope, {});
     scope.data = '=bpDraggable'; //overwrites parent directive, must contain a .position (=[x,y]) property
-    scope.dragging = '&onDragging';
-    scope.startDragging = '&onStartDragging';
-    scope.stopDragging = '&onStopDragging';
     scope.snapping = '@inheritSnapping';
     return {
       restrict: 'A',

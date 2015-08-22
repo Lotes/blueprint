@@ -82,8 +82,8 @@ angular
           //TODO http://stackoverflow.com/questions/18655135/divide-bezier-curve-into-two-equal-halves
           //TODO what about quadratic curves?
           var newAnchor = new Anchor(newPosition[0], newPosition[1]);
-          newAnchor.inHandle = new AnchorHandle(100, 100);
-          newAnchor.outHandle = new AnchorHandle(-100, -100);
+          newAnchor.inHandle = new AnchorHandle(newAnchor, 100, 100);
+          newAnchor.outHandle = new AnchorHandle(newAnchor, -100, -100);
           $scope.data.anchors.splice(index, 0, newAnchor);
         };
       }

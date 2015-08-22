@@ -7,19 +7,24 @@ class Position
     @coordinates = [array[0], array[1]]
     
 class AnchorHandle
-  constructor: (x, y) ->
+  constructor: (parent, x, y) ->
     @position = new Position(x, y)
+    @parentAnchor = parent
+  getModule: () ->
+    @parentAnchor.getModule()    
     
 class Anchor
   constructor: (x, y) ->
     @position = new Position(x, y)
-    @inHandle = new AnchorHandle(0, 0)
-    @outHandle = new AnchorHandle(0, 0)
+    @inHandle = new AnchorHandle(@, 0, 0)
+    @outHandle = new AnchorHandle(@, 0, 0)
     @parentConnection = null;
   remove: () ->
     if(@parentConnection)
       @parentConnection.anchors = _.without(@parentConnection.anchors, @)
-      
+  getModule: () ->
+    @parentConnection.getModule()
+
 class ConnectionEndPoint
   constructor: (@path, @connector) -> 
     #path: [String], connector: String
@@ -31,6 +36,8 @@ class Connection
   remove: () ->
     if(@parentModule)
       @parentModule.connections = _.without(@parentModule.connections, @)
+  getModule: () ->
+    @parentModule
     
 class Connector
   constructor: (@name) ->
@@ -46,11 +53,12 @@ class Node
   constructor: (@name) ->
     @parentModule = null;
     @position = new Position(0, 0)
-  #getConvexHull: () -> [] #return a list of [x, y] positions, override me!!
   remove: () ->
     if(@parentModule)
       @parentModule.nodes = _.without(@parentModule.nodes, @)
-     
+  getModule: () ->
+    @parentModule
+
 class ModuleInstance extends Node
   className: 'ModuleInstance'
   constructor: (name, @module) ->
