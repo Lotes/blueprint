@@ -68,6 +68,11 @@ angular
         function removeMe() { $scope.data.remove(); }
         sourceNode.on('destroy', removeMe);
         destinationNode.on('destroy', removeMe);
+        if(sourceNode === destinationNode)
+          $scope.$watch('data.anchors.length', function() { 
+            if($scope.data.anchors.length === 0) 
+              removeMe();  
+          });
         //destructor
         $scope.$on('$destroy', function() {
           sourceNode.off('change:position', sourceUpdated);

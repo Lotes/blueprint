@@ -4,14 +4,17 @@ angular
     return {
       templateNamespace: 'svg',
       restrict: 'E',
-      require: '^bpEditor',
+      require: ['^bpEditor', 'bpAnchor'],
       replace: true,
       scope: {
         data: '=anchor'
       },
       templateUrl: 'app/directives/bp-anchor.template.xml',
-      link: function($scope, $element, $attrs, editorController) {
-        $scope.size = 10;  
+      controller: function() { _.extend(this, Backbone.Events); },
+      link: function($scope, $element, $attrs, controllers) {
+        var editorController = controllers[0];
+        var thisController = controllers[1];
+        $scope.size = 10;
         $scope.selections = {};
         $scope.isSelected = false;
         $scope.selectionChanged = function(point, selected) {
@@ -37,6 +40,7 @@ angular
         }
         $scope.$watch('data.inHandle.position.coordinates', function() { if($scope.selections['inHandle']) align('outHandle'); });
         $scope.$watch('data.outHandle.position.coordinates', function() { if($scope.selections['outHandle']) align('inHandle'); });
+        $scope.$on('$destroy', function() { thisController.trigger('destroy'); }); //TODO needed for?
       }
     };
   });
