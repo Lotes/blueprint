@@ -27,15 +27,14 @@ angular
         //define controller
         var circles = $element.find('circle');
         var element = circles.length > 0 ? circles[0] : $element[0];
-        var instanceElement = instanceController.getElement();
-        thisController.getCenter = function() {
+        thisController.getCenter = function(instanceElement) {
           var box = element.getBBox();
           return bpSvg.getRelativePosition(element, instanceElement, [
             box.x + box.width / 2,
             box.y + box.height / 2
           ]);
         };
-        thisController.connectAt = function(anchorPosition) {
+        thisController.connectAt = function(instanceElement, anchorPosition) {
           switch(element.nodeName) {
             case 'circle':             
               var localPosition = [element.cx.baseVal.value, element.cy.baseVal.value];
@@ -51,7 +50,7 @@ angular
               ];
               break;
             default:
-              return thisController.getCenter();
+              return thisController.getCenter(instanceElement);
           }
         };
         thisController.getName = function() { return $scope.name; };

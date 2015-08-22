@@ -16,6 +16,7 @@ angular
         
         var editorController = controllers[0];
         var instanceController = controllers[1]; 
+        var instanceElement = instanceController.getElement();
         
         function getConnector(endPoint) {
           var path = endPoint.path;
@@ -29,21 +30,21 @@ angular
         //anchors
         function updateSource() {
           var anchors = $scope.data.anchors;
-          var anchorPosition = destinationConnector.getCenter();
+          var anchorPosition = destinationConnector.getCenter(instanceElement);
           if(anchors.length > 0) {
             var first = anchors[0];
             anchorPosition = $filter('coordinateAdd')(first.position.toArray(), first.inHandle.position.toArray());
           }
-          $scope.sourcePosition = sourceConnector.connectAt(anchorPosition);
+          $scope.sourcePosition = sourceConnector.connectAt(instanceElement, anchorPosition);
         } 
         function updateDestination() {
           var anchors = $scope.data.anchors;
-          var anchorPosition = sourceConnector.getCenter();
+          var anchorPosition = sourceConnector.getCenter(instanceElement);
           if(anchors.length > 0) {
             var last = anchors[anchors.length - 1];
             anchorPosition = $filter('coordinateAdd')(last.position.toArray(), last.outHandle.position.toArray());
           }
-          $scope.destinationPosition = destinationConnector.connectAt(anchorPosition);
+          $scope.destinationPosition = destinationConnector.connectAt(instanceElement, anchorPosition);
         }
         function sourceUpdated() { 
           updateSource();

@@ -13,9 +13,6 @@ angular
       controller: function($scope) { 
         var self = this;
         _.extend(self, Backbone.Events);
-        $scope.$watch('data.position.coordinates', function() { 
-          self.trigger('change:position'); 
-        });
         
         self.getPosition = function() { return $scope.data.position.toArray(); };
         self.getConvexHull = function() { 
@@ -46,9 +43,17 @@ angular
         var editorController = controllers[0];
         var instanceController = controllers[1]; 
         var connectableController = controllers[2]; 
+        
+        function notifyPositionChanged() {
+          connectableController.trigger('change:position'); 
+        }
+        $scope.$watch('data.position.coordinates', notifyPositionChanged);
+        instanceController.on('change:position', notifyPositionChanged);
+        
         instanceController.addChild($scope.data.name, connectableController);
         $scope.$on('$destroy', function() {
           instanceController.removeChild($scope.data.name);
+          instanceController.off('change:position', notifyPositionChanged);
           connectableController.trigger('destroy');
         });
         connectableController.getPath = function() { 

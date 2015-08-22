@@ -108,6 +108,7 @@ angular
           _.each($scope.selection, function(selectable) {
             selectable.remove();
           });
+          $scope.$apply();
         }, 'keydown');
         //dragging
         var isDragging = false;

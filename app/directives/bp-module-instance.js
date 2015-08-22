@@ -5,10 +5,16 @@ angular
       var editorController = controllers[0];
       var parentController = controllers[1];
       var thisController = controllers[2];
+      
+      function notifyPositionChanged() { thisController.trigger('change:position'); }
+      $scope.$watch('data.position.coordinates', notifyPositionChanged);
+      
       if(parentController != null) {
+        parentController.on('change:position', notifyPositionChanged);
         parentController.addChild($scope.data.name, thisController);
         $scope.$on('$destroy', function() {
           parentController.removeChild($scope.data.name);
+          parentController.off('change:position', notifyPositionChanged);
         });
       }
       thisController.getPath = function() { 
@@ -29,6 +35,7 @@ angular
       },
       controller: function($scope, $element) { 
         var self = this;
+        _.extend(self, Backbone.Events);
         
         $scope.convexHull = null;
         function updateHull() {
