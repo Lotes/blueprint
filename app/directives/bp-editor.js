@@ -50,7 +50,7 @@ angular
           });  
         });
         function getEventPosition(event) {
-          return bpSvg.getAbsolutePosition(event.target, [event.offsetX, event.offsetY]);
+          return bpSvg.getMousePosition($element[0], [event.clientX, event.clientY]);
         }
         //selection
         $scope.selection = [];

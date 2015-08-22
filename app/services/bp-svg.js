@@ -32,6 +32,13 @@ angular
         var result = point.matrixTransform(matrix);
         return [result.x, result.y];
       },
+      getMousePosition: function(svgElement, clientPosition) {
+        var point = svgElement.createSVGPoint();
+        point.x = clientPosition[0];
+        point.y = clientPosition[1];
+        var cursorPosition = point.matrixTransform(svgElement.getScreenCTM().inverse());
+        return [cursorPosition.x, cursorPosition.y];
+      },
       getRelativePosition: function(element, parentElement, localPosition) {
         var root = element;
         while(root.nodeName != 'svg')
