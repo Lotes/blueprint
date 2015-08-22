@@ -84,6 +84,7 @@ angular
           var newAnchor = new Anchor(newPosition[0], newPosition[1]);
           newAnchor.inHandle = new AnchorHandle(newAnchor, 100, 100);
           newAnchor.outHandle = new AnchorHandle(newAnchor, -100, -100);
+          newAnchor.parentConnection = $scope.data;
           $scope.data.anchors.splice(index, 0, newAnchor);
         };
       }

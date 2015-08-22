@@ -1,11 +1,28 @@
 angular
   .module('blueprint')
   .directive('bpModuleInstance', function(RecursionHelper, bpSvg) {
+    var link = function($scope, $element, $attrs, controllers) {
+      var editorController = controllers[0];
+      var parentController = controllers[1];
+      var thisController = controllers[2];
+      if(parentController != null) {
+        parentController.addChild($scope.data.name, thisController);
+        $scope.$on('$destroy', function() {
+          parentController.removeChild($scope.data.name);
+        });
+      }
+      thisController.getPath = function() { 
+        var me = $scope.data.name != null ? [$scope.data.name] : [];
+        if(parentController != null)
+          return parentController.getPath().concat(me); 
+        return me;
+      };
+    };    
     return {
       templateNamespace: 'svg',
       restrict: 'E',
       replace: true,
-      require: ['^bpEditor', '^bpModuleInstance', 'bpModuleInstance'],
+      require: ['^bpEditor', '?^^bpModuleInstance', 'bpModuleInstance'],
       scope: {
         data: '=instance',
         canEdit: '@editable'
@@ -67,18 +84,9 @@ angular
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
       },
-      link: function($scope, $element, $attrs, controllers) {
-        var editorController = controllers[0];
-        var parentController = controllers[1];
-        var thisController = controllers[2];
-        parentController.addChild($scope.data.name, thisController);
-        $scope.$on('$destroy', function() {
-          parentController.removeChild($scope.data.name);
-        });
-      },
       templateUrl: 'app/directives/bp-module-instance.template.xml',
       compile: function(element) {
-        return RecursionHelper.compile(element);
+        return RecursionHelper.compile(element, link);
       }
     };
   });

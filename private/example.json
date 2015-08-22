@@ -49,8 +49,18 @@
       "destination": {
         "node": ["inh"],
         "connector": "default"
+      }
+    },
+    {
+      "source": {
+        "node": ["mod", "1"],
+        "connector": "default"
       },
-      "$$hashKey": "object:23"
+      "anchors": [],
+      "destination": {
+        "node": ["inh"],
+        "connector": "default"
+      }
     },
     {
       "source": {

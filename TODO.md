@@ -1,7 +1,6 @@
 TODO
 ====
 
-- mehrere Objekte auf einmal verschieben
 - Knoten verbinden
 //- Beim Anklicken Objekt nach ganz vorne holen
 - Beschriftungen als eigene Direktive (Labels)

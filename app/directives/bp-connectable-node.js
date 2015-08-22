@@ -13,7 +13,9 @@ angular
       controller: function($scope) { 
         var self = this;
         _.extend(self, Backbone.Events);
-        $scope.$watch('data.position.coordinates', function() { self.trigger('change:position'); });
+        $scope.$watch('data.position.coordinates', function() { 
+          self.trigger('change:position'); 
+        });
         
         self.getPosition = function() { return $scope.data.position.toArray(); };
         self.getConvexHull = function() { 
@@ -32,13 +34,13 @@ angular
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
         
         var connectors = {};
-        this.getNodeType = function() { return $scope.data.className; };
-        this.addConnector = function(name, controller) { 
+        self.getNodeType = function() { return $scope.data.className; };
+        self.addConnector = function(name, controller) { 
           connectors[name] = controller; 
           //console.log('add connector "'+name+'" to node "'+$scope.data.name+'"');
         };
-        this.getConnector = function(name) { return connectors[name]; };
-        this.removeConnector = function(name) { delete connectors[name]; };
+        self.getConnector = function(name) { return connectors[name]; };
+        self.removeConnector = function(name) { delete connectors[name]; };
       },
       link: function($scope, $element, $attrs, controllers) {
         var editorController = controllers[0];
@@ -49,6 +51,9 @@ angular
           instanceController.removeChild($scope.data.name);
           connectableController.trigger('destroy');
         });
+        connectableController.getPath = function() { 
+          return instanceController.getPath().concat([$scope.data.name]); 
+        };
       },
       templateUrl: 'app/directives/bp-connectable-node.template.xml'
     };

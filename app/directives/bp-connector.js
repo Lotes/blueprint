@@ -4,7 +4,7 @@ angular
     return {
       templateNamespace: 'svg',
       restrict: 'A',
-      require: ['^bpConnectableNode', 'bpConnector', '^bpModuleInstance'],
+      require: ['^bpConnectableNode', 'bpConnector', '^bpModuleInstance', '^bpEditor'],
       scope: {
         name: '@bpConnector',
       },
@@ -15,6 +15,7 @@ angular
         var connectableController = controllers[0];
         var thisController = controllers[1];
         var instanceController = controllers[2];
+        var editorController = controllers[3];
         
         //register connector
         connectableController.addConnector($scope.name, thisController);
@@ -53,6 +54,19 @@ angular
               return thisController.getCenter();
           }
         };
+        thisController.getName = function() { return $scope.name; };
+        
+        //bind events
+        $element.bind('mousedown', function() {
+          if(editorController.getMode() !== 'connect')
+            return;
+          editorController.startConnecting(thisController);
+        });
+        $element.bind('mouseup', function() {
+          if(editorController.getMode() !== 'connect')
+            return;
+          editorController.endConnecting(thisController);
+        });
       }
     };
   });

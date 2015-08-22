@@ -1,6 +1,6 @@
 angular
   .module('blueprint')
-  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg, AnchorHandle) {
+  .directive('bpEditor', function($window, Position, ModuleInstance, bpSvg, AnchorHandle, Connection, ConnectionEndPoint) {
     return {
       restrict: 'E',
       replace: true,
@@ -184,6 +184,42 @@ angular
         self.on('move:mouseup', function(event) { 
           event.preventDefault();
           movePressed = false;
+        });
+        //connect nodes
+        var connectingSource = null;
+        $scope.isConnecting = false;
+        $scope.connectingSourcePosition = [0, 0];
+        $scope.connectingDestinationPosition = [0, 0];
+        self.startConnecting = function(sourceConnector) {
+          $scope.isConnecting = true;
+          connectingSource = sourceConnector;
+          $scope.$apply();
+        };
+        self.endConnecting = function(destinationConnector) {
+          if(!$scope.isConnecting)
+            return;
+          $scope.isConnecting = false;          
+          var source = new ConnectionEndPoint(connectingSource.getNode().getPath(), connectingSource.getName());
+          var destination = new ConnectionEndPoint(destinationConnector.getNode().getPath(), destinationConnector.getName());
+          var newConnection = new Connection(source, destination);
+          newConnection.parentModule = $scope.data;
+          $scope.data.connections.push(newConnection);
+          $scope.$apply();
+        };
+        self.abortConnecting = function() {
+          if(!$scope.isConnecting)
+            return;
+          $scope.isConnecting = false;
+          $scope.$apply();
+        };
+        self.on('connect:mousemove', function(event) {
+          if(!$scope.isConnecting)
+            return;
+          
+          $scope.$apply();
+        });
+        self.on('connect:mouseup', function(event) {
+          self.abortConnecting();
         });
       }
     };

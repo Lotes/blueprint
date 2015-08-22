@@ -4,10 +4,10 @@ blueprint
 Install
 -------
 
-Install PHP interpreter first! PHP must be in your PATH environment variable!
+Install PHP interpreter and HAXE first!
 
-git clone ...
-cd ...
-bower install
-npm install
-grunt
+* git clone ...
+* cd ...
+* bower install
+* npm install
+* grunt
