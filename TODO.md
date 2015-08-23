@@ -1,13 +1,12 @@
 TODO
 ====
 
-- Knoten verbinden
-//- Beim Anklicken Objekt nach ganz vorne holen
 - Beschriftungen als eigene Direktive (Labels)
 - Connector-Eigenschaften
-  - AllowedIn: {'activate':-1, 'inhibit':1}
-  - Out: 'activate'
-
+  - AllowedIn: {'activate':-1, 'inhibit':1}/null
+  - Out: 'activate'/null
+- Connection-Type nach Quellknotenkonnektor entscheiden
+  
 Variablen
 ---------
 
