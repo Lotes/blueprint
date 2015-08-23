@@ -17,4 +17,16 @@ angular
       .get('example')
       .then(function(module) { $scope.data = module; $scope.ready = true; },
             function(err) { alert(err.message); });
+            
+    //save module
+    $scope.saving = false;
+    $scope.save = function() {
+      if(!$scope.data)
+        return;
+      saving = true;
+      bpModuleRepository
+        .save($scope.data)
+        .then(function(res) { alert('saved as "'+res.data.name+'"'); $scope.saving = false; },
+              function(err) { alert(err.message); $scope.saving = false; });
+    };
   });

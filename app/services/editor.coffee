@@ -5,14 +5,18 @@ class Position
     @coordinates
   fromArray: (array) -> 
     @coordinates = [array[0], array[1]]
-    
+  toJson: () ->
+    @toArray()
+
 class AnchorHandle
   constructor: (parent, x, y) ->
     @position = new Position(x, y)
     @parentAnchor = parent
   getModule: () ->
     @parentAnchor.getModule()    
-    
+  toJson: () ->
+    @position.toJson()
+
 class Anchor
   constructor: (x, y) ->
     @position = new Position(x, y)
@@ -24,10 +28,21 @@ class Anchor
       @parentConnection.anchors = _.without(@parentConnection.anchors, @)
   getModule: () ->
     @parentConnection.getModule()
+  toJson: () ->
+    {
+      position: @position.toJson(),
+      inHandle: @inHandle.toJson(),
+      outHandle: @outHandle.toJson()
+    }
 
 class ConnectionEndPoint
   constructor: (@path, @connector) -> 
     #path: [String], connector: String
+  toJson: () ->
+    {
+      node: @path,
+      connector: @connector
+    }
 
 class Connection
   constructor: (@source, @destination) ->
@@ -38,6 +53,12 @@ class Connection
       @parentModule.connections = _.without(@parentModule.connections, @)
   getModule: () ->
     @parentModule
+  toJson: () ->
+    {
+      source: @source.toJson(),
+      anchors: _.map(@anchors, (anchor) -> anchor.toJson()),
+      destination: @destination.toJson()
+    }
     
 class Connector
   constructor: (@name) ->
@@ -47,7 +68,16 @@ class Module
   constructor: (@name) ->
     @nodes = []
     @connections = []
-    
+  toJson: ->
+    nodes = {}
+    for node in @nodes
+      nodes[node.name] = node.toJson()
+    {
+      name: @name,
+      nodes: nodes,
+      connections: _.map(@connections, (connection) -> connection.toJson())
+    }
+  
 class Node
   className: '(abstract Node)'
   constructor: (@name) ->
@@ -58,12 +88,21 @@ class Node
       @parentModule.nodes = _.without(@parentModule.nodes, @)
   getModule: () ->
     @parentModule
+  toJson: () -> 
+    { 
+      position: @position.toJson()  
+    }
 
 class ModuleInstance extends Node
   className: 'ModuleInstance'
   constructor: (name, @module) ->
     super(name)     
-     
+  toJson: () ->
+    result = super()
+    result.type = 'module-instance'
+    result.moduleName = @module.name
+    result
+
 class ConnectableNode extends Node  
   className: '(abstract ConnectableNode)'
   constructor: (@name) ->
@@ -76,13 +115,21 @@ class ConnectableNode extends Node
     connector = new Connector(name)
     connector.parentNode = @
     @connectors.push(connector)
+  toJson: () ->
+    result = super()
+    result.position = @position.toJson()
+    result
     
 class Neuron extends ConnectableNode
   className: 'Neuron'
   constructor: (name, @type) ->
     super(name)
     @addConnector('default')
-     
+  toJson: () ->
+    result = super()
+    result.type = 'neuron-'+@type
+    result
+    
 angular.module('blueprint')
   .factory('Position', () -> Position)
   .factory('AnchorHandle', () -> AnchorHandle)

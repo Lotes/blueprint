@@ -56,8 +56,8 @@ angular
         connection.anchors = _.map(value.anchors, function(anchor) {
           var anchorObj = new Anchor(anchor.position[0], anchor.position[1]);
           anchorObj.parentConnection = connection;
-          anchorObj.inHandle = new AnchorHandle(anchorObj, anchor['in'].position[0], anchor['in'].position[1]),
-          anchorObj.outHandle = new AnchorHandle(anchorObj, anchor['out'].position[0], anchor['out'].position[1])
+          anchorObj.inHandle = new AnchorHandle(anchorObj, anchor['in'][0], anchor['in'][1]),
+          anchorObj.outHandle = new AnchorHandle(anchorObj, anchor['out'][0], anchor['out'][1])
           return anchorObj;
         });
         return connection;
@@ -79,6 +79,10 @@ angular
     var promises = {};
     
     var repository = {
+      save: function(module) {
+        var json = module.toJson();
+        return $http.post('/data', JSON.stringify(json, null, 2));
+      },
       get: function(name) {
         //already exists
         if(name in modules) {

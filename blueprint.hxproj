@@ -45,6 +45,7 @@
     <hidden path="components" />
     <hidden path="app\models\worker.js" />
     <hidden path="app\models\editor.js" />
+    <hidden path="app\services\editor.js" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />

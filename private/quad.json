@@ -1,7 +1,5 @@
-
 {
   "name": "Quad",
-  "description": "A quad structure...",
   "nodes": {
     "1": {
       "type": "neuron-activate",

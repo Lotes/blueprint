@@ -1,6 +1,5 @@
 {
   "name": "Example",
-  "description": "A little example...",
   "nodes": {
     "asso": {
       "type": "neuron-associate",
@@ -69,30 +68,24 @@
       },
       "anchors": [
         {
-          "in": {
-            "position": [
-              -8.235579090712118,
-              -141.18135584077916
-            ]
-          },
-          "out": {
-            "position": [
-              7,
-              120
-            ]
-          },
+          "in": [
+            -8.235579090712118,
+            -141.18135584077916
+          ],
+          "out": [
+            7,
+            120
+          ],
           "position": [
             -100,
             -100
-          ],
-          "$$hashKey": "object:52"
+          ]
         }
       ],
       "destination": {
         "node": ["act"],
         "connector": "default"
-      },
-      "$$hashKey": "object:24"
+      }
     }
   ]
 }
