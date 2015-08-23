@@ -37,8 +37,10 @@ angular
         });
         $element.bind('mousemove', function(event) {
           event.preventDefault();
-          if(isMouseDown)
-            editorController.startDragging($scope.data.position, event);
+          if(isMouseDown) {
+            var snapping = $scope.snapping === 'true';
+            editorController.startDragging(snapping ? $scope.data.position : null, event);
+          }
         });
         $element.bind('mouseup', function(event) {
           event.preventDefault();
