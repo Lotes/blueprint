@@ -2,10 +2,9 @@ TODO
 ====
 
 - Beschriftungen als eigene Direktive (Labels)
-- Connector-Eigenschaften
-  - AllowedIn: {'activate':-1, 'inhibit':1}/null
-  - Out: 'activate'/null
-- Connection-Type nach Quellknotenkonnektor entscheiden
+- Properties-Fenster
+- Layouter für Seite
+- Mehrsprachigkeit
   
 Variablen
 ---------

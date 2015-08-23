@@ -119,7 +119,7 @@ angular
         self.isDragging = function() { return isDragging; };
         self.startDragging = function(position, event) {
           isDragging = true;
-          dragObjectPosition = position == null ? null : position.toArray();
+          dragObjectPosition = position === null ? null : position.toArray();
           dragStartPosition = getEventPosition(event);
           var selectedItems = selectables.filter(function(selectable) { 
             var entity = selectable.getEntity();
@@ -151,7 +151,7 @@ angular
             dragEndPosition[0] - dragStartPosition[0],
             dragEndPosition[1] - dragStartPosition[1]
           ];
-          if(dragObjectPosition) {
+          if(dragObjectPosition != null) {
             var dragObjectNewPosition = self.snapPosition([
               dragObjectPosition[0] + delta[0],
               dragObjectPosition[1] + delta[1]
