@@ -31,6 +31,7 @@ angular
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
         
         var connectors = {};
+        self.getModel = function() { return $scope.data; };
         self.getNodeType = function() { return $scope.data.className; };
         self.addConnector = function(name, controller) { 
           connectors[name] = controller; 

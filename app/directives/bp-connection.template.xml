@@ -7,7 +7,7 @@
     <g ng-if="data.anchors.length &gt; 0">
       <!-- last segment -->
       <path 
-        ng-style="{ 'marker-end': 'url(#marker-connection-activate)'}"
+        ng-style="{ 'marker-end': 'url(#marker-connection-'+connectionType+')'}"
         ng-attr-d="{{ 'M'+(data.anchors[data.anchors.length-1].position | coordinate)+' Q'+(data.anchors[data.anchors.length-1].position | coordinateAdd : data.anchors[data.anchors.length-1].outHandle.position | coordinate)+' '+(destinationPosition | coordinate) }}" 
         ng-mousedown="onMouseDown($event, data.anchors.length)"
       />
@@ -27,7 +27,7 @@
     <g ng-if="data.anchors.length == 0">
       <!-- only one segment  -->
       <line 
-        ng-style="{ 'marker-end': 'url(#marker-connection-activate)'}"
+        ng-style="{ 'marker-end': 'url(#marker-connection-'+connectionType+')'}"
         ng-attr-x1="{{sourcePosition[0]}}" 
         ng-attr-y1="{{sourcePosition[1]}}" 
         ng-attr-x2="{{destinationPosition[0]}}" 

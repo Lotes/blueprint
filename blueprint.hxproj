@@ -47,6 +47,7 @@
     <hidden path="app\models\editor.js" />
     <hidden path="app\services\editor.js" />
     <hidden path="vendor" />
+    <hidden path="composer.phar" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />

@@ -1,3 +1,14 @@
+NeuronType = { 
+  ACTIVATE: 'activate', 
+  INHIBIT: 'inhibit', 
+  ASSOCIATE: 'associate', 
+  DISASSOCIATE: 'disassociate' 
+}
+
+class ConnectorInput
+  constructor: (@activate, @inhibit, @associate, @disassociate) ->
+  @ANY: new ConnectorInput(-1, -1, -1, -1) 
+
 class Position
   constructor: (x, y) ->
     @coordinates = [x, y]
@@ -61,8 +72,9 @@ class Connection
     }
     
 class Connector
-  constructor: (@name) ->
-    @parentNode = null;
+  constructor: (@name, @input, @output) ->
+    @parentNode = null
+    #input: ConnectorInput, output: NeuronType
     
 class Module
   constructor: (@name) ->
@@ -111,8 +123,8 @@ class ConnectableNode extends Node
     @connectors = []
   getConnector: (name) ->
     _.find(@connectors, (connector) -> connector.name == name) || null
-  addConnector: (name) ->
-    connector = new Connector(name)
+  addConnector: (name, input, output) ->
+    connector = new Connector(name, input, output)
     connector.parentNode = @
     @connectors.push(connector)
   toJson: () ->
@@ -124,7 +136,7 @@ class Neuron extends ConnectableNode
   className: 'Neuron'
   constructor: (name, @type) ->
     super(name)
-    @addConnector('default')
+    @addConnector('default', ConnectorInput.ANY, @type)
   toJson: () ->
     result = super()
     result.type = 'neuron-'+@type
@@ -142,4 +154,6 @@ angular.module('blueprint')
   .factory('ConnectableNode', () -> ConnectableNode)
   .factory('Neuron', () -> Neuron)
   .factory('ModuleInstance', () -> ModuleInstance)
+  .factory('NeuronType', () -> NeuronType)
+  .factory('ConnectorInput', () -> ConnectorInput)
   ;

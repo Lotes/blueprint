@@ -73,6 +73,9 @@ angular
             if($scope.data.anchors.length === 0) 
               removeMe();  
           });
+        //determine connection type
+        $scope.connectionType = sourceNode.getModel().getConnector($scope.data.source.connector).output;
+        //TODO check if not null
         //destructor
         $scope.$on('$destroy', function() {
           sourceNode.off('change:position', sourceUpdated);
