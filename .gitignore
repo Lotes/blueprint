@@ -5,3 +5,6 @@
 /app/models/worker.js
 /svg.min.css
 /app/services/editor.js
+
+/vendor/
+/composer.phar

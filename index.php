@@ -1,8 +1,7 @@
 <?php 
 
-require 'Slim/Slim.php';
+require 'vendor/autoload.php';
 require 'includes/helpers.php';
-\Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
 $app->config(array(
