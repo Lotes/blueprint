@@ -2,88 +2,131 @@
   "name": "Example",
   "nodes": {
     "asso": {
-      "type": "neuron-associate",
       "position": [
-        -100,
-        0
-      ]
+        150,
+        -200
+      ],
+      "type": "neuron-associate"
     },
     "dis": {
-      "type": "neuron-disassociate",
       "position": [
-        -150,
-        0
-      ]
+        75,
+        100
+      ],
+      "type": "neuron-disassociate"
     },
     "act": {
-      "type": "neuron-activate",
       "position": [
         50,
         0
-      ]
+      ],
+      "type": "neuron-activate"
     },
     "inh": {
-      "type": "neuron-inhibit",
       "position": [
-        100,
-        0
-      ]
+        225,
+        -300
+      ],
+      "type": "neuron-inhibit"
     },
     "mod": {
-      "type": "module-instance",
-      "moduleName": "quad",
       "position": [
         250,
         0
-      ]
+      ],
+      "type": "module-instance",
+      "moduleName": "Quad"
     }
   },
   "connections": [
     {
       "source": {
-        "node": ["act"],
+        "node": [
+          "act"
+        ],
         "connector": "default"
       },
       "anchors": [],
       "destination": {
-        "node": ["inh"],
+        "node": [
+          "inh"
+        ],
         "connector": "default"
       }
     },
     {
       "source": {
-        "node": ["mod", "1"],
+        "node": [
+          "mod",
+          "1"
+        ],
         "connector": "default"
       },
       "anchors": [],
       "destination": {
-        "node": ["inh"],
+        "node": [
+          "inh"
+        ],
         "connector": "default"
       }
     },
     {
       "source": {
-        "node": ["inh"],
+        "node": [
+          "inh"
+        ],
         "connector": "default"
       },
       "anchors": [
         {
-          "in": [
-            -8.235579090712118,
-            -141.18135584077916
-          ],
-          "out": [
-            7,
-            120
-          ],
           "position": [
-            -100,
-            -100
+            -250,
+            -125
+          ],
+          "inHandle": [
+            34.84604951435121,
+            -137.06112808978142
+          ],
+          "outHandle": [
+            -45,
+            177
           ]
         }
       ],
       "destination": {
-        "node": ["act"],
+        "node": [
+          "act"
+        ],
+        "connector": "default"
+      }
+    },
+    {
+      "source": {
+        "node": [
+          "asso"
+        ],
+        "connector": "default"
+      },
+      "anchors": [],
+      "destination": {
+        "node": [
+          "inh"
+        ],
+        "connector": "default"
+      }
+    },
+    {
+      "source": {
+        "node": [
+          "dis"
+        ],
+        "connector": "default"
+      },
+      "anchors": [],
+      "destination": {
+        "node": [
+          "act"
+        ],
         "connector": "default"
       }
     }

@@ -56,8 +56,8 @@ angular
         connection.anchors = _.map(value.anchors, function(anchor) {
           var anchorObj = new Anchor(anchor.position[0], anchor.position[1]);
           anchorObj.parentConnection = connection;
-          anchorObj.inHandle = new AnchorHandle(anchorObj, anchor['in'][0], anchor['in'][1]),
-          anchorObj.outHandle = new AnchorHandle(anchorObj, anchor['out'][0], anchor['out'][1])
+          anchorObj.inHandle = new AnchorHandle(anchorObj, anchor.inHandle[0], anchor.inHandle[1]),
+          anchorObj.outHandle = new AnchorHandle(anchorObj, anchor.outHandle[0], anchor.outHandle[1])
           return anchorObj;
         });
         return connection;

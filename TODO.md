@@ -5,7 +5,9 @@ TODO
 - Properties-Fenster
 - Layouter für Seite
 - Mehrsprachigkeit
-  
+- Neuronen hinzufügen
+- Module hinzufügen
+
 Variablen
 ---------
 

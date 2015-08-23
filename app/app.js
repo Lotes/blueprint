@@ -12,5 +12,5 @@ angular
   })
   .run(function ($templateCache, $http) {
       //HACK: preload directive templates such that the connector are built before connections
-      $http.get('app/directives/bp-neuron.template.xml', { cache: $templateCache });
+      $http.get('app/directives/editor/bp-neuron.template.xml', { cache: $templateCache });
   });
