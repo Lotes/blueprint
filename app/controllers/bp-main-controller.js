@@ -10,6 +10,14 @@ angular
       selection: null
     };
     
+    //size
+    $scope.width = 0;
+    $scope.height = 0;
+    $scope.canvasResized = function(w, h) {
+      $scope.width = w;
+      $scope.height = h;  
+    };
+    
     //fetch module
     $scope.data = null;
     $scope.ready = false;

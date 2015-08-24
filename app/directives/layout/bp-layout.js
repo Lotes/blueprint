@@ -42,6 +42,7 @@ angular
 
         var children = [];
         var self = this;
+        this.splitsHorizontally = function() { return splitsHorizontally; };
         this.addChild = function(controller) { 
           children.push(controller);
           self.resize();

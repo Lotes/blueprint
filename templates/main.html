@@ -1,37 +1,49 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand brand" href="#">Blueprint</a>
-    </div>
+<div style="width: 100%; height: 100%; overflow: hidden">
+  <bp-layout width="*" height="*" split="vertical">
+    <bp-panel size="50px">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand brand" href="#">Blueprint</a>
+          </div>
 
-    <div class="collapse navbar-collapse">
-      <button type="button" class="btn btn-save navbar-btn" ng-click="save()" ng-disabled="{{saving}}">
-        <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-        Save
-      </button>
-    </div>
-  </div>
-</nav>
-<div class="toolbar">
-  <button 
-    type="button"     
-    ng-repeat="data in modes track by $index"
-    ng-class="{btn: true, 'btn-default': true, active: tools.mode === data.name}" 
-    ng-click="tools.mode = data.name"
-    ng-attr-title="{{data.description}}">
-    <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
-  </button>
-  <span>
-    <input type="checkbox" ng-model="tools.snapToGrid"/>
-    Snap to grid
-  </span>
-</div>
-<div class="main-view-left">
-  <bp-properties map="data" selection="tools.selection">
-  </bp-properties>
-</div>
-<div class="main-view-right" ng-if="ready">
-  <bp-editor module="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid"
-    editor-width="600" editor-height="400">
-  </bp-editor>
+          <div class="collapse navbar-collapse">
+            <button type="button" class="btn btn-save navbar-btn" ng-click="save()" ng-disabled="{{saving}}">
+              <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+              Save
+            </button>
+          </div>
+        </div>
+      </nav>      
+    </bp-panel>
+    <bp-panel size="50px">
+      <div class="toolbar">
+        <button 
+          type="button"     
+          ng-repeat="data in modes track by $index"
+          ng-class="{btn: true, 'btn-default': true, active: tools.mode === data.name}" 
+          ng-click="tools.mode = data.name"
+          ng-attr-title="{{data.description}}">
+          <span ng-attr-class="{{ 'glyphicon '+data.iconClass }}" aria-hidden="true"></span> {{data.label}}
+        </button>
+        <span>
+          <input type="checkbox" ng-model="tools.snapToGrid"/>
+          Snap to grid
+        </span>
+      </div>      
+    </bp-panel>
+    <bp-panel size="*">
+      <bp-layout width="*" height="*" split="horizontal">
+        <bp-panel size="300">
+          <bp-properties map="data" selection="tools.selection">
+          </bp-properties>        
+        </bp-panel>
+        <bp-panel size="*" on-resize="canvasResized($width, $height)" ng-if="ready">
+          <bp-editor module="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid"
+            editor-width="width" editor-height="height">
+          </bp-editor>
+        </bp-panel>
+      </bp-layout>
+    </bp-panel>
+  </bp-layout>
 </div>

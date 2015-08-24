@@ -1,18 +1,23 @@
 .layout {
-  outline: 1px solid red; 
   position: relative;
 }
 
 .layout-panel {
-  outline: 1px solid green;  
   position: absolute;
   display: block;
 }
 
 .layout-splitter {
-  background-color: yellow;  
+  position: absolute;
+  display: block;
 }
 
+.layout-splitter-horizontal {
+  cursor: w-resize;  
+}
+.layout-splitter-vertical {
+  cursor: n-resize;  
+}
 
 
 
