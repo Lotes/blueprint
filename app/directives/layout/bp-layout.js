@@ -43,7 +43,7 @@ angular
         var children = [];
         var self = this;
         this.addChild = function(controller) { 
-          children.push(controller); 
+          children.push(controller);
           self.resize();
         };  
         this.resize = function() {
@@ -84,7 +84,9 @@ angular
           var w = angular.element($window);
           w.bind('resize', triggerResize);
           $scope.$on('$destroy', function() { w.unbind('resize', triggerResize); });
-          thisController.resize();
+          $timeout(function triggerResize() { 
+            thisController.resize();
+          }, 100);
         } else
           parentController.addChild(thisController);
       }
