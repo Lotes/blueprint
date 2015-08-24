@@ -1,3 +1,21 @@
+.layout {
+  outline: 1px solid red; 
+  position: relative;
+}
+
+.layout-panel {
+  outline: 1px solid green;  
+  position: absolute;
+  display: block;
+}
+
+.layout-splitter {
+  background-color: yellow;  
+}
+
+
+
+
 body, svg {
   padding: 0;
   margin: 0;

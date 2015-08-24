@@ -1,4 +1,4 @@
-<svg ng-attr-width="{{width}}" ng-attr-height="{{height}}">
+<svg ng-attr-width="{{width+'px'}}" ng-attr-height="{{height+'px'}}">
   <defs>
     <pattern id="grid-pattern" width="25" height="25" patternUnits="userSpaceOnUse">
       <rect x="0" y="0" width="25" height="25" class="grid-pattern" stroke-dasharray="2,2" stroke-width="0.5"/>

@@ -29,7 +29,8 @@ module.exports = function(grunt) {
     coffee: {
       editor: {
         files: {
-          'app/services/editor.js': 'app/services/editor.coffee'
+          'app/services/editor.js': 'app/services/editor.coffee',
+          'app/services/property-grid.js': 'app/services/property-grid.coffee'
         }
       }
     },

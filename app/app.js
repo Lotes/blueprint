@@ -5,10 +5,14 @@ angular
       templateUrl: 'templates/main.html',
       controller: 'bpMainController'
     };
-    $routeProvider.
-      when('/', options).
-      when('/:name', options).
-      otherwise({ redirectTo: '/' });
+    $routeProvider
+      .when('/', options)
+      .when('/layout', { 
+        templateUrl: 'templates/layout.html',
+        controller: 'bpLayoutController'
+      })
+      .when('/:name', options)
+      .otherwise({ redirectTo: '/' });
   })
   .run(function ($templateCache, $http) {
       //HACK: preload directive templates such that the connector are built before connections

@@ -5,6 +5,8 @@ angular
       restrict: 'E',
       replace: true,
       scope: {
+        width: '=editorWidth',
+        height: '=editorHeight',
         data: '=module',
         mode: '=',
         snapToGrid: '=snapping',
@@ -31,17 +33,6 @@ angular
             Math.round(position[1] / 25) * 25
           ];
         };
-        //auto-resize canvas
-        var parent = $element.parent()[0];
-        $scope.onResizeFunction = function() {
-          $scope.height = parent.clientHeight;
-          $scope.width = parent.clientWidth;
-        };
-        $scope.onResizeFunction();
-        angular.element($window).bind('resize', function() {
-          $scope.onResizeFunction();
-          $scope.$apply();
-        });        
         //mouse events
         var events = ['mousedown', 'mousemove', 'mouseup'];
         _.each(events, function(eventName) {
