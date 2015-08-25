@@ -1,13 +1,37 @@
 TODO
 ====
 
-- Beschriftungen als eigene Direktive (Labels)
+Backlogs
+--------
+
 - Properties-Fenster
-- Layouter für Seite
-- Mehrsprachigkeit
 - Neuronen hinzufügen
 - Module hinzufügen
+- Beschriftungen als eigene Direktive (Labels)
+- Mehrsprachigkeit
+- Tag- und Volltextsuche
 
+PropertyGrid
+------------
+
+- Property
+  - name
+  - description
+  - category
+  - readonly / computed
+  - watch-Ausdruck oder getter/setter (siehe $parse)
+  - validate (unique var names, +context)
+  - type
+- Type
+  - expandable / hasChildren (WIE?!)
+  - view (template/controller)
+    - access readonly
+  - editor (template/controller)
+    - access validation, validationError
+- TypeRegistry
+  - get(name)
+  - register(name, type)
+    
 Variablen
 ---------
 

@@ -7,6 +7,10 @@ angular
     };
     $routeProvider
       .when('/', options)
+      .when('/properties', { 
+        templateUrl: 'templates/property-grid.html',
+        controller: 'bpPropertyGridController'
+      })
       .when('/layout', { 
         templateUrl: 'templates/layout.html',
         controller: 'bpLayoutController'
