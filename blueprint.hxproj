@@ -15,7 +15,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="app\models" />
+    <class path="app\modules\editor\models" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -55,7 +55,7 @@
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
   <options>
-    <option showHiddenPaths="False" />
+    <option showHiddenPaths="True" />
     <option testMovie="Webserver" />
     <option testMovieCommand="http://localhost:5000" />
   </options>

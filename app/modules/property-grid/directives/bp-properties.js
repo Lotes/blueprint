@@ -9,7 +9,7 @@ angular
         data: '=map',
         entity: '=selection'
       },
-      templateUrl: 'app/directives/property-grid/bp-properties.template.html',
+      templateUrl: 'app/modules/property-grid/templates/bp-properties.template.html',
       controller: function($scope) {
         
       },

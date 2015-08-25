@@ -10,7 +10,7 @@ angular
         s: '@size', //2%/10px/100/*
         resizing: '&onResize'
       },
-      templateUrl: 'app/directives/layout/bp-panel.template.html',
+      templateUrl: 'app/modules/layout/templates/bp-panel.template.html',
       controller: function($scope, $element) {
         var children = [];
         var size = new LayoutSize($scope.s);

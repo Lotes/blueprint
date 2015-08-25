@@ -12,7 +12,7 @@ angular
         snapToGrid: '=snapping',
         selection: '='
       },
-      templateUrl: 'app/directives/editor/bp-editor.template.xml',
+      templateUrl: 'app/modules/editor/templates/bp-editor.template.xml',
       controller: function($scope, $element) {     
         var self = this;
         _.extend(self, Backbone.Events);

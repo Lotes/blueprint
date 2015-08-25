@@ -9,7 +9,7 @@ angular
       scope: {
         data: '=anchor'
       },
-      templateUrl: 'app/directives/editor/bp-anchor.template.xml',
+      templateUrl: 'app/modules/editor/templates/bp-anchor.template.xml',
       controller: function() { _.extend(this, Backbone.Events); },
       link: function($scope, $element, $attrs, controllers) {
         var editorController = controllers[0];

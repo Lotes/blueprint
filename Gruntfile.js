@@ -15,8 +15,8 @@ module.exports = function(grunt) {
     haxe: {
         worker: {
             main: 'WorkerMain',
-            classpath:['app/models'],
-            output:'app/models/worker.js'
+            classpath:['app/modules/editor/models'],
+            output:'app/modules/editor/models/worker.js'
         }
     },
     less: {
@@ -29,13 +29,13 @@ module.exports = function(grunt) {
     coffee: {
       editor: {
         files: {
-          'app/services/editor.js': 'app/services/editor.coffee',
-          'app/services/property-grid.js': 'app/services/property-grid.coffee'
+          'app/modules/editor/services/editor.js': 'app/modules/editor/services/editor.coffee',
+          'app/modules/property-grid/services/property-grid.js': 'app/modules/property-grid/services/property-grid.coffee'
         }
       }
     },
     watch: {
-      files: ['app/models/**/*.hx', 'svg.less', 'app/services/**/*.coffee'],
+      files: ['app/modules/**/*.hx', 'svg.less', 'app/modules/**/*.coffee'],
       tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor' ]
     }
   });

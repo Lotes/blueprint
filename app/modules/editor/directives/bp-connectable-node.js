@@ -61,6 +61,6 @@ angular
           return instanceController.getPath().concat([$scope.data.name]); 
         };
       },
-      templateUrl: 'app/directives/editor/bp-connectable-node.template.xml'
+      templateUrl: 'app/modules/editor/templates/bp-connectable-node.template.xml'
     };
   });

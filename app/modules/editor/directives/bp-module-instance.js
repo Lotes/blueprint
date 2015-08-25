@@ -91,7 +91,7 @@ angular
         $scope.isSelected = false;
         $scope.selectionChanged = function(selected) { $scope.isSelected = selected; };
       },
-      templateUrl: 'app/directives/editor/bp-module-instance.template.xml',
+      templateUrl: 'app/modules/editor/templates/bp-module-instance.template.xml',
       compile: function(element) {
         return RecursionHelper.compile(element, link);
       }

@@ -2,17 +2,17 @@ angular
   .module('blueprint', ['ngRoute'])
   .config(function($routeProvider) {
     var options = {
-      templateUrl: 'templates/main.html',
+      templateUrl: 'app/templates/main.html',
       controller: 'bpMainController'
     };
     $routeProvider
       .when('/', options)
       .when('/properties', { 
-        templateUrl: 'templates/property-grid.html',
+        templateUrl: 'app/templates/property-grid.html',
         controller: 'bpPropertyGridController'
       })
       .when('/layout', { 
-        templateUrl: 'templates/layout.html',
+        templateUrl: 'app/templates/layout.html',
         controller: 'bpLayoutController'
       })
       .when('/:name', options)
@@ -20,6 +20,6 @@ angular
   })
   .run(function ($templateCache, $http) {
       //HACK: preload directive templates such that the connector are built before connections
-      $http.get('app/directives/editor/bp-neuron.template.xml', { cache: $templateCache });
-      $http.get('app/directives/layout/bp-splitter.template.html', { cache: $templateCache });
+      $http.get('app/modules/editor/templates/bp-neuron.template.xml', { cache: $templateCache });
+      $http.get('app/modules/layout/templates/bp-splitter.template.html', { cache: $templateCache });
   });

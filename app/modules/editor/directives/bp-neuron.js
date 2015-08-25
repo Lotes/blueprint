@@ -17,6 +17,6 @@ angular
       link: function($scope, $element, $attrs, controllers) {
         
       },
-      templateUrl: 'app/directives/editor/bp-neuron.template.xml'
+      templateUrl: 'app/modules/editor/templates/bp-neuron.template.xml'
     };
   });

@@ -10,7 +10,7 @@ angular
         data: '=connection',
         canEdit: '@editable'
       },
-      templateUrl: 'app/directives/editor/bp-connection.template.xml',
+      templateUrl: 'app/modules/editor/templates/bp-connection.template.xml',
       link: function($scope, $element, $attrs, controllers) {
         $scope.canEdit = $scope.canEdit === 'true';
         

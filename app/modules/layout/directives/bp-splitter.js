@@ -8,7 +8,7 @@ angular
       scope: {
         s: '@size'  
       },
-      templateUrl: 'app/directives/layout/bp-splitter.template.html',
+      templateUrl: 'app/modules/layout/templates/bp-splitter.template.html',
       controller: function($scope, $element) {
         var size = new LayoutSize($scope.s);
         $scope.computedLeft = 0;

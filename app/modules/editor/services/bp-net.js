@@ -2,7 +2,7 @@ angular
   .module('blueprint')
   .factory('bpNet', function($http, $q) {
     var ID = 0;
-    var worker = new Worker('app/models/model.js');    
+    var worker = new Worker('app/modules/editor/models/model.js');    
     var listeners = {};
     function send(message) {
       var id = ID++;
