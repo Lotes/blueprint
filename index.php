@@ -7,7 +7,17 @@ $app->config(array(
     'templates.path' => '.',
 ));
 
-$app->get('/', function () use ($app) {
+$app->get('/', function () use ($app) {  
+  /*
+  //TODO auto-load for CSS, JS and templates
+  $directory = new RecursiveDirectoryIterator('app/');
+  $iterator = new RecursiveIteratorIterator($directory);
+  $regexIter = new RegexIterator($iterator, '/\.(js|css)$/i', RecursiveRegexIterator::GET_MATCH);
+  foreach ($regexIter as $path => $dir) {
+    if ($dir->isDir()) {
+      $paths[] = $path;
+    }
+  }*/
   $app->render('templates/start.html');
 });
 $app->get('/data/:name', function ($name) use($app) {    

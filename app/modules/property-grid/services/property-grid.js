@@ -1,23 +1,60 @@
 (function() {
-  var Property, PropertyType;
+  var Property, PropertyEditor, PropertyView;
 
-  PropertyType = (function() {
-    function PropertyType() {}
+  PropertyView = (function() {
+    function PropertyView(template) {
+      this.template = template;
+    }
 
-    return PropertyType;
+    PropertyView.LABEL = new PropertyView('<span ng-class="{ \'property-value-read-only\': readOnly }">{{ value }}</span>');
+
+    return PropertyView;
+
+  })();
+
+  PropertyEditor = (function() {
+    function PropertyEditor(template) {
+      this.template = template;
+    }
+
+    PropertyEditor.TEXT = new PropertyEditor('<input type="text" ng-model="value"/>');
+
+    return PropertyEditor;
 
   })();
 
   Property = (function() {
-    function Property(name, type, get, set) {
-      this.name = name;
-      this.type = type;
-      this.get = get;
-      this.set = set;
+    function Property(options) {
+      this.name = options.name;
+      this.accessor = options.accessor;
+      this.view = options.view;
+      this.editor = options.editor || null;
+      this.category = options.category || 'General information';
+      this.validate = options.validate || true;
+      this.description = options.description || null;
     }
 
     return Property;
 
   })();
+
+  angular.module('blueprint').factory('PropertyView', function() {
+    return PropertyView;
+  }).factory('PropertyEditor', function() {
+    return PropertyEditor;
+  }).factory('Property', function() {
+    return Property;
+  });
+
+
+  /*
+  Welche typen gibt es?
+  -Ganzzahl
+  -Fließkommazahl
+  -Wahrheitswerte
+  -Zeichenketten
+  -arithmetische Ausdrücke
+  -Latex(-Ausdrücke)
+   */
 
 }).call(this);

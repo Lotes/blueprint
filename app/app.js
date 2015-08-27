@@ -1,5 +1,5 @@
 angular
-  .module('blueprint', ['ngRoute'])
+  .module('blueprint', ['ngRoute', 'ngSanitize'])
   .config(function($routeProvider) {
     var options = {
       templateUrl: 'app/templates/main.html',

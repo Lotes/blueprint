@@ -48,6 +48,9 @@
     <hidden path="app\services\editor.js" />
     <hidden path="vendor" />
     <hidden path="composer.phar" />
+    <hidden path="app\modules\property-grid\styles\property-grid.css" />
+    <hidden path="app\modules\property-grid\styles\property-grid.min.css" />
+    <hidden path="app\modules\property-grid\services\property-grid.js" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />
