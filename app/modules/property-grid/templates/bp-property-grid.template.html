@@ -1,0 +1,30 @@
+<table class="property-grid" align="left">
+  <!--tbody>
+    <tr class="property-grid-header">
+      <td colspan="2">
+        Properties
+      </td>
+    </tr>
+  </tbody-->
+  
+  <tbody ng-repeat-start="category in categories track by $index">
+    <tr class="property-grid-category">
+      <td colspan="2" ng-click="toggleCategory(category)">
+        <span 
+          ng-class="{ glyphicon: true, 'glyphicon-plus': !isCategoryExpanded[category], 'glyphicon-minus': isCategoryExpanded[category] }">
+        </span>
+        {{category}}
+      </td>
+    </tr>
+  </tbody>
+  <tbody ng-repeat-end="" class="property-grid-category-body" ng-hide="!isCategoryExpanded[category]">
+    <tr class="property-grid-item" ng-repeat="item in itemsByCategory[category] | orderBy: 'name'">
+      <td class="property-grid-item-name">
+        {{item.name}}
+      </td>
+      <td class="property-grid-item-value">
+        bbb
+      </td>
+    </tr>
+  </tbody>
+</table>
