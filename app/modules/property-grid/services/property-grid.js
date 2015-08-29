@@ -15,7 +15,7 @@
   PropertyLabelView = (function(superClass) {
     extend(PropertyLabelView, superClass);
 
-    function PropertyLabelView($scope) {
+    function PropertyLabelView($scope, $element) {
       PropertyLabelView.__super__.constructor.call(this, "<span ng-class=\"{ \'property-value-read-only\': readOnly }\">{{ value }}</span>");
     }
 
@@ -35,8 +35,8 @@
   PropertyTextEditor = (function(superClass) {
     extend(PropertyTextEditor, superClass);
 
-    function PropertyTextEditor($scope) {
-      PropertyTextEditor.__super__.constructor.call(this, "<input \n  ng-class=\"{ \'property-value-error\': hasError }\" \n  type=\"text\" \n  ng-model=\"value\"\n  ng-keypress=\"$event.which !== 13 || applyValue()\"\n/>");
+    function PropertyTextEditor($scope, $element) {
+      PropertyTextEditor.__super__.constructor.call(this, "<input \n  ng-class=\"{ \'property-value-error\': hasError }\" \n  type=\"text\" \n  ng-model=\"value\"\n  ng-keypress=\"$event.which !== 13 || applyValue()\"\n/>\n<div ng-show=\"hasError\" class=\"property-value-error-tooltip\">{{errorMessage}}</div>");
     }
 
     return PropertyTextEditor;

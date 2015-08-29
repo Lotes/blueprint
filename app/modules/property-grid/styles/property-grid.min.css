@@ -9,4 +9,5 @@
 .property-value-error{background-color:#FFDDDD;}
 .selected .property-name{background-color:#DDDDEE;}
 .selected .property-value{background-color:#EEEEFF;}
+.property-value-error-tooltip{border:1px solid red;background-color:#FFAAAA;color:black;position:absolute;display:inline;}
 

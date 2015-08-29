@@ -2,14 +2,14 @@ class PropertyView
   constructor: (@template) ->
   
 class PropertyLabelView extends PropertyView
-  constructor: ($scope) ->
+  constructor: ($scope, $element) ->
     super("""<span ng-class="{ \'property-value-read-only\': readOnly }">{{ value }}</span>""")
 
 class PropertyEditor
   constructor: (@template) ->
 
 class PropertyTextEditor extends PropertyEditor
-  constructor: ($scope) ->
+  constructor: ($scope, $element) ->
     super("""
       <input 
         ng-class="{ \'property-value-error\': hasError }" 
@@ -17,6 +17,7 @@ class PropertyTextEditor extends PropertyEditor
         ng-model="value"
         ng-keypress="$event.which !== 13 || applyValue()"
       />
+      <div ng-show="hasError" class="property-value-error-tooltip">{{errorMessage}}</div>
     """)
   
 PropertyEditors = {

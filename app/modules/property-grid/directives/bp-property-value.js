@@ -23,8 +23,8 @@ angular
         var $viewScope = $scope.$new();
         var $editorScope = $scope.$new();
         
-        var view = new View($viewScope);
-        var editor = Editor === null ? null : new Editor($editorScope);
+        var view = new View($viewScope, $element);
+        var editor = Editor === null ? null : new Editor($editorScope, $element);
         
         $editorScope.hasError = false;
         $editorScope.errorMessage = '';
