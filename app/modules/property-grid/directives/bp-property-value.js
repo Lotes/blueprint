@@ -5,6 +5,7 @@ angular
       restrict: 'E',
       replace: true,
       scope: {
+        reference: '=context',
         data: '=object',
         property: '=property',
         edit: '=selected'
@@ -15,23 +16,71 @@ angular
         var object = $scope.data;
         var get = $parse(property.accessor);
         var set = get.assign;
-        var $childScope = $scope.$new();
+        var Editor = property.editor;
+        var View = property.view;
+        $scope.readOnly = Editor === null;
         
-        $childScope.value = null;
-        $childScope.readOnly = property.editor === null;
+        var $viewScope = $scope.$new();
+        var $editorScope = $scope.$new();
+        
+        var view = new View($viewScope);
+        var editor = Editor === null ? null : new Editor($editorScope);
+        
+        $editorScope.hasError = false;
+        $editorScope.errorMessage = '';
+        
+        $viewScope.value = null;
+        $editorScope.value = null;
+        
+        function validate(applyValue) {
+          $editorScope.hasError = false;
+          var validate = property.validate;
+          switch(typeof(validate)) {
+            case 'boolean':
+              if(!validate) {
+                $editorScope.hasError = true;
+                $editorScope.errorMessage = 'All values are wrong ;D.';
+                return;
+              }
+              break;
+            case 'function':
+              try { 
+                validate($editorScope.value, object, $scope.reference); 
+              } catch(ex) {
+                $editorScope.hasError = true;
+                $editorScope.errorMessage = ex.message;
+                return;
+              }
+              break;
+            default:
+              $editorScope.hasError = true;
+              $editorScope.errorMessage = 'No validator given!';
+              return;
+          }
+          if(applyValue === true)
+            set(object, $editorScope.value);
+        }
+        
+        $editorScope.applyValue = function() { validate(true); };
+        $editorScope.$watch('value', validate);
         
         function updateValue() {
-          $childScope.value = get(object);  
+          $viewScope.value = 
+          $editorScope.value = get(object);  
         }
         function updateTemplate() {
-          var template = property.view.template;
-          if($scope.edit && !$childScope.readOnly)
-            template = property.editor.template;
+          var template = view.template;
+          if($scope.edit && !$scope.readOnly) {
+            template = editor.template;
+            $editorScope.value = $viewScope.value;
+          } 
+          if(!$scope.edit && !$scope.readOnly)
+            validate(true);  
           $element.html(template);
-          $compile($element.contents())($childScope);
+          $compile($element.contents())($scope.edit ? $editorScope : $viewScope);
         }
         
-        $scope.template = property.view.template;
+        $scope.template = view.template;
         $scope.$watch('data.'+property.accessor, updateValue);
         $scope.$watch('edit', updateTemplate);
         

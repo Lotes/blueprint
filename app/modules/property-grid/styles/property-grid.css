@@ -1,5 +1,6 @@
 .property-grid {
   border: 1px solid black;
+  width: 300px;
 }
 .property-grid-category {
   cursor: pointer;
@@ -17,19 +18,25 @@
 .property-name {
   background-color: #EEEEEE;
   border-right: 1px solid #CCCCCC;
+  width: 50%;
 }
 .property-value {
   background-color: white;
   color: black;
+  width: 50%;
 }
 .property-value input {
   width: 100%;
-  height: 100;
+  height: 100%;
   margin: 0;
   padding: 0;
+  border: none;
 }
 .property-value-read-only {
   color: gray;
+}
+.property-value-error {
+  background-color: #FFDDDD;
 }
 .selected .property-name {
   background-color: #DDDDEE;

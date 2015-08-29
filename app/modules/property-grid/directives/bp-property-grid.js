@@ -5,6 +5,7 @@ angular
       restrict: 'E',
       replace: true,
       scope: {
+        reference: '=context',
         data: '=object',
         schema: '=properties'
       },

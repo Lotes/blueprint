@@ -1,11 +1,32 @@
 class PropertyView
   constructor: (@template) ->
-  @LABEL: new PropertyView('<span ng-class="{ \'property-value-read-only\': readOnly }">{{ value }}</span>')
+  
+class PropertyLabelView extends PropertyView
+  constructor: ($scope) ->
+    super("""<span ng-class="{ \'property-value-read-only\': readOnly }">{{ value }}</span>""")
 
 class PropertyEditor
   constructor: (@template) ->
-  @TEXT: new PropertyEditor('<input type="text" ng-model="value"/>')
 
+class PropertyTextEditor extends PropertyEditor
+  constructor: ($scope) ->
+    super("""
+      <input 
+        ng-class="{ \'property-value-error\': hasError }" 
+        type="text" 
+        ng-model="value"
+        ng-keypress="$event.which !== 13 || applyValue()"
+      />
+    """)
+  
+PropertyEditors = {
+  TEXT: PropertyTextEditor
+}
+
+PropertyViews = {
+  LABEL: PropertyLabelView  
+}
+  
 class Property
   constructor: (options) ->
     @name = options.name;
@@ -17,8 +38,8 @@ class Property
     @description = options.description || null;
 
 angular.module('blueprint')
-  .factory('PropertyView', () -> PropertyView)
-  .factory('PropertyEditor', () -> PropertyEditor)
+  .factory('PropertyViews', () -> PropertyViews)
+  .factory('PropertyEditors', () -> PropertyEditors)
   .factory('Property', () -> Property)
   ;    
     
