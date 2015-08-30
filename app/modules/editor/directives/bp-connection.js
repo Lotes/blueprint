@@ -18,15 +18,26 @@ angular
         var instanceController = controllers[1]; 
         var instanceElement = instanceController.getElement();
         
-        function getConnector(endPoint) {
-          var path = endPoint.path;
-          var connectorName = endPoint.connector;
-          return instanceController.getConnector(path, connectorName);
-        }
-        var sourceConnector = getConnector($scope.data.source);
-        var destinationConnector = getConnector($scope.data.destination);
+        var sourceConnector = instanceController.getConnector($scope.data.source.path, $scope.data.source.connector);
+        var destinationConnector = instanceController.getConnector($scope.data.destination.path, $scope.data.destination.connector);
         var sourceNode = sourceConnector.getNode();
         var destinationNode = destinationConnector.getNode();
+        var sourcePathNodes = instanceController.getPathNodes($scope.data.source.path);
+        var destinationPathNodes = instanceController.getPathNodes($scope.data.destination.path);
+        //node path names
+        function addNodeNameChangeListener(endPoint) { //TODO somehow move to data model? Otherwise executed in every instance...
+          return function(controller, index) {
+            var listener = function() {
+              var node = controller.getModel();  
+              var name = node.name;
+              endPoint.path[index] = name;
+            };
+            controller.on('change:name', listener);
+            $scope.$on('$destroy', function() { controller.off('change:name', listener); });
+          };
+        }
+        _.each(sourcePathNodes, addNodeNameChangeListener($scope.data.source));
+        _.each(destinationPathNodes, addNodeNameChangeListener($scope.data.destination));
         //anchors
         function updateSource() {
           var anchors = $scope.data.anchors;

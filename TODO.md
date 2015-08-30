@@ -4,7 +4,9 @@ TODO
 Backlogs
 --------
 
-- Properties-Fenster
+- wenn Name von Knoten sich ändert auch Konnektoren ändern!
+- Readonly-Modus für Modulinstanzen
+- Zentrum von Modulen und Labels anzeigen?
 - Neuronen hinzufügen
 - Module hinzufügen
 - Beschriftungen als eigene Direktive (Labels)

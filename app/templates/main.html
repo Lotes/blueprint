@@ -35,12 +35,20 @@
     <bp-panel size="*">
       <bp-layout width="*" height="*" split="horizontal">
         <bp-panel size="300">
-          <bp-property-grid map="data" selection="tools.selection">
+          <bp-property-grid 
+            context="data" 
+            object="selectedObject" 
+            properties="properties">
           </bp-property-grid>        
         </bp-panel>
         <bp-panel size="*" on-resize="canvasResized($width, $height)" ng-if="ready">
-          <bp-editor module="data" mode="tools.mode" selection="tools.selection" snapping="tools.snapToGrid"
-            editor-width="width" editor-height="height">
+          <bp-editor 
+            module="data" 
+            mode="tools.mode" 
+            selection="tools.selection" 
+            snapping="tools.snapToGrid"
+            editor-width="width" 
+            editor-height="height">
           </bp-editor>
         </bp-panel>
       </bp-layout>

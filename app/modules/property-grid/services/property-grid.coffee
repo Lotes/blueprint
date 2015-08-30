@@ -19,7 +19,7 @@ class PropertyTextEditor extends PropertyEditor
       />
       <div ng-show="hasError" class="property-value-error-tooltip">{{errorMessage}}</div>
     """)
-  
+
 PropertyEditors = {
   TEXT: PropertyTextEditor
 }

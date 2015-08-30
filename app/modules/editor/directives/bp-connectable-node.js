@@ -45,6 +45,8 @@ angular
         var instanceController = controllers[1]; 
         var connectableController = controllers[2]; 
         
+        $scope.$watch('data.name', function() { connectableController.trigger('change:name'); });
+        
         function notifyPositionChanged() {
           connectableController.trigger('change:position'); 
         }

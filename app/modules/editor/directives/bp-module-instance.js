@@ -6,6 +6,8 @@ angular
       var parentController = controllers[1];
       var thisController = controllers[2];
       
+      $scope.$watch('data.name', function() { thisController.trigger('change:name'); });
+      
       function notifyPositionChanged() { thisController.trigger('change:position'); }
       $scope.$watch('data.position.coordinates', notifyPositionChanged);
       
@@ -45,6 +47,7 @@ angular
         
         this.isRoot = function() { return $scope.data.parentModule === null; };
         this.getModuleInstance = function() { return $scope.data; };
+        this.getModel = function() { return $scope.data; };
         this.getElement = function() { return $element[0]; };
         
         var childControllers = {};
@@ -53,13 +56,21 @@ angular
         this.getChild = function(name) { return childControllers[name]; };
         this.removeChild = function(name) { delete childControllers[name]; updateHull(); };
         
-        this.getConnector = function(nodePath, connectorName) {
+        this.getPathNodes = function(path) {
+          var result = [];
           var nodeController = self; 
-          _.each(nodePath, function(nodeName) {
+          _.each(path, function(nodeName) {
             if(nodeController.getNodeType() !== 'ModuleInstance')
               throw new Error('Node controller must be a module instance!');
             nodeController = nodeController.getChild(nodeName);
+            result.push(nodeController);
           });
+          return result;
+        };
+        
+        this.getConnector = function(nodePath, connectorName) {
+          var nodes = self.getPathNodes(nodePath);
+          var nodeController = nodes[nodes.length-1]; 
           if(nodeController.getNodeType() === 'ModuleInstance')
             throw new Error('Node controller must not be a module instance!');
           return nodeController.getConnector(connectorName);
