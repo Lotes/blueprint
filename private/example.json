@@ -6,35 +6,35 @@
         150,
         -200
       ],
-      "type": "neuron-associate"
+      "type": "AssociatorNeuron"
     },
     "dis": {
       "position": [
         75,
         100
       ],
-      "type": "neuron-disassociate"
+      "type": "DisassociatorNeuron"
     },
     "act": {
       "position": [
         50,
         0
       ],
-      "type": "neuron-activate"
+      "type": "ActivatorNeuron"
     },
     "inh": {
       "position": [
         225,
         -300
       ],
-      "type": "neuron-inhibit"
+      "type": "InhibitorNeuron"
     },
     "mod": {
       "position": [
         250,
         0
       ],
-      "type": "module-instance",
+      "type": "ModuleInstance",
       "moduleName": "Quad"
     }
   },

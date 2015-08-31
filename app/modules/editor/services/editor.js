@@ -1,5 +1,5 @@
 (function() {
-  var Anchor, AnchorHandle, ConnectableNode, Connection, ConnectionEndPoint, Connector, ConnectorInput, Module, ModuleInstance, Neuron, NeuronType, Node, Position,
+  var ActivatorNeuron, Anchor, AnchorHandle, AssociatorNeuron, Button, ConnectableNode, Connection, ConnectionEndPoint, Connector, ConnectorInput, DisassociatorNeuron, InhibitorNeuron, Module, ModuleInstance, Neuron, NeuronType, Node, Plotter, Position, RandomNeuron,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -19,6 +19,8 @@
     }
 
     ConnectorInput.ANY = new ConnectorInput(-1, -1, -1, -1);
+
+    ConnectorInput.NONE = new ConnectorInput(0, 0, 0, 0);
 
     return ConnectorInput;
 
@@ -183,7 +185,7 @@
   })();
 
   Node = (function() {
-    Node.prototype.className = '(abstract Node)';
+    Node.prototype.className = 'Node';
 
     function Node(name1) {
       this.name = name1;
@@ -203,6 +205,7 @@
 
     Node.prototype.toJson = function() {
       return {
+        type: this.className,
         position: this.position.toJson()
       };
     };
@@ -224,7 +227,6 @@
     ModuleInstance.prototype.toJson = function() {
       var result;
       result = ModuleInstance.__super__.toJson.call(this);
-      result.type = 'module-instance';
       result.moduleName = this.module.name;
       return result;
     };
@@ -236,12 +238,10 @@
   ConnectableNode = (function(superClass) {
     extend(ConnectableNode, superClass);
 
-    ConnectableNode.prototype.className = '(abstract ConnectableNode)';
+    ConnectableNode.prototype.className = 'ConnectableNode';
 
-    function ConnectableNode(name1) {
-      this.name = name1;
-      this.parentModule = null;
-      this.position = new Position(0, 0);
+    function ConnectableNode(name) {
+      ConnectableNode.__super__.constructor.call(this, name);
       this.connectors = [];
     }
 
@@ -256,13 +256,6 @@
       connector = new Connector(name, input, output);
       connector.parentNode = this;
       return this.connectors.push(connector);
-    };
-
-    ConnectableNode.prototype.toJson = function() {
-      var result;
-      result = ConnectableNode.__super__.toJson.call(this);
-      result.position = this.position.toJson();
-      return result;
     };
 
     return ConnectableNode;
@@ -280,16 +273,104 @@
       this.addConnector('default', ConnectorInput.ANY, this.type);
     }
 
-    Neuron.prototype.toJson = function() {
-      var result;
-      result = Neuron.__super__.toJson.call(this);
-      result.type = 'neuron-' + this.type;
-      return result;
-    };
-
     return Neuron;
 
   })(ConnectableNode);
+
+  Plotter = (function(superClass) {
+    extend(Plotter, superClass);
+
+    Plotter.prototype.className = 'Plotter';
+
+    function Plotter(name) {
+      Plotter.__super__.constructor.call(this, name);
+      this.addConnector('input-red', ConnectorInput.ANY, null);
+      this.addConnector('input-green', ConnectorInput.ANY, null);
+      this.addConnector('input-blue', ConnectorInput.ANY, null);
+    }
+
+    return Plotter;
+
+  })(ConnectableNode);
+
+  Button = (function(superClass) {
+    extend(Button, superClass);
+
+    Button.prototype.className = 'Button';
+
+    function Button(name) {
+      Button.__super__.constructor.call(this, name);
+      this.addConnector('default', ConnectorInput.NONE, NeuronType.ACTIVATE);
+    }
+
+    return Button;
+
+  })(ConnectableNode);
+
+  RandomNeuron = (function(superClass) {
+    extend(RandomNeuron, superClass);
+
+    RandomNeuron.prototype.className = 'RandomNeuron';
+
+    function RandomNeuron(name) {
+      RandomNeuron.__super__.constructor.call(this, name, NeuronType.ACTIVATE);
+    }
+
+    return RandomNeuron;
+
+  })(Neuron);
+
+  ActivatorNeuron = (function(superClass) {
+    extend(ActivatorNeuron, superClass);
+
+    ActivatorNeuron.prototype.className = 'ActivatorNeuron';
+
+    function ActivatorNeuron(name) {
+      ActivatorNeuron.__super__.constructor.call(this, name, NeuronType.ACTIVATE);
+    }
+
+    return ActivatorNeuron;
+
+  })(Neuron);
+
+  InhibitorNeuron = (function(superClass) {
+    extend(InhibitorNeuron, superClass);
+
+    InhibitorNeuron.prototype.className = 'InhibitorNeuron';
+
+    function InhibitorNeuron(name) {
+      InhibitorNeuron.__super__.constructor.call(this, name, NeuronType.INHIBIT);
+    }
+
+    return InhibitorNeuron;
+
+  })(Neuron);
+
+  AssociatorNeuron = (function(superClass) {
+    extend(AssociatorNeuron, superClass);
+
+    AssociatorNeuron.prototype.className = 'AssociatorNeuron';
+
+    function AssociatorNeuron(name) {
+      AssociatorNeuron.__super__.constructor.call(this, name, NeuronType.ASSOCIATE);
+    }
+
+    return AssociatorNeuron;
+
+  })(Neuron);
+
+  DisassociatorNeuron = (function(superClass) {
+    extend(DisassociatorNeuron, superClass);
+
+    DisassociatorNeuron.prototype.className = 'DisassociatorNeuron';
+
+    function DisassociatorNeuron(name) {
+      DisassociatorNeuron.__super__.constructor.call(this, name, NeuronType.DISASSOCIATE);
+    }
+
+    return DisassociatorNeuron;
+
+  })(Neuron);
 
   angular.module('blueprint').factory('Position', function() {
     return Position;
@@ -309,8 +390,22 @@
     return Node;
   }).factory('ConnectableNode', function() {
     return ConnectableNode;
+  }).factory('Button', function() {
+    return Button;
+  }).factory('Plotter', function() {
+    return Plotter;
   }).factory('Neuron', function() {
     return Neuron;
+  }).factory('RandomNeuron', function() {
+    return RandomNeuron;
+  }).factory('ActivatorNeuron', function() {
+    return ActivatorNeuron;
+  }).factory('InhibitorNeuron', function() {
+    return InhibitorNeuron;
+  }).factory('AssociatorNeuron', function() {
+    return AssociatorNeuron;
+  }).factory('DisassociatorNeuron', function() {
+    return DisassociatorNeuron;
   }).factory('ModuleInstance', function() {
     return ModuleInstance;
   }).factory('NeuronType', function() {

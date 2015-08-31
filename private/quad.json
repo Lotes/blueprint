@@ -2,14 +2,14 @@
   "name": "Quad",
   "nodes": {
     "1": {
-      "type": "neuron-activate",
+      "type": "ActivatorNeuron",
       "position": [
         100,
         100
       ]
     },
     "2": {
-      "type": "neuron-inhibit",
+      "type": "InhibitorNeuron",
       "position": [
         200,
         200

@@ -8,6 +8,7 @@ NeuronType = {
 class ConnectorInput
   constructor: (@activate, @inhibit, @associate, @disassociate) ->
   @ANY: new ConnectorInput(-1, -1, -1, -1) 
+  @NONE: new ConnectorInput(0, 0, 0, 0) 
 
 class Position
   constructor: (x, y) ->
@@ -85,13 +86,13 @@ class Module
     for node in @nodes
       nodes[node.name] = node.toJson()
     {
-      name: @name,
+      name: @name, 
       nodes: nodes,
       connections: _.map(@connections, (connection) -> connection.toJson())
     }
   
 class Node
-  className: '(abstract Node)'
+  className: 'Node'
   constructor: (@name) ->
     @parentModule = null;
     @position = new Position(0, 0)
@@ -102,7 +103,9 @@ class Node
     @parentModule
   toJson: () -> 
     { 
-      position: @position.toJson()  
+      #name: @name, #no name, it is used as key!
+      type: @className,
+      position: @position.toJson()
     }
 
 class ModuleInstance extends Node
@@ -111,15 +114,13 @@ class ModuleInstance extends Node
     super(name)     
   toJson: () ->
     result = super()
-    result.type = 'module-instance'
     result.moduleName = @module.name
     result
 
 class ConnectableNode extends Node  
-  className: '(abstract ConnectableNode)'
-  constructor: (@name) ->
-    @parentModule = null;
-    @position = new Position(0, 0)
+  className: 'ConnectableNode'
+  constructor: (name) ->
+    super(name)
     @connectors = []
   getConnector: (name) ->
     _.find(@connectors, (connector) -> connector.name == name) || null
@@ -127,20 +128,51 @@ class ConnectableNode extends Node
     connector = new Connector(name, input, output)
     connector.parentNode = @
     @connectors.push(connector)
-  toJson: () ->
-    result = super()
-    result.position = @position.toJson()
-    result
     
 class Neuron extends ConnectableNode
   className: 'Neuron'
   constructor: (name, @type) ->
     super(name)
     @addConnector('default', ConnectorInput.ANY, @type)
-  toJson: () ->
-    result = super()
-    result.type = 'neuron-'+@type
-    result
+   
+class Plotter extends ConnectableNode
+  className: 'Plotter'
+  constructor: (name) ->
+    super(name)
+    @addConnector('input-red', ConnectorInput.ANY, null)
+    @addConnector('input-green', ConnectorInput.ANY, null)
+    @addConnector('input-blue', ConnectorInput.ANY, null)
+
+class Button extends ConnectableNode
+  className: 'Button'
+  constructor: (name) ->
+    super(name)
+    @addConnector('default', ConnectorInput.NONE, NeuronType.ACTIVATE)
+
+class RandomNeuron extends Neuron
+  className: 'RandomNeuron'
+  constructor: (name) ->
+    super(name, NeuronType.ACTIVATE)
+
+class ActivatorNeuron extends Neuron
+  className: 'ActivatorNeuron'  
+  constructor: (name) ->
+    super(name, NeuronType.ACTIVATE)
+
+class InhibitorNeuron extends Neuron
+  className: 'InhibitorNeuron'
+  constructor: (name) ->
+    super(name, NeuronType.INHIBIT)
+    
+class AssociatorNeuron extends Neuron
+  className: 'AssociatorNeuron'
+  constructor: (name) ->
+    super(name, NeuronType.ASSOCIATE)
+    
+class DisassociatorNeuron extends Neuron
+  className: 'DisassociatorNeuron'
+  constructor: (name) ->
+    super(name, NeuronType.DISASSOCIATE)
     
 angular.module('blueprint')
   .factory('Position', () -> Position)
@@ -152,7 +184,14 @@ angular.module('blueprint')
   .factory('Module', () -> Module)
   .factory('Node', () -> Node)
   .factory('ConnectableNode', () -> ConnectableNode)
+  .factory('Button', () -> Button)
+  .factory('Plotter', () -> Plotter)
   .factory('Neuron', () -> Neuron)
+  .factory('RandomNeuron', () -> RandomNeuron)
+  .factory('ActivatorNeuron', () -> ActivatorNeuron)
+  .factory('InhibitorNeuron', () -> InhibitorNeuron)
+  .factory('AssociatorNeuron', () -> AssociatorNeuron)
+  .factory('DisassociatorNeuron', () -> DisassociatorNeuron)
   .factory('ModuleInstance', () -> ModuleInstance)
   .factory('NeuronType', () -> NeuronType)
   .factory('ConnectorInput', () -> ConnectorInput)

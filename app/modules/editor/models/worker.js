@@ -17,12 +17,6 @@ NeuronType.ASSOCIATE = ["ASSOCIATE",2];
 NeuronType.ASSOCIATE.__enum__ = NeuronType;
 NeuronType.DISASSOCIATE = ["DISASSOCIATE",3];
 NeuronType.DISASSOCIATE.__enum__ = NeuronType;
-NeuronType.__empty_constructs__ = [NeuronType.ACTIVATE,NeuronType.INHIBIT,NeuronType.ASSOCIATE,NeuronType.DISASSOCIATE];
-var Type = function() { };
-Type.__name__ = true;
-Type.allEnums = function(e) {
-	return e.__empty_constructs__;
-};
 var computation = {};
 computation.Worker = function() {
 };
@@ -49,7 +43,6 @@ WorkerMain.__super__ = computation.Worker;
 WorkerMain.prototype = $extend(computation.Worker.prototype,{
 	initialize: function(netData) {
 		var x = null;
-		var x1 = null;
 	}
 	,answerSuccess: function(id,message) {
 		this.postMessage({ id : id, type : "success", body : message});
@@ -135,9 +128,6 @@ computation.Net.prototype = {
 		var neuron = new computation.Neuron(this,type,threshold,factor,maximum);
 		this.neurons.push(neuron);
 		return neuron;
-	}
-	,addQuad: function() {
-		return new computation.Quad(this);
 	}
 	,connect: function(source,destination) {
 		var connection = new computation.Connection(this,source,destination);
@@ -352,41 +342,6 @@ computation.NeuronState.prototype = {
 	}
 	,__class__: computation.NeuronState
 };
-computation.Quad = function(net) {
-	this.neurons = new haxe.ds.StringMap();
-	var centralNeuron = net.addNeuron(NeuronType.ACTIVATE,1,Math.POSITIVE_INFINITY,1);
-	this.neurons.set(computation.QuadConnector.CENTRAL[0],centralNeuron);
-	var _g = 0;
-	var _g1 = Type.allEnums(computation.QuadConnector);
-	while(_g < _g1.length) {
-		var connector = _g1[_g];
-		++_g;
-		if(connector != computation.QuadConnector.CENTRAL) {
-			var neuron = net.addNeuron(NeuronType.ACTIVATE,2,Math.POSITIVE_INFINITY,1);
-			this.neurons.set(connector[0],neuron);
-			net.connect(centralNeuron,neuron);
-		}
-	}
-};
-computation.Quad.__name__ = true;
-computation.Quad.prototype = {
-	getNeuron: function(connector) {
-		return this.neurons.get(connector[0]);
-	}
-	,__class__: computation.Quad
-};
-computation.QuadConnector = { __ename__ : true, __constructs__ : ["CENTRAL","SUB","SUR","POR","RET"] };
-computation.QuadConnector.CENTRAL = ["CENTRAL",0];
-computation.QuadConnector.CENTRAL.__enum__ = computation.QuadConnector;
-computation.QuadConnector.SUB = ["SUB",1];
-computation.QuadConnector.SUB.__enum__ = computation.QuadConnector;
-computation.QuadConnector.SUR = ["SUR",2];
-computation.QuadConnector.SUR.__enum__ = computation.QuadConnector;
-computation.QuadConnector.POR = ["POR",3];
-computation.QuadConnector.POR.__enum__ = computation.QuadConnector;
-computation.QuadConnector.RET = ["RET",4];
-computation.QuadConnector.RET.__enum__ = computation.QuadConnector;
-computation.QuadConnector.__empty_constructs__ = [computation.QuadConnector.CENTRAL,computation.QuadConnector.SUB,computation.QuadConnector.SUR,computation.QuadConnector.POR,computation.QuadConnector.RET];
 var haxe = {};
 haxe.ds = {};
 haxe.ds.ObjectMap = function() {
@@ -402,20 +357,6 @@ haxe.ds.ObjectMap.prototype = {
 		this.h.__keys__[id] = key;
 	}
 	,__class__: haxe.ds.ObjectMap
-};
-haxe.ds.StringMap = function() {
-	this.h = { };
-};
-haxe.ds.StringMap.__name__ = true;
-haxe.ds.StringMap.__interfaces__ = [IMap];
-haxe.ds.StringMap.prototype = {
-	set: function(key,value) {
-		this.h["$" + key] = value;
-	}
-	,get: function(key) {
-		return this.h["$" + key];
-	}
-	,__class__: haxe.ds.StringMap
 };
 var js = {};
 js.Boot = function() { };

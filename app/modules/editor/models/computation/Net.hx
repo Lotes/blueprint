@@ -29,12 +29,6 @@ class Net
     return neuron;
   }
   
-  public function addQuad(): computation.Quad 
-  { 
-    //constructor uses addNeuron- and connect-methods
-    return new computation.Quad(this); 
-  }
-  
   public function connect(source: computation.Neuron, destination: computation.Neuron): Connection
   {
     var connection = new Connection(this, source, destination);

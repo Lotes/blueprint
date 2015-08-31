@@ -20,6 +20,11 @@ angular
   })
   .run(function ($templateCache, $http) {
       //HACK: preload directive templates such that the connector are built before connections
-      $http.get('app/modules/editor/templates/bp-neuron.template.xml', { cache: $templateCache });
+      var templates = ['bp-anchor.template.xml', 'bp-connectable-node.template.xml', 
+        'bp-editor.template.xml', 'bp-module-instance.template.xml',
+        'bp-neuron.template.xml'];
+      _.each(templates, function(template) {
+        $http.get('app/modules/editor/templates/'+template, { cache: $templateCache });
+      });
       $http.get('app/modules/layout/templates/bp-splitter.template.html', { cache: $templateCache });
   });

@@ -33,10 +33,7 @@ angular
         var connectors = {};
         self.getModel = function() { return $scope.data; };
         self.getNodeType = function() { return $scope.data.className; };
-        self.addConnector = function(name, controller) { 
-          connectors[name] = controller; 
-          //console.log('add connector "'+name+'" to node "'+$scope.data.name+'"');
-        };
+        self.addConnector = function(name, controller) { connectors[name] = controller; };
         self.getConnector = function(name) { return connectors[name]; };
         self.removeConnector = function(name) { delete connectors[name]; };
       },

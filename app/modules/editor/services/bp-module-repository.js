@@ -1,7 +1,9 @@
 angular
   .module('blueprint')
   .factory('bpModuleRepository', function(Module, $q, $http, Node, 
-      Position, Connection, Anchor, AnchorHandle, Neuron, ModuleInstance, ConnectionEndPoint) {
+      Position, Connection, Anchor, AnchorHandle, Neuron, ModuleInstance, ConnectionEndPoint,
+      Button, Plotter, RandomNeuron, ActivatorNeuron, InhibitorNeuron, AssociatorNeuron, 
+      DisassociatorNeuron) {
     
     function parseModule(res) {
       var deferred = $q.defer();
@@ -13,27 +15,27 @@ angular
         var parentModule = result;
         var position = new Position(value.position[0], value.position[1]);
         switch(value.type) {
-          case 'neuron-activate':
-            var node = new Neuron(name, 'activate');
+          case 'ActivatorNeuron':
+            var node = new ActivatorNeuron(name);
             node.parentModule = parentModule;
             node.position = position;
             return node;  
-          case 'neuron-inhibit':
-            var node = new Neuron(name, 'inhibit');
+          case 'InhibitorNeuron':
+            var node = new InhibitorNeuron(name);
             node.parentModule = parentModule;
             node.position = position;
             return node;  
-          case 'neuron-associate':
-            var node = new Neuron(name, 'associate');
+          case 'AssociatorNeuron':
+            var node = new AssociatorNeuron(name);
             node.parentModule = parentModule;
             node.position = position;
             return node;  
-          case 'neuron-disassociate':
-            var node = new Neuron(name, 'disassociate');
+          case 'DisassociatorNeuron':
+            var node = new DisassociatorNeuron(name);
             node.parentModule = parentModule;
             node.position = position;
             return node;  
-          case 'module-instance':
+          case 'ModuleInstance':
             var instance = new ModuleInstance(name);
             instance.parentModule = parentModule;
             instance.position = position;

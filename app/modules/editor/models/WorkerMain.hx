@@ -6,7 +6,6 @@ import js.Error;
 class WorkerMain extends computation.Worker
 {  
   private function initialize(netData: Dynamic) {
-    var x: computation.Quad = null; 
     var x: computation.NetState = null; 
   }
   

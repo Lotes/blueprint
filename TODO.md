@@ -4,7 +4,6 @@ TODO
 Backlogs
 --------
 
-- wenn Name von Knoten sich ändert auch Konnektoren ändern!
 - Readonly-Modus für Modulinstanzen
 - Zentrum von Modulen und Labels anzeigen?
 - Neuronen hinzufügen
