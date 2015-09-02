@@ -8,17 +8,24 @@ $app->config(array(
 ));
 
 $app->get('/', function () use ($app) {  
-  /*
   //TODO auto-load for CSS, JS and templates
   $directory = new RecursiveDirectoryIterator('app/');
   $iterator = new RecursiveIteratorIterator($directory);
   $regexIter = new RegexIterator($iterator, '/\.(js|css)$/i', RecursiveRegexIterator::GET_MATCH);
+  $jsPaths = array();
+  $cssPaths = array();
   foreach ($regexIter as $path => $dir) {
-    if ($dir->isDir()) {
-      $paths[] = $path;
-    }
-  }*/
-  $app->render('templates/start.html');
+    if(preg_match("/\.js$/i", $path)) {
+      if(!preg_match("/worker\.js$/i", $path))
+        $jsPaths[] = $path;
+    } 
+    else if(preg_match("/\.css$/i", $path))
+      $cssPaths[] = $path;
+  }
+  $app->render('templates/start.php', array(
+    "scripts" => $jsPaths,
+    "styles" => $cssPaths
+  ));
 });
 $app->get('/data/:name', function ($name) use($app) {    
   $path = "private/$name.json";    

@@ -4,7 +4,7 @@ TODO
 Backlogs
 --------
 
-- Readonly-Modus für Modulinstanzen
+- Readonly-Modus für Modulinstanzen im PropertyGrid
 - Zentrum von Modulen und Labels anzeigen?
 - Neuronen hinzufügen
 - Module hinzufügen
