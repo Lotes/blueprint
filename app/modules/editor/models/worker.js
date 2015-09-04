@@ -5,84 +5,13 @@ function $extend(from, fields) {
 	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
 	return proto;
 }
-var IMap = function() { };
-IMap.__name__ = true;
-Math.__name__ = true;
-var NeuronType = { __ename__ : true, __constructs__ : ["ACTIVATE","INHIBIT","ASSOCIATE","DISASSOCIATE"] };
-NeuronType.ACTIVATE = ["ACTIVATE",0];
-NeuronType.ACTIVATE.__enum__ = NeuronType;
-NeuronType.INHIBIT = ["INHIBIT",1];
-NeuronType.INHIBIT.__enum__ = NeuronType;
-NeuronType.ASSOCIATE = ["ASSOCIATE",2];
-NeuronType.ASSOCIATE.__enum__ = NeuronType;
-NeuronType.DISASSOCIATE = ["DISASSOCIATE",3];
-NeuronType.DISASSOCIATE.__enum__ = NeuronType;
-var computation = {};
-computation.Worker = function() {
-};
-computation.Worker.__name__ = true;
-computation.Worker["export"] = function(script) {
-	self.onmessage = function(e) { script.onMessage(JSON.parse(e.data)); };;
-};
-computation.Worker.prototype = {
-	onMessage: function(message) {
-	}
-	,postMessage: function(message) {
-		self.postMessage(JSON.stringify(message));
-	}
-	,__class__: computation.Worker
-};
-var WorkerMain = function() {
-	computation.Worker.call(this);
-};
-WorkerMain.__name__ = true;
-WorkerMain.main = function() {
-	computation.Worker["export"](new WorkerMain());
-};
-WorkerMain.__super__ = computation.Worker;
-WorkerMain.prototype = $extend(computation.Worker.prototype,{
-	initialize: function(netData) {
-		var x = null;
-	}
-	,answerSuccess: function(id,message) {
-		this.postMessage({ id : id, type : "success", body : message});
-	}
-	,answerError: function(id,error) {
-		this.postMessage({ id : id, type : "error", body : error});
-	}
-	,notify: function(id,message) {
-		this.postMessage({ id : id, type : "notify", body : message});
-	}
-	,onMessage: function(message) {
-		var id = message.id;
-		var body = message.body;
-		var action = body.action;
-		switch(action) {
-		case "initialize":
-			try {
-				this.initialize(body.data);
-				this.answerSuccess(id,null);
-			} catch( err ) {
-				if( js.Boot.__instanceof(err,Error) ) {
-					this.answerError(id,err.message);
-				} else throw(err);
-			}
-			break;
-		case "cancel":
-			break;
-		case "step":
-			break;
-		}
-	}
-	,__class__: WorkerMain
-});
-computation.Connection = function(net,source,destination) {
+var Connection = function(net,source,destination) {
 	this.net = net;
 	this.source = source;
 	this.destination = destination;
 };
-computation.Connection.__name__ = true;
-computation.Connection.prototype = {
+Connection.__name__ = true;
+Connection.prototype = {
 	getSource: function() {
 		return this.source;
 	}
@@ -92,19 +21,22 @@ computation.Connection.prototype = {
 	,getConnectionType: function() {
 		return this.source.getNeuronType();
 	}
-	,__class__: computation.Connection
+	,__class__: Connection
 };
-computation.ConnectionState = function(weight) {
+var ConnectionState = function(weight) {
 	this.weight = weight;
 };
-computation.ConnectionState.__name__ = true;
-computation.ConnectionState.prototype = {
+ConnectionState.__name__ = true;
+ConnectionState.prototype = {
 	getWeight: function() {
 		return this.weight;
 	}
-	,__class__: computation.ConnectionState
+	,__class__: ConnectionState
 };
-computation.Net = function(learningConstant,unlearningConstant,decayConstant) {
+var IMap = function() { };
+IMap.__name__ = true;
+Math.__name__ = true;
+var Net = function(learningConstant,unlearningConstant,decayConstant) {
 	this.connectionsByDestination = new haxe.ds.ObjectMap();
 	this.connectionsBySource = new haxe.ds.ObjectMap();
 	this.connections = new Array();
@@ -113,8 +45,8 @@ computation.Net = function(learningConstant,unlearningConstant,decayConstant) {
 	this.unlearningConstant = unlearningConstant;
 	this.decayConstant = decayConstant;
 };
-computation.Net.__name__ = true;
-computation.Net.prototype = {
+Net.__name__ = true;
+Net.prototype = {
 	getLearningConstant: function() {
 		return this.learningConstant;
 	}
@@ -125,12 +57,12 @@ computation.Net.prototype = {
 		return this.decayConstant;
 	}
 	,addNeuron: function(type,threshold,factor,maximum) {
-		var neuron = new computation.Neuron(this,type,threshold,factor,maximum);
+		var neuron = new Neuron(this,type,threshold,factor,maximum);
 		this.neurons.push(neuron);
 		return neuron;
 	}
 	,connect: function(source,destination) {
-		var connection = new computation.Connection(this,source,destination);
+		var connection = new Connection(this,source,destination);
 		this.connections.push(connection);
 		if(!(this.connectionsBySource.h.__keys__[source.__id__] != null)) {
 			var value = new Array();
@@ -158,22 +90,22 @@ computation.Net.prototype = {
 		if(!(this.connectionsBySource.h.__keys__[neuron.__id__] != null)) return new Array();
 		return this.connectionsBySource.h[neuron.__id__];
 	}
-	,__class__: computation.Net
+	,__class__: Net
 };
-computation.NetState = function(net) {
+var NetState = function(net) {
 	this.connectionStates = new haxe.ds.ObjectMap();
 	this.neuronStates = new haxe.ds.ObjectMap();
 	this.net = net;
 };
-computation.NetState.__name__ = true;
-computation.NetState.prototype = {
+NetState.__name__ = true;
+NetState.prototype = {
 	initialize: function() {
 		var _g = 0;
 		var _g1 = this.net.getNeurons();
 		while(_g < _g1.length) {
 			var neuron = _g1[_g];
 			++_g;
-			var value = new computation.NeuronState(0);
+			var value = new NeuronState(0);
 			this.neuronStates.set(neuron,value);
 		}
 		var _g2 = 0;
@@ -181,7 +113,7 @@ computation.NetState.prototype = {
 		while(_g2 < _g11.length) {
 			var connection = _g11[_g2];
 			++_g2;
-			var value1 = new computation.ConnectionState(0);
+			var value1 = new ConnectionState(0);
 			this.connectionStates.set(connection,value1);
 		}
 	}
@@ -192,15 +124,15 @@ computation.NetState.prototype = {
 		return this.connectionStates.h[connection.__id__];
 	}
 	,setNeuronState: function(neuron,potential) {
-		var value = new computation.NeuronState(potential);
+		var value = new NeuronState(potential);
 		this.neuronStates.set(neuron,value);
 	}
 	,setConnectionState: function(connection,weight) {
-		var value = new computation.ConnectionState(weight);
+		var value = new ConnectionState(weight);
 		this.connectionStates.set(connection,value);
 	}
 	,nextState: function() {
-		var newState = new computation.NetState(this.net);
+		var newState = new NetState(this.net);
 		var _g = 0;
 		var _g1 = this.net.getNeurons();
 		while(_g < _g1.length) {
@@ -298,17 +230,17 @@ computation.NetState.prototype = {
 		}
 		return newState;
 	}
-	,__class__: computation.NetState
+	,__class__: NetState
 };
-computation.Neuron = function(net,type,threshold,factor,maximum) {
+var Neuron = function(net,type,threshold,factor,maximum) {
 	this.net = net;
 	this.type = type;
 	this.threshold = threshold;
 	this.factor = factor;
 	this.maximum = maximum;
 };
-computation.Neuron.__name__ = true;
-computation.Neuron.prototype = {
+Neuron.__name__ = true;
+Neuron.prototype = {
 	getNet: function() {
 		return this.net;
 	}
@@ -330,18 +262,85 @@ computation.Neuron.prototype = {
 	,getOutgoingConnections: function() {
 		return this.net.getOutgoingConnections(this);
 	}
-	,__class__: computation.Neuron
+	,__class__: Neuron
 };
-computation.NeuronState = function(potential) {
+var NeuronState = function(potential) {
 	this.potential = potential;
 };
-computation.NeuronState.__name__ = true;
-computation.NeuronState.prototype = {
+NeuronState.__name__ = true;
+NeuronState.prototype = {
 	getPotential: function() {
 		return this.potential;
 	}
-	,__class__: computation.NeuronState
+	,__class__: NeuronState
 };
+var NeuronType = { __ename__ : true, __constructs__ : ["ACTIVATE","INHIBIT","ASSOCIATE","DISASSOCIATE"] };
+NeuronType.ACTIVATE = ["ACTIVATE",0];
+NeuronType.ACTIVATE.__enum__ = NeuronType;
+NeuronType.INHIBIT = ["INHIBIT",1];
+NeuronType.INHIBIT.__enum__ = NeuronType;
+NeuronType.ASSOCIATE = ["ASSOCIATE",2];
+NeuronType.ASSOCIATE.__enum__ = NeuronType;
+NeuronType.DISASSOCIATE = ["DISASSOCIATE",3];
+NeuronType.DISASSOCIATE.__enum__ = NeuronType;
+var Worker = function() {
+};
+Worker.__name__ = true;
+Worker["export"] = function(script) {
+	self.onmessage = function(e) { script.onMessage(JSON.parse(e.data)); };;
+};
+Worker.prototype = {
+	onMessage: function(message) {
+	}
+	,postMessage: function(message) {
+		self.postMessage(JSON.stringify(message));
+	}
+	,__class__: Worker
+};
+var WorkerMain = function() {
+	Worker.call(this);
+};
+WorkerMain.__name__ = true;
+WorkerMain.main = function() {
+	Worker["export"](new WorkerMain());
+};
+WorkerMain.__super__ = Worker;
+WorkerMain.prototype = $extend(Worker.prototype,{
+	initialize: function(netData) {
+		var x = null;
+	}
+	,answerSuccess: function(id,message) {
+		this.postMessage({ id : id, type : "success", body : message});
+	}
+	,answerError: function(id,error) {
+		this.postMessage({ id : id, type : "error", body : error});
+	}
+	,notify: function(id,message) {
+		this.postMessage({ id : id, type : "notify", body : message});
+	}
+	,onMessage: function(message) {
+		var id = message.id;
+		var body = message.body;
+		var action = body.action;
+		switch(action) {
+		case "initialize":
+			try {
+				this.initialize(body.data);
+				this.answerSuccess(id,null);
+			} catch( err ) {
+				if( js.Boot.__instanceof(err,Error) ) {
+					this.answerError(id,err.message);
+				} else throw(err);
+			}
+			break;
+		case "cancel":
+			break;
+		case "step":
+			break;
+		}
+	}
+	,__class__: WorkerMain
+});
 var haxe = {};
 haxe.ds = {};
 haxe.ds.ObjectMap = function() {

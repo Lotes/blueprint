@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     less: {
       svg: {
         files: {
-          "svg.css": "svg.less"
+          "app/modules/editor/styles/editor.css": "app/modules/editor/styles/editor.less"
         }
       }
     },
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['app/modules/**/*.hx', 'svg.less', 'app/modules/**/*.coffee'],
+      files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee'],
       tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor' ]
     }
   });

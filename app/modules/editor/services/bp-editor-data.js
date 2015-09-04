@@ -29,13 +29,13 @@ angular
         },
         {
           name: 'neuron',
-          label: 'Add neuron',
+          label: 'Neuron',
           description: '...',
           iconClass: 'glyphicon-plus'
         },
         {
           name: 'module',
-          label: 'Add module',
+          label: 'Module',
           description: 'Add a complete neuron module.',
           iconClass: 'glyphicon-plus'
         },
@@ -57,6 +57,17 @@ angular
           description: 'Execute neuronal net.',
           iconClass: 'glyphicon-play'
         },
+      ],
+      toolsMenu: [
+        { type: 'button', mode: 'readOnly' },
+        { type: 'button', mode: 'move' },
+        { type: 'button', mode: 'select' },
+        { type: 'dropDown', title: 'Add node', items: [
+          { type: 'button', mode: 'neuron' },
+          { type: 'button', mode: 'module' }
+        ]},
+        { type: 'button', mode: 'connect' },
+        { type: 'button', mode: 'anchor' }
       ],
       types: {
         'string': {

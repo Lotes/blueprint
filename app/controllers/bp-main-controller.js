@@ -7,6 +7,7 @@ angular
     //toolsbar
     var name = $routeParams.name;
     $scope.modes = bpEditorData.modes;
+    $scope.toolsMenu = bpEditorData.toolsMenu;
     $scope.tools = {
       mode: 'select',
       snapToGrid: true,

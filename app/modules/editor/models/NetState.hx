@@ -1,11 +1,11 @@
-package computation;
-import computation.Neuron;
-import computation.NeuronState;
+package  ;
+import Neuron;
+import NeuronState;
 
 class NetState
 {
   private var net: Net;
-  private var neuronStates = new Map<computation.Neuron, computation.NeuronState>();
+  private var neuronStates = new Map<Neuron, NeuronState>();
   private var connectionStates = new Map<Connection, ConnectionState>();
   public function new(net: Net) 
   {
@@ -14,11 +14,11 @@ class NetState
   public function initialize()
   {
     for (neuron in net.getNeurons())
-      neuronStates.set(neuron, new computation.NeuronState(0));
+      neuronStates.set(neuron, new NeuronState(0));
     for (connection in net.getConnections())
       connectionStates.set(connection, new ConnectionState(0));
   }
-  public function getNeuronState(neuron: computation.Neuron): computation.NeuronState
+  public function getNeuronState(neuron: Neuron): NeuronState
   {
     return neuronStates.get(neuron);  
   }
@@ -26,9 +26,9 @@ class NetState
   {
     return connectionStates.get(connection);  
   }
-  public function setNeuronState(neuron: computation.Neuron, potential: Float): Void
+  public function setNeuronState(neuron: Neuron, potential: Float): Void
   {
-    neuronStates.set(neuron, new computation.NeuronState(potential));  
+    neuronStates.set(neuron, new NeuronState(potential));  
   }
   public function setConnectionState(connection: Connection, weight: Float): Void
   {
