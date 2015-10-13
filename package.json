@@ -16,6 +16,7 @@
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-haxe": "^0.1.13",
+    "grunt-jison": "^1.3.2",
     "grunt-php": "^1.5.0"
   }
 }

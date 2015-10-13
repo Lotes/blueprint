@@ -34,15 +34,28 @@ module.exports = function(grunt) {
         }
       }
     },
+	jison: {
+		parser: {
+			options: {
+				moduleType: 'js',
+				moduleName: 'parser'
+			},
+			files: { 'app/modules/compiler/parser.generated.js': 'app/modules/compiler/parser.jison' }
+		}
+	},
     watch: {
-      files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee'],
-      tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor' ]
+      files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee', 'app/modules/**/*.jison'],
+      tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor', 'jison:parser' ],
+      options: {
+        livereload: true
+      }
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-php');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jison');
   grunt.loadNpmTasks('grunt-haxe');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-coffee');
