@@ -22,17 +22,17 @@ class Neuron
    * @param factor will be multiplied with the outgoing potential (>=0)
    * @param maximum limits the outgoing potential (>=0)
    */
-	public function new(net: Net, 
+  public function new(net: Net, 
     type: NeuronType, threshold: Float, factor: Float, maximum: Float) 
-	{
-		this.net = net;
+  {
+    this.net = net;
     this.type = type;
     this.threshold = threshold;
     this.factor = factor;
     this.maximum = maximum;
-	}
+  }
 
-	public function getNet(): Net { return this.net; }
+  public function getNet(): Net { return this.net; }
   public function getNeuronType(): NeuronType { return this.type; }
   public function getThreshold(): Float { return this.threshold; }
   public function getFactor(): Float { return this.factor; }

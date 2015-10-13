@@ -224,7 +224,7 @@ NetState.prototype = {
 				}
 				if(descent > 0) newWeight = Math.sqrt(Math.pow(weight1,2) - descent);
 				var T = this.net.getDecayConstant();
-				if(gain == 0 && descent == 0 && weight1 < T) newWeight = Math.sqrt(Math.pow(weight1,2) - this.net.getDecayConstant());
+				if(gain == 0 && descent == 0 && weight1 < T) newWeight = Math.sqrt(Math.pow(weight1,2) - T);
 			}
 			newState.setConnectionState(connection1,newWeight);
 		}

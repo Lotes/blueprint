@@ -135,7 +135,7 @@ class NetState
         //forget
         var T = net.getDecayConstant();
         if (gain == 0 && descent == 0 && weight < T)
-          newWeight = Math.sqrt(Math.pow(weight, 2) - net.getDecayConstant());          
+          newWeight = Math.sqrt(Math.pow(weight, 2) - T);          
       }      
       newState.setConnectionState(connection, newWeight);
     }
