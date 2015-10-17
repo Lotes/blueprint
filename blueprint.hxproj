@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="app\models\editor.js" />
+    <movie path="core\core.js" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -15,14 +15,14 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="app\modules\editor\models" />
+    <class path="." />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="WorkerMain" />
+    <option mainClass="Main" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -35,7 +35,6 @@
     <compile path="src\Main.hx" />
     <compile path="app\src\Main.hx" />
     <compile path="app\models\Main.hx" />
-    <compile path="app\modules\editor\models\WorkerMain.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

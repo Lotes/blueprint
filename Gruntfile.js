@@ -49,6 +49,28 @@ module.exports = function(grunt) {
       options: {
         livereload: true
       }
+    },
+	browserify: {
+      core: {
+        files: {
+          'Blueprint.js': ['core/**/*.js']
+        },
+        options: {
+          require: ['./core/module']
+        }
+      }
+    },
+	yuidoc: {
+      core: {
+        name: '<%= pkg.name %>',
+        description: '<%= pkg.description %>',
+        version: '<%= pkg.version %>',
+        url: '<%= pkg.homepage %>',
+        options: {
+          paths: 'core/',
+          outdir: 'docs/core/'
+        }
+      }
     }
   });
 
@@ -59,6 +81,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-haxe');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
+  grunt.loadNpmTasks('grunt-browserify');
   
   // Default task(s).
   grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);
