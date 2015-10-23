@@ -53,10 +53,10 @@ module.exports = function(grunt) {
 	browserify: {
       core: {
         files: {
-          'Blueprint.js': ['core/**/*.js']
+          'Blueprint.js': ['core/src/**/*.js']
         },
         options: {
-          require: ['./core/module']
+          require: ['./core/src/module']
         }
       }
     },
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: 'core/',
+          paths: 'core/src',
           outdir: 'docs/core/'
         }
       }
