@@ -36,4 +36,21 @@ describe('Basics', function () {
         (function () { new basics.Neuron({ type: basics.NeuronType.ACTIVATE, associateConstant: -1 }); }).should.throw();
         (function () { new basics.Neuron({ type: basics.NeuronType.ACTIVATE, disassociateConstant: -1 }); }).should.throw();
     });
+
+    it('should create a neuron module', function () {
+        var Delay = new basics.Module({
+            builder: function (options, self) {
+                var start = this.add(new basics.Neuron({ type: basics.NeuronType.ACTIVATE }));
+                var neuron = start;
+                for (var index = 0; index < options.count-1; index++) {
+                    var next = this.add(new basics.Neuron({ type: basics.NeuronType.ACTIVATE }));
+                    this.connect(neuron, next);
+                    neuron = next;
+                }   
+            }
+        });
+        var delay = new Delay({ count: 3 });
+        delay.nodes.length.should.be.exactly(3);
+        delay.connections.length.should.be.exactly(2);
+    });
 });

@@ -250,7 +250,7 @@
      * @extends Object
      * @param options.source {Node} the starting node of this connection
      * @param options.destination {Node} the ending node of this connection
-     * @param options.weight {float} a non-negative weight value 
+     * @param options.weight {float} a non-negative weight value {optional, default is 1} 
      * @param options.decayConstant {float} a non-negative decay constant (optional)
      */
     function Connection(options) {
@@ -259,12 +259,13 @@
             throw new Error('"source" option must be a Node!');
         if (!(options.destination instanceof Node))
             throw new Error('"destination" option must be a Node!');
-        if (source instanceof Group || destination instanceof Group)
+        if (options.source instanceof Group || options.destination instanceof Group)
             throw new Error('Can not connect Groups directly!');
-        if (source instanceof Receiver)
+        if (options.source instanceof Receiver)
             throw new Error('A receiver can not be a source!');
-        if (destination instanceof Sender)
+        if (options.destination instanceof Sender)
             throw new Error('A sender can not be a destination!');
+        if (options.weight !== 0) options.weight = options.weight || 1;
         if (typeof (options.weight) !== 'number' || options.weight < 0)
             throw new Error('"weight" option must be a non-negative float!');
         if (options.decayConstant !== 0) options.decayConstant = options.decayConstant || 0;
