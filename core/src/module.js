@@ -10,8 +10,8 @@
 	 * @module Blueprint
 	 */
 	module.exports = {
-        NeuronType: require('./NeuronType'),
-        module: basics.module
+        Module: basics.Module,
+        NeuronType: basics.NeuronType,
 	};	
 	
 })();

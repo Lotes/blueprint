@@ -34,23 +34,29 @@ module.exports = function(grunt) {
         }
       }
     },
-	jison: {
-		parser: {
-			options: {
-				moduleType: 'js',
-				moduleName: 'parser'
-			},
-			files: { 'app/modules/compiler/parser.generated.js': 'app/modules/compiler/parser.jison' }
-		}
-	},
+    jison: {
+        parser: {
+            options: {
+                moduleType: 'js',
+                moduleName: 'parser'
+            },
+            files: { 'app/modules/compiler/parser.generated.js': 'app/modules/compiler/parser.jison' }
+        }
+    },
     watch: {
-      files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee', 'app/modules/**/*.jison'],
-      tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor', 'jison:parser' ],
-      options: {
-        livereload: true
+      web: {
+        files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee', 'app/modules/**/*.jison'],
+        tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor', 'jison:parser' ],
+        options: {
+          livereload: true
+        }
+      },
+      core: {
+        files: ['core/test/**/*.spec.js', 'core/src/**/*.js'],
+        tasks: ['mochaTest:core']
       }
     },
-	browserify: {
+    browserify: {
       core: {
         files: {
           'Blueprint.js': ['core/src/**/*.js']
@@ -60,7 +66,7 @@ module.exports = function(grunt) {
         }
       }
     },
-	yuidoc: {
+    yuidoc: {
       core: {
         name: '<%= pkg.name %>',
         description: '<%= pkg.description %>',
@@ -70,6 +76,17 @@ module.exports = function(grunt) {
           paths: 'core/src',
           outdir: 'docs/core/'
         }
+      }
+    },
+    mochaTest: {
+      core: {
+        options: {
+          reporter: 'nyan',
+          captureFile: 'core-tests.txt',
+          quiet: false,
+          clearRequireCache: false
+        },
+        src: ['core/test/**/*.spec.js']
       }
     }
   });
@@ -83,6 +100,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-mocha-test');
   
   // Default task(s).
   grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);
