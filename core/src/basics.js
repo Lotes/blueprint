@@ -1,13 +1,7 @@
 (function() {
-    /*
-    TODO:
-        - wo ist die interne Struktur für alle anderen Prozesse (Layout, Simulation, Serialisierung)?
-            - durch Instanziierung eines Moduls - in der Modulinstanz
-    */
-    
-    var extend = require('./extend');
     var _ = require('underscore');
     var Backbone = require('backbone');
+    var inherit = require('./inherit');
 
     /**
      * Super class of all classes in Blueprint.
@@ -20,10 +14,44 @@
     }
     
     /**
-     * @event tick
-     * @param object {Object}
+     * A collection of event names.
+     * @class Events
      */
-    var EVENT_TICK = 'tick';
+    var Events = {
+        /**
+         * Will be triggered every simulation cycle for each Object.
+         * @event TICK
+         * @param object {Object}
+         */
+        TICK: 'tick',
+        /**
+         * Will be triggered if the output of a Neuron changes.
+         * @event OUTPUT_CHANGE 
+         * @param neuron {Neuron}
+         * @param output {number}
+         */
+        OUTPUT_CHANGE: 'output_change',
+        /**
+         * Will be triggered if the input of a Neuron changes.
+         * @event INPUT_CHANGE 
+         * @param neuron {Neuron}
+         * @param input {number}
+         */
+        INPUT_CHANGE: 'input_change',
+        /**
+         * Will be triggered if the input of a Neuron is higher than its threshold.
+         * @event ACTIVATE 
+         * @param neuron {Neuron}
+         */
+        ACTIVATE: 'activate',
+        /**
+         * Will be triggered if the weight of a connection changes.
+         * @event WEIGHT_CHANGE
+         * @param connection {Connection}
+         * @param weight {number}
+         */
+        WEIGHT_CHANGE: 'weight_change'
+    };
 
     /**
      * Represents an interface for building module instances.
@@ -149,6 +177,7 @@
      *      });
      */
     function Module(options) {
+        options = options || {};
         if(typeof(options.builder) !== 'function')
             throw new Error('The "builder" option must be a function!');
         var builderDefinition = options.builder;
@@ -177,7 +206,7 @@
         Node.__super__.constructor.apply(this, arguments);
     }
     Node.prototype = {};
-    extend(Node, Object);
+    inherit(Node, Object);
     
     /**
      * Defines basic interface for an instantiated Module.
@@ -192,7 +221,7 @@
         this.nodes = []; 
         this.connections = [];
     }
-    extend(ModuleInstance, Node);
+    inherit(ModuleInstance, Node);
     
     /**
      * Defines a group of nodes for a simpler accessing. Use the module builder to create one.
@@ -211,16 +240,18 @@
         Group.__super__.constructor.apply(this, arguments);
         this.nodes = options.nodes;
     }
-    extend(Group, Node);
+    inherit(Group, Node);
     
     /**
      * Connects two nodes with each other. Use the module builder to create one.
      * @class Connection
      * @constructor
      * @private
+     * @extends Object
      * @param options.source {Node} the starting node of this connection
      * @param options.destination {Node} the ending node of this connection
      * @param options.weight {float} a non-negative weight value 
+     * @param options.decayConstant {float} a non-negative decay constant (optional)
      */
     function Connection(options) {
         options = options || {};
@@ -236,12 +267,15 @@
             throw new Error('A sender can not be a destination!');
         if (typeof (options.weight) !== 'number' || options.weight < 0)
             throw new Error('"weight" option must be a non-negative float!');
+        if (options.decayConstant !== 0) options.decayConstant = options.decayConstant || 0;
+        if (typeof (options.decayConstant) !== 'number' || options.decayConstant < 0)
+            throw new Error('Optional "decayConstant" option must be a non-negative number.');
         Connection.__super__.constructor.apply(this, arguments);
         this.source = options.source;
         this.destination = options.destination;
         this.weight = options.weight;
     }
-    extend(Connection, Object);
+    inherit(Connection, Object);
     
     function makeSender(node) {
         node.outgoingConnections = [];
@@ -254,47 +288,76 @@
      * Senders can be used for creating input nodes like switches or sliders.
      * @class Sender
      * @constructor
+     * @extends Node
      * @private
-     * @todo implement me
      */
     function Sender(options) {
         Sender.__super__.constructor.apply(this, arguments);
         makeSender(this);
     }
-    extend(Sender, Node);
+    inherit(Sender, Node);
     
     /**
      * Receiver can be used for creating output nodes like monitors or LEDs.
      * @class Receiver
      * @constructor
+     * @extends Node
      * @private
-     * @todo implement me
      */
     function Receiver(options) {
         Receiver.__super__.constructor.apply(this, arguments);
         makeReceiver(this);
     }
-    extend(Receiver, Node);
+    inherit(Receiver, Node);
 
     /**
      * A neuron is the processing unit of the net. It is receiver and sender at once!
      * @class Neuron
      * @constructor
-     * @todo implement me
+     * @extends Node
+     * @param options.type {NeuronType}
+     * @param options.threshold {Number} >= 0 (optional)
+     * @param options.factor {Number} > 0 (optional)
+     * @param options.maximum {Number} > 0 (optional)
+     * @param options.associateConstant {Number} >= 0 (optional)
+     * @param options.disassociateConstant {Number} >= 0 (optional)
      */
     function Neuron(options) {
+        options = options || {};
+        if (typeof (options.type) !== 'number')
+            throw new Error('Required "type" option must be an integer!');
+
+        if (options.threshold !== 0) options.threshold = options.threshold || 1;
+        if (typeof (options.threshold) !== 'number' || options.threshold < 0)
+            throw new Error('Optional "threshold" option must be a non-negative number!');
+        
+        if (options.factor !== 0) options.factor = options.factor || 1;
+        if (typeof (options.factor) !== 'number' || options.factor <= 0)
+            throw new Error('Optional "factor" option must be a positive number!');
+
+        if (options.maximum !== 0) options.maximum = options.maximum || 1;
+        if (typeof (options.maximum) !== 'number' || options.maximum <= 0)
+            throw new Error('Optional "maximum" option must be a positive number!');
+        
+        if (options.associateConstant !== 0) options.associateConstant = options.associateConstant || 1;
+        if (typeof (options.associateConstant) !== 'number' || options.associateConstant < 0)
+            throw new Error('Optional "associateConstant" option must be a non-negative number!');
+        
+        if (options.disassociateConstant !== 0) options.disassociateConstant = options.disassociateConstant || 1;
+        if (typeof (options.disassociateConstant) !== 'number' || options.disassociateConstant < 0)
+            throw new Error('Optional "disassociateConstant" option must be a non-negative number!');
+
         Neuron.__super__.constructor.apply(this, arguments);
         makeSender(this);
         makeReceiver(this);
-        type: NeuronType
-        maximum: Float
-        threshold: Float
-        factor: Float
-        associateConstant: Float
-        disassociateConstant: Float
-        input: Float
+        this.type = options.type;
+        this.threshold = options.threshold;
+        this.factor = options.factor;
+        this.maximum = options.maximum;
+        this.associateConstant = options.associateConstant;
+        this.disassociateConstant = options.disassociateConstant;
     }
-    extend(Neuron, Node);
+    inherit(Neuron, Node);
     
     /**
      * @class NeuronType  
@@ -332,6 +395,6 @@
         Neuron: Neuron,
         Sender: Sender,
         Receiver: Receiver,
-        EVENT_TICK: EVENT_TICK,
+        Events: Events,
     };
 })();

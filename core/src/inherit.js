@@ -10,7 +10,7 @@
 				Snake.__super__.constructor.apply(this, arguments);
 			}
 			
-			extend(Snake, Animal);
+			inherit(Snake, Animal);
 
 			//Aufruf von Vater-Methode
 			Snake.prototype.move = function() {
@@ -19,7 +19,7 @@
 	*/
 	
 	var hasProp = {}.hasOwnProperty,
-		extend = function(child, parent) { 
+        inherit = function(child, parent) { 
 			for (var key in parent) { 
 				if (hasProp.call(parent, key)) 
 					child[key] = parent[key]; 
@@ -32,6 +32,6 @@
 			child.__super__ = parent.prototype; 
 			return child; 
 		};	
-	module.exports = extend;
+	module.exports = inherit;
 	
 })();

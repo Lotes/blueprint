@@ -4,14 +4,11 @@
          * Backbone
          * Underscore
      */
+    var _ = require('underscore');
     var basics = require('./basics');
 
 	/**
 	 * @module Blueprint
 	 */
-	module.exports = {
-        Module: basics.Module,
-        NeuronType: basics.NeuronType,
-	};	
-	
+	module.exports = _.extend({}, basics);
 })();
