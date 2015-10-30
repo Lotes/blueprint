@@ -114,6 +114,10 @@
                 var nodes = destination.nodes;
                 for (var index = 0; index < nodes.length; index++)
                     this.connect(source, nodes[index], options);
+            } else if (source instanceof ModuleInstance) { 
+                this.connect(source.sender, destination);
+            } else if (destination instanceof ModuleInstance) {
+                this.connect(source, destination.receiver);
             } else {
                 var config = _.extend({}, options, {
                     source: source,
@@ -143,6 +147,8 @@
          * @throws {Error} if name is not a string or is already a assigned node or object is not a Node
          */
         register: function (name, node) {
+            if (this.finished === true)
+                throw new Error('Module instance was already completely built. You can not change it anymore!');
             if (typeof (name) !== 'string')
                 throw new Error('Name parameter must be a string!');
             if (name in this.result)
@@ -150,7 +156,23 @@
             if (!(node instanceof Node))
                 throw new Error('Can only register Nodes! Unknown type!');
             this.result[name] = node;
-        }
+        },
+        /**
+         * Set a sender node for the module instance.
+         * @method setSender
+         * @param node {Node}
+         */
+        setSender: function (node) { 
+            this.register('sender', node);
+        },
+        /**
+         * Set a receiver node for the module instance.
+         * @method setReceiver
+         * @param node {Node}
+         */
+        setReceiver: function (node) {
+            this.register('receiver', node);
+        },
     };
     
     /**
@@ -259,6 +281,8 @@
             throw new Error('"source" option must be a Node!');
         if (!(options.destination instanceof Node))
             throw new Error('"destination" option must be a Node!');
+        if (options.source instanceof ModuleInstance || options.destination instanceof ModuleInstance)
+            throw new Error('Can not connect ModuleInstances directly!');
         if (options.source instanceof Group || options.destination instanceof Group)
             throw new Error('Can not connect Groups directly!');
         if (options.source instanceof Receiver)
