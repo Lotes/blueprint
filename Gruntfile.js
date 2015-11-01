@@ -54,6 +54,10 @@ module.exports = function(grunt) {
       core: {
         files: ['core/test/**/*.spec.js', 'core/src/**/*.js'],
         tasks: ['mochaTest:core']
+      },
+      diagrams: {
+        files: ['**/*.puml'],
+        tasks: ['run:diagrams']
       }
     },
     browserify: {
@@ -88,6 +92,11 @@ module.exports = function(grunt) {
         },
         src: ['core/test/**/*.spec.js']
       }
+    },
+    run: {
+      diagrams: {
+        exec: 'puml generate classes.puml -o classes.png',
+      }
     }
   });
 
@@ -101,6 +110,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-yuidoc');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-run');
   
   // Default task(s).
   grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);

@@ -172,7 +172,7 @@
 <node CREATED="1445974613940" ID="ID_1099948508" MODIFIED="1445974640893" TEXT="oder toJson/fromJson in Oberklasse Object"/>
 </node>
 </node>
-<node CREATED="1445025988852" FOLDED="true" ID="ID_1444944545" MODIFIED="1445891048560" TEXT="Basics">
+<node CREATED="1445025988852" FOLDED="true" ID="ID_1444944545" MODIFIED="1446404212255" TEXT="Basics">
 <cloud COLOR="#ffff99"/>
 <node CREATED="1444844510515" FOLDED="true" ID="ID_1092237289" MODIFIED="1445091300341" TEXT="NeuronType: enum">
 <icon BUILTIN="button_ok"/>
@@ -381,7 +381,91 @@
 <node CREATED="1445088771549" ID="ID_958665299" MODIFIED="1445088780510" TEXT="nur eingehende Verbindungen erlaubt"/>
 </node>
 </node>
-<node CREATED="1445088794839" FOLDED="true" ID="ID_1880277196" MODIFIED="1445891059084" TEXT="Exceptions">
+<node CREATED="1445087232487" FOLDED="true" ID="ID_1853626364" MODIFIED="1446404059939" TEXT="Simulation">
+<richcontent TYPE="NOTE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <font face="Courier New">var IfThenElseTest = Blueprint.IfThenElseTest; </font>
+    </p>
+    <p>
+      <font face="Courier New">var instance = new IfThenElseTest();</font>
+    </p>
+    <p>
+      <font face="Courier New">var simulation = new Simulation({ </font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;instance: instance, </font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;location: 'local', //'worker', 'remote' </font>
+    </p>
+    <p>
+      <font face="Courier New">}); </font>
+    </p>
+    <p>
+      <font face="Courier New">simulation.reset().then(function() { }); </font>
+    </p>
+    <p>
+      <font face="Courier New">simulation.step().then(function() { </font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;var state = simulation.state;</font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;//alle Events feuern (client-seitig)</font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;var xyz&#160;=&#160;state.get(instance.nodes[0]).input; </font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;var abc&#160;=&#160;state.get(instance.connections[0]).weight; </font>
+    </p>
+    <p>
+      <font face="Courier New">&#160;&#160;state.set(instance.button1, 1); //for next cycle</font>
+    </p>
+    <p>
+      <font face="Courier New">});</font>
+    </p>
+  </body>
+</html>
+</richcontent>
+<cloud COLOR="#ff9933"/>
+<node CREATED="1445087240738" ID="ID_400697836" MODIFIED="1445087314331" TEXT="Initialize(module)"/>
+<node CREATED="1445087256484" ID="ID_1599247791" MODIFIED="1445087259183" TEXT="Step"/>
+<node CREATED="1445087340092" ID="ID_512080213" MODIFIED="1445087354911" TEXT="Local/Remote"/>
+<node CREATED="1446402436485" ID="ID_1502521773" MODIFIED="1446403212748" TEXT="Worker mit eigenen Komponenten nicht m&#xf6;glich, es sei denn das Blueprint-Skript wird neu gebaut"/>
+<node CREATED="1446402575901" ID="ID_1236589771" MODIFIED="1446402586076" TEXT="Blueprint.js in 3 Modi">
+<node CREATED="1446402587591" ID="ID_997372885" MODIFIED="1446402589634" TEXT="Web"/>
+<node CREATED="1446402589897" ID="ID_1265595671" MODIFIED="1446402593184" TEXT="Node"/>
+<node CREATED="1446402593438" ID="ID_877617954" MODIFIED="1446402596008" TEXT="Worker"/>
+</node>
+<node CREATED="1445536380897" ID="ID_1890929412" MODIFIED="1445536393715" TEXT="ModuleState">
+<node CREATED="1446052843348" ID="ID_931923701" MODIFIED="1446052884228" TEXT="ModuleInstance als Beschreibung der Netzkonstanten"/>
+<node CREATED="1446052996656" ID="ID_914578604" MODIFIED="1446143797653" TEXT="ModuleState mit aktuellen Inputs und Gewichten"/>
+<node CREATED="1446402608851" ID="ID_504833772" MODIFIED="1446402616704" TEXT="Wie interaktion einbauen?"/>
+</node>
+</node>
+<node CREATED="1445026409751" ID="ID_1179799674" MODIFIED="1446404071698" TEXT="Inputs">
+<cloud COLOR="#99ff99"/>
+<node CREATED="1444844274196" ID="ID_680504905" MODIFIED="1446404220218" TEXT="Switch: Sender"/>
+<node CREATED="1445026458701" ID="ID_1779846595" MODIFIED="1446404224474" TEXT="Slider: Sender"/>
+<node CREATED="1445026549042" ID="ID_1611855398" MODIFIED="1446404228220" TEXT="Pixel: Sender"/>
+<node CREATED="1445026526139" FOLDED="true" ID="ID_1336177975" MODIFIED="1446404232333" TEXT="InputImage: Sender">
+<node CREATED="1445026652066" ID="ID_678153782" MODIFIED="1445026676999" TEXT="Source: String|Camera|Video"/>
+</node>
+<node CREATED="1445026593859" ID="ID_910451781" MODIFIED="1446404236049" TEXT="Random: Sender"/>
+</node>
+<node CREATED="1445026413739" ID="ID_1736123649" MODIFIED="1446404099114" TEXT="Outputs">
+<cloud COLOR="#66ff33"/>
+<node CREATED="1444844277732" ID="ID_1949660599" MODIFIED="1446404240299" TEXT="LED: Receiver"/>
+<node CREATED="1445027043196" ID="ID_1488932115" MODIFIED="1446404243962" TEXT="Gauge: Receiver"/>
+<node CREATED="1445027059535" ID="ID_1550491627" MODIFIED="1446404247875" TEXT="Plot: Receiver"/>
+<node CREATED="1445027073372" ID="ID_1586566630" MODIFIED="1446404252026" TEXT="OutputImage: Receiver"/>
+</node>
+<node CREATED="1445088794839" FOLDED="true" ID="ID_1880277196" MODIFIED="1446404064930" TEXT="Exceptions">
 <node CREATED="1445088890833" ID="ID_1712807532" MODIFIED="1445088921358" TEXT="ForbiddenConnection"/>
 <node CREATED="1445088925685" ID="ID_861178206" MODIFIED="1445088937091" TEXT="AssertionFailed"/>
 </node>
@@ -389,23 +473,6 @@
 <node CREATED="1445119988879" ID="ID_941867613" MODIFIED="1445120008876" TEXT="scope = node"/>
 <node CREATED="1445120022511" ID="ID_824872833" MODIFIED="1445120052493" TEXT="XML mit Angular-Directiven oder Handlebars"/>
 <node CREATED="1445197614779" ID="ID_1728032132" MODIFIED="1445197628165" TEXT="controller = ViewModel"/>
-</node>
-<node CREATED="1445026409751" FOLDED="true" ID="ID_1179799674" MODIFIED="1445119974849" TEXT="Inputs">
-<cloud COLOR="#99ff99"/>
-<node CREATED="1444844274196" ID="ID_680504905" MODIFIED="1445026903008" TEXT="Switch: InputNode"/>
-<node CREATED="1445026458701" ID="ID_1779846595" MODIFIED="1445026909826" TEXT="Slider: InputNode"/>
-<node CREATED="1445026549042" ID="ID_1611855398" MODIFIED="1445026915971" TEXT="Pixel: InputNode"/>
-<node CREATED="1445026526139" FOLDED="true" ID="ID_1336177975" MODIFIED="1445027096149" TEXT="InputImage: InputNode">
-<node CREATED="1445026652066" ID="ID_678153782" MODIFIED="1445026676999" TEXT="Source: String|Camera|Video"/>
-</node>
-<node CREATED="1445026593859" ID="ID_910451781" MODIFIED="1445026926465" TEXT="Random: InputNode"/>
-</node>
-<node CREATED="1445026413739" FOLDED="true" ID="ID_1736123649" MODIFIED="1445087582101" TEXT="Outputs">
-<cloud COLOR="#66ff33"/>
-<node CREATED="1444844277732" ID="ID_1949660599" MODIFIED="1445026934234" TEXT="LED: OutputNode"/>
-<node CREATED="1445027043196" ID="ID_1488932115" MODIFIED="1445027058323" TEXT="Gauge: OutputNode"/>
-<node CREATED="1445027059535" ID="ID_1550491627" MODIFIED="1445027068470" TEXT="Plot: OutputNode"/>
-<node CREATED="1445027073372" ID="ID_1586566630" MODIFIED="1445027086223" TEXT="OutputImage: OutputNode"/>
 </node>
 <node CREATED="1445026418293" FOLDED="true" ID="ID_1479461999" MODIFIED="1445975726950" TEXT="Modules">
 <cloud COLOR="#ff9999"/>
@@ -423,7 +490,7 @@
 <node CREATED="1445027763321" ID="ID_1142179379" MODIFIED="1445027770545" TEXT="ForEach"/>
 <node CREATED="1445086886380" ID="ID_543399439" MODIFIED="1445086890888" TEXT="Promise"/>
 </node>
-<node CREATED="1445027551666" ID="ID_1821235894" MODIFIED="1446143816132" TEXT="Test modules">
+<node CREATED="1445027551666" FOLDED="true" ID="ID_1821235894" MODIFIED="1446402426874" TEXT="Test modules">
 <cloud COLOR="#99ffff"/>
 <node CREATED="1446143843581" ID="ID_1078577638" MODIFIED="1446143887326" TEXT="benutze normale Testingframeworks?"/>
 <node CREATED="1446144312540" ID="ID_1243494305" MODIFIED="1446144339702" TEXT="in Verbindung mit Mockups und Simulation"/>
@@ -466,17 +533,7 @@
 </richcontent>
 </node>
 </node>
-<node CREATED="1445087232487" ID="ID_1853626364" MODIFIED="1445536365514" TEXT="Simulation">
-<cloud COLOR="#ff9933"/>
-<node CREATED="1445087240738" ID="ID_400697836" MODIFIED="1445087314331" TEXT="Initialize(module)"/>
-<node CREATED="1445087256484" ID="ID_1599247791" MODIFIED="1445087259183" TEXT="Step"/>
-<node CREATED="1445087340092" ID="ID_512080213" MODIFIED="1445087354911" TEXT="Local/Remote"/>
-<node CREATED="1445536380897" ID="ID_1890929412" MODIFIED="1445536393715" TEXT="ModuleState">
-<node CREATED="1446052843348" ID="ID_931923701" MODIFIED="1446052884228" TEXT="ModuleInstance als Beschreibung der Netzkonstanten"/>
-<node CREATED="1446052996656" ID="ID_914578604" MODIFIED="1446143797653" TEXT="ModuleState mit aktuellen Inputs und Gewichten"/>
-</node>
-</node>
-<node CREATED="1445087400162" FOLDED="true" ID="ID_1612460883" MODIFIED="1445711253810" TEXT="Layout">
+<node CREATED="1445087400162" FOLDED="true" ID="ID_1612460883" MODIFIED="1446402431353" TEXT="Layout">
 <cloud COLOR="#ff33ff"/>
 <node CREATED="1445087421240" ID="ID_1394250894" MODIFIED="1445198530718" TEXT="layout(moduleInstance)"/>
 <node CREATED="1445087490252" ID="ID_725646755" MODIFIED="1445087519986" TEXT="Node -&gt; Position x Size"/>
