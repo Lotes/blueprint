@@ -95,7 +95,7 @@ module.exports = function(grunt) {
     },
     run: {
       diagrams: {
-        exec: 'puml generate classes.puml -o classes.png',
+        exec: 'generateDiagrams.bat',
       }
     }
   });

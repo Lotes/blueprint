@@ -1,0 +1,4 @@
+actor User
+User -> Module : instance = new()
+User -> SimulatorStub : reset(instance)
+SimulatorStub -> SimulatorWorker : dec(send(enc(instance)))
