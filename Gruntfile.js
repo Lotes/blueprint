@@ -95,7 +95,7 @@ module.exports = function(grunt) {
     },
     run: {
       diagrams: {
-        exec: 'generateDiagrams.bat',
+        exec: 'cd uml && node generate.js',
       }
     }
   });

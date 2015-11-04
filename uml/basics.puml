@@ -112,7 +112,7 @@ package inputs {
 
 package outputs {
   class LED {
-    +color: Color
+    
   }
   Receiver <|-- LED
   
