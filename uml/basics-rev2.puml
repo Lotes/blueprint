@@ -24,54 +24,56 @@ package basics {
   abstract class Node {
   
   }
-  
-  abstract class ConnectableNode {
-    +getIncomingConnections(): Connection[]
-    +getOutgoingConnections(): Connection[]
-    +connectAsSender(connection: Connection)
-    +connectAsReceiver(connection: Connection)
-  }
-  Node <|-- ConnectableNode
-
-  abstract class Sender {
-    
-  }
-  ConnectableNode <|-- Sender
-  note bottom of Sender
-    connectAsReceiver(connection):
-      throw new Error();
-  end note
-
-  abstract class Receiver {
-    
-  }
-  ConnectableNode <|-- Receiver
-  note bottom of Receiver
-    connectAsSender(connection):
-      throw new Error();
-  end note
-
-  class Neuron {
-    +type: NeuronType
-    +threshold: float
-    +factor: float
-    +maximum: float
-    +associateConstant: float
-    +disassociateConstant: float
-  }
-  ConnectableNode <|-- Neuron
-
-  class Connection {
-    +source: Node
-    +destination: Node
-    +initialWeight: float
-    +decayConstant: float
-  }
-  EventEmitter <|-- Connection
   EventEmitter <|-- Node
-  ConnectableNode --o Connection
   
-  package modules {
+  package connectables {
+    abstract class ConnectableNode {
+      +getIncomingConnections(): Connection[]
+      +getOutgoingConnections(): Connection[]
+      +connectAsSender(connection: Connection)
+      +connectAsReceiver(connection: Connection)
+    }
+    Node <|-- ConnectableNode
+
+    abstract class Sender {
+      
+    }
+    ConnectableNode <|-- Sender
+    note bottom of Sender
+      connectAsReceiver(connection):
+        throw new Error();
+    end note
+
+    abstract class Receiver {
+      
+    }
+    ConnectableNode <|-- Receiver
+    note bottom of Receiver
+      connectAsSender(connection):
+        throw new Error();
+    end note
+
+    class Neuron {
+      +type: NeuronType
+      +threshold: float
+      +factor: float
+      +maximum: float
+      +associateConstant: float
+      +disassociateConstant: float
+    }
+    ConnectableNode <|-- Neuron
+
+    class Connection {
+      +source: ConnectableNode
+      +destination: ConnectableNode
+      +initialWeight: float
+      +decayConstant: float
+    }
+    EventEmitter <|-- Connection
+    ConnectableNode --o Connection
+  }
+  
+  package composites {
     class Group {
       +nodes: Node[]
     }
@@ -105,4 +107,50 @@ package basics {
     ModuleInstance o-- Node
     ModuleInstance o-- Connection
   }
+}
+
+package inputs {
+  class Switch {
+  
+  }
+  Sender <|-- Switch
+  
+  class Slider {
+  
+  }
+  Sender <|-- Slider
+  
+  class Random {
+
+  }
+  Sender <|-- Random
+}
+
+package outputs {
+  class LED {
+    
+  }
+  Receiver <|-- LED
+  
+  class Gauge {
+    
+  }
+  Receiver <|-- Gauge
+
+  class Plot {
+    
+  }
+  Receiver <|-- Plot
+}
+
+package modules {
+  class Image {
+    +width: Int
+    +height: Int
+  }
+  ModuleInstance <-- Image
+  ModuleInstance <-- IfThenElse
+  ModuleInstance <-- While
+  ModuleInstance <-- Do
+  ModuleInstance <-- Select
 }
