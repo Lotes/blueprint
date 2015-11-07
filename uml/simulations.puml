@@ -9,11 +9,9 @@ package simulations {
   note bottom of Simulator : interface to simulate\nmodule instances
 
   class LocalSimulator {
-    -instance: ModuleInstance
-    -state: LocalModuleState
+    
   }
   LocalSimulator --|> Simulator
-  LocalSimulator o-- LocalModuleState
 
   class RemoteSimulator
   RemoteSimulator --|> Simulator
@@ -29,30 +27,26 @@ package simulations {
     +onMessage(callback)
     +sendMessage(message)
   }
-
-
-
-
-  interface ModuleState {
-    +getWeight(connection): float
-    +getInput(node): float
+  
+  class Skeleton {
+    +create(instance: ModuleInstance)
+    +reset(state: ModuelState)
+    +step()
+    +getState(): ModuleState
+    +setState(state: ModuleState)
+    +setWeights(weights: Map<Connection, float>)
+    +setInputs(inputs: Map<Node, float>)
   }
-  note bottom of ModuleState: represents the execution\nstate of a module instance
-
-  class LocalModuleState {
-    +setWeight(connection, weight)
-    +setInput(node, input)
-  }
-  LocalModuleState --|> ModuleState
+  Skeleton ... Worker
 }
 
 package basics {
-  ModuleInstance --o LocalSimulator
+  ModuleInstance --o Simulator
   class ModuleInstance {
     +nodes: Node
     +connections: Connection
   }
-  note top of ModuleInstance : describes a neuronal net
+  note top of ModuleInstance : describes a neuronal net;\nonly instances are simulatable
 
   interface Serializable {
     +encode(): String
@@ -60,4 +54,11 @@ package basics {
   }
   Serializable <|-- ModuleInstance
   Serializable <|-- ModuleState
+  
+  interface ModuleState {
+    +getWeight(connection): float
+    +getInput(node): float
+  }
+  note bottom of ModuleState: represents the execution\nstate of a module instance
+  Simulator o-- ModuleState
 }

@@ -1,0 +1,64 @@
+actor User
+
+group creation
+User -> SimulationStub : new(instance)
+activate SimulationStub
+SimulationStub -> SimulationSkeleton : send(...)
+activate SimulationSkeleton
+SimulationSkeleton -> ModuleInstance : fromJson()
+activate ModuleInstance
+SimulationSkeleton <- ModuleInstance : instance
+SimulationStub <-- SimulationSkeleton : send(...)
+end
+
+group reset
+User -> SimulationStub : reset()
+SimulationStub -> SimulationSkeleton : send(...)
+SimulationSkeleton -> ModuleInstance : newState()
+ModuleInstance -> ModuleState : create
+activate ModuleState
+ModuleInstance <-- ModuleState : state
+SimulationSkeleton <-- ModuleInstance : state
+SimulationStub <-- SimulationSkeleton : send(...)
+User <-- SimulationStub : callback
+end
+
+loop many times
+  group step
+  User -> SimulationStub : step()
+  SimulationStub --> SimulationSkeleton : send(...)
+  SimulationSkeleton -> ModuleState : state.compute(instance)
+  SimulationSkeleton <-- ModuleState : newState
+  destroy ModuleState
+  activate NewModuleState
+  SimulationStub <-- SimulationSkeleton : send(...)
+  User <-- SimulationStub : callback
+  end
+
+  group get
+  User -> SimulationStub : getState()
+  SimulationStub -> SimulationSkeleton : send(...) 
+  SimulationSkeleton -> NewModuleState
+  SimulationSkeleton <-- NewModuleState
+  SimulationStub <-- SimulationSkeleton : send(...)
+  User <-- SimulationStub : callback
+  end
+  
+  group execute
+  User -> User : newState.triggerEvents(instance, oldState)
+  end
+  
+  group set
+  User -> SimulatorStub : setState(weights, inputs)
+  end
+end
+
+group destruction
+User -> SimulationStub : dispose()
+SimulationStub -> SimulationSkeleton : send(...)
+SimulationStub <-- SimulationSkeleton : send(...)
+destroy SimulationSkeleton
+destroy ModuleInstance
+destroy NewModuleState
+User <-- SimulationStub : callback
+end
