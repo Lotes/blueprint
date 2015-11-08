@@ -150,31 +150,66 @@ blueprint.connection('Connection', {
   options: {
     associatorConstant: blueprint.Types.PositiveReal,
     disassociatorConstant: blueprint.Types.PositiveReal,
-    decayConstant: blueprint.Types.PositiveReal,
+    decayThreshold: blueprint.Types.NonNegatveReal,
+    weight: blueprint.Types.NonNegativeReal,
   },
   input: {
     weight: blueprint.Types.NonNegativeReal,
+    'default': function($options) {
+      return %options.weight;
+    }
   },
   output: {
     weight: blueprint.Types.NonNegativeReal
   },
   compute: function($options, $input, $output, $source, $destination) {
-    //$destination.incomingConnections
+    $output.weight = $input.weight;
+    //only change weight of activating or inhibiting neurons,
+    //that are connected to associating or disassociating neurons!
+    if($source.type === blueprint.Types.NeuronType.ACTIVATE
+       || $source.type === blueprint.Types.NeuronType.INHIBIT
+    ) {
+      //compute associations gain
+      var gain = 0;
+      var associations = $destination.connections.filter(function(connection) {
+        return connection.source.type === blueprint.Types.NeuronType.ASSOCIATE;
+      });
+      associations.forEach(function(association) {
+        var associatonWeight = association.weight;
+        var associatorOutput = association.source.output;
+        var sourceOutput = $source.output;
+        var destinationOutput = $destination.output;
+        var L = $options.associatorConstant;
+        gain += L * sourceOutput * destinationOutput * associatorOutput * associatonWeight;
+      });
+      
+      //compute disassociations descent
+      var descent = 0;
+      var disassociations = $destination.connections.filter(function(connection) {
+        return connection.source.type === blueprint.Types.NeuronType.DISASSOCIATE;
+      }); 
+      disassociations.forEach(function(disassociation) {
+        var disassociationWeight = disassociation.weight;
+        var disassociatorOutput = disassociation.source.output;
+        var destinationOutput = $destination.output;
+        var D = $options.disassociatorConstant;
+        descent += D * destinationOutput * disassociatorOutput * disassociationWeight;
+      });
+
+      //compute new weight
+      var sum = gain - descent;
+      if(sum === 0) {
+        if($input.weight < $options.decayThreshold) //forget
+          $output.weight = Math.sqrt(Math.max(0, Math.pow($input.weight, 2) - $options.decayThreshold)); else //keep          
+      } else if(sum > 0) { //associate
+        $output.weight = Math.pow(Math.sqrt($input.weight) + sum, 2);
+      } else { //sum < 0: disassociate
+        $output.weight = Math.sqrt(Math.max(0, Math.pow($input.weight, 2) + sum));
+      }
+    }
     return $input.weight * $source.output;
   }
 });
-
-//gain_i = ai*av*gv*aj*L
-//-> ai = source potential
-//-> aj = destination potential
-//-> av = associator potential
-//-> gv = weight of connection (associator->destination)          
-//-> L = learning constant
-
-//descent_i = ad*gd*aj*D
-//ad = disassociator potential
-//gd = weight of connector (disassociator->destination)
-//aj = destination potential
 
 /*
 Provider:
@@ -184,5 +219,6 @@ Provider:
 -$connections (processor, receiver)
 -$lastOutput (processor, receiver, connection)
 -$lastInput (processor, sender, connection)
+-$source, $destination (connection)
 -Options und Inputs haben Default-Werte
 */
