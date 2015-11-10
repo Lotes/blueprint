@@ -13,3 +13,4 @@
 /app/modules/editor/styles/editor.css
 /app/modules/compiler/parser.generated.js
 /docs
+/uml/*.png

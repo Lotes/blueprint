@@ -7,8 +7,9 @@ blueprint.module('Cortex', { //Serialisation+Deserialisation gibt es bei Modulen
     width: blueprint.Types.PositiveInteger,
     height: blueprint.Types.PositiveInteger
   },
-  builder: function($options, $this, Neuron, Cortex) { //injezierte Parameter! Builder-Skript
-    this.add(new Neuron({ ... }))
+  builder: function($options, $this, Neuron, Cortex) { //injezierte Parameter! Builder-Skript, rekursiv!
+    for(var index=0; index<$options.width*$options.height; index++)
+      this.add(new Neuron({ ... }))
   }
 });
 
@@ -222,3 +223,37 @@ Provider:
 -$source, $destination (connection)
 -Options und Inputs haben Default-Werte
 */
+
+function Blueprint() {
+  
+}
+Blueprint.prototype = {
+  module: function(name, definition) {
+
+  },
+  sender: function(name, definition) {
+
+  }
+}
+
+module.exports = new Blueprint();
+
+//--------------------------------
+
+function Injector() {
+  this.providers = {};
+}
+Injector.prototype = {
+  set: function(name, provider) {
+    this.providers[name] = provider;
+  },
+  has: function(name) {
+    return name in this.providers;
+  },
+  get: function(name) {
+    return this.providers[name];
+  },
+  invoke: function(func) {
+    //http://plnkr.co/edit/5VOcxzVI7TOTjaprSZ4e?p=preview
+  }
+};
