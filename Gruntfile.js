@@ -97,6 +97,11 @@ module.exports = function(grunt) {
       diagrams: {
         exec: 'cd uml && node generate.js',
       }
+    },
+    jshint: {
+      core: {
+        src: ['core/**/*.js']
+      }
     }
   });
 
@@ -111,7 +116,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-run');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   
   // Default task(s).
   grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);
+  grunt.registerTask('test', ['mochaTest:core']);
+  grunt.registerTask('style', ['jshint:core']);
 };

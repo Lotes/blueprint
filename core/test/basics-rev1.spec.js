@@ -1,5 +1,5 @@
 ﻿var should = require('should');
-var basics = require('../src/basics');
+var basics = require('../src/basics-rev1');
 
 describe('Basics', function () {
     it('should create an empty module', function () {

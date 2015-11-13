@@ -2,7 +2,7 @@
     var _ = require('underscore');
     var Backbone = require('backbone');
     var inherit = require('./inherit');
-
+    
     /**
      * Super class of all classes in Blueprint.
      * @class Object
@@ -104,16 +104,15 @@
          * @todo implement me
          */
         connect: function (source, destination, options) {
+            var index;
             if (this.finished === true)
                 throw new Error('Module instance was already completely built. You can not change it anymore!');
             if (source instanceof Group) {
-                var nodes = source.nodes;
-                for (var index = 0; index < nodes.length; index++)
-                    this.connect(nodes[index], destination, options);
+                for (index = 0; index < source.nodes.length; index++)
+                    this.connect(source.nodes[index], destination, options);
             } else if (destination instanceof Group) {
-                var nodes = destination.nodes;
-                for (var index = 0; index < nodes.length; index++)
-                    this.connect(source, nodes[index], options);
+                for (index = 0; index < destination.nodes.length; index++)
+                    this.connect(source, destination.nodes[index], options);
             } else if (source instanceof ModuleInstance) { 
                 this.connect(source.sender, destination);
             } else if (destination instanceof ModuleInstance) {
@@ -255,7 +254,7 @@
      * @throws {Error} if nodes is not an array or has zero length or contains non-Node objects
      */
     function Group(options) {
-        if (!_.isArray(options.nodes) || options.nodes.length == 0)
+        if (!_.isArray(options.nodes) || options.nodes.length === 0)
             throw new Error('"nodes" option requires to be a non-empty array!');
         if (_.filter(options.nodes, function (node) { return !(node instanceof Node); }).length > 0)
             throw new Error('"nodes" option requires to be a set of Nodes');

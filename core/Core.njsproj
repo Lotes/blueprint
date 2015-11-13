@@ -16,11 +16,12 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Compile Include="src\basics.js" />
+    <Compile Include="src\basics-rev2.js" />
+    <Compile Include="src\basics-rev1.js" />
     <Compile Include="src\inherit.js" />
     <Compile Include="src\module.js" />
     <Compile Include="src\simulations.js" />
-    <Compile Include="test\basics.spec.js" />
+    <Compile Include="test\basics-rev1.spec.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\" />

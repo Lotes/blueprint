@@ -225,11 +225,11 @@ Provider:
 */
 
 function Blueprint() {
-  
+  this.injector = new Injector();
 }
 Blueprint.prototype = {
   module: function(name, definition) {
-
+    
   },
   sender: function(name, definition) {
 

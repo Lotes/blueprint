@@ -44,7 +44,7 @@ package api {
   }
   
   class Type {
-    +validator: Func<Type, boolean>
+    +validator: Func<object, boolean>
   }
   
   class Parameter {
@@ -62,7 +62,7 @@ package basics {
   }
 
   abstract class Node {
-  
+    +parent: ModuleInstance
   }
   EventEmitter <|-- Node
   
@@ -119,6 +119,7 @@ package basics {
       +nodes: Node[]
     }
     Node <|-- Group
+    Node --o Group
     
     class Module {
       +build(options, self: ModuleInstance)

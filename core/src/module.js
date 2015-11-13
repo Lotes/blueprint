@@ -5,7 +5,7 @@
          * Underscore
      */
     var _ = require('underscore');
-    var basics = require('./basics');
+    var basics = require('./basics-rev1');
 
 	/**
 	 * @module Blueprint
