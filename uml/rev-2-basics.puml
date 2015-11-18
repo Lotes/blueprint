@@ -25,7 +25,6 @@ package api {
     +processor(name, definition)
     +module(name, definition)
     +connection(name, definition)
-    +constant(name, value)
   }
 
   note top of Blueprint

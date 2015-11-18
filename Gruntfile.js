@@ -86,7 +86,6 @@ module.exports = function(grunt) {
       core: {
         options: {
           reporter: 'nyan',
-          captureFile: 'core-tests.txt',
           quiet: false,
           clearRequireCache: false
         },

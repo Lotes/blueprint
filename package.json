@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "backbone": "^1.2.3",
+    "promise": "^7.0.4",
     "underscore": "^1.8.3"
   }
 }

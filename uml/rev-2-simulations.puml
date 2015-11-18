@@ -1,0 +1,79 @@
+package simulations {
+  interface Simulator {
+    +constructor(instance)
+    +reset(): Promise<void>
+    +step(): Promise<void>
+    +setInput(input: ModuleRuntimeData): Promise<void>
+    +setState(state: ModuleRuntimeData): Promise<void>
+    +getState(): Promise<ModuleRuntimeData>
+    +getOutput(): Promise<ModuleRuntimeData>
+  }
+
+  interface ModuleRuntimeData {
+    +instance: ModuleInstance
+    +nodes: Map<EntityPath, NodeRuntimeData>
+    +connections: Map<EntityPath, ConnectionRuntimeData>
+    +getInput(): Json
+    +setInput(input: Json)
+    +getState(): Json
+    +setState(state: Json)
+    +getOutput(): Json
+    +setOutput(output: Json)
+  }
+
+  interface ModulePath {
+    +modulePath: ModulePath = null
+    +moduleIndex: int
+  }
+
+  interface EntityPath {
+    +modulePath: ModulePath
+    +entityIndex: int
+  }
+
+  ModulePath --o ModulePath
+  ModulePath --o EntityPath
+  EntityPath --o ModuleRuntimeData
+  ModuleRuntimeData -- Simulator
+
+  interface EntityData<E> {
+    +entity: E
+    +<<read only>> input: Hash<???>
+    +state: Hash<???>
+    +output: Hash<???>
+  }
+
+  interface NodeRuntimeData {
+    +T=ConnectableNode
+  }
+
+  interface ConnectionRuntimeData {
+    +T=Connection
+  }
+
+  EntityData <|-- NodeRuntimeData
+  EntityData <|-- ConnectionRuntimeData
+
+  ModuleRuntimeData o-- NodeRuntimeData
+  ModuleRuntimeData o-- ConnectionRuntimeData
+
+  interface NodeFacade {
+    +type: NeuronType
+    +ingoingConnections: ConnectionFacade[]
+    +outgoingConnections: ConnectionFacade[]
+    +output: WriteOnly<Hash>
+    +input: ReadOnly<Hash>
+    +state.$new: ReadOnly<Hash>
+    +state.$old: WriteOnly<Hash>
+  }
+  NodeRuntimeData <|-- NodeFacade
+
+  interface ConnectionFacade {
+    +output: WriteOnly<Hash>
+    +input: ReadOnly<Hash>
+    +state: ReadOnly<Hash>
+    +newState: WriteOnly<Hash>
+  }
+  ConnectionRuntimeData <|-- ConnectionFacade
+  ConnectionFacade --o NodeFacade
+}

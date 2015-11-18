@@ -12,6 +12,34 @@ blueprint.module('Cortex', { //Serialisation+Deserialisation gibt es bei Modulen
       this.add(new Neuron({ ... }))
   }
 });
+/*
+{
+    type: 'ModuleInstance',
+    class: 'Cortex',
+    definition: {
+        width: 123,
+        height: 456
+    },
+    nodes: [
+        {
+            type: 'Neuron',
+            definition: {
+                ...
+            }
+        }
+    ],
+    connections: [
+        {
+            type: 'Connection',
+            source: '/1/2/3/0', //node address
+            destination: '/1/2/3/0', //node address
+            definition: {
+            
+            }
+        }
+    ]
+}
+*/
 
 blueprint.sender('Switch', {
   options: { //serialisierbare Definition
@@ -34,6 +62,15 @@ blueprint.sender('Switch', {
     return $input.enabled ? $options.outputOn : $options.outputOff; 
   }
 });
+/*
+{
+    type: 'Switch',
+    definition: {
+        outputOn: 10,
+        outputOff: 0
+    }
+}
+*/
 
 blueprint.sender('Slider', {
   options: {
@@ -154,17 +191,14 @@ blueprint.connection('Connection', {
     decayThreshold: blueprint.Types.NonNegatveReal,
     weight: blueprint.Types.NonNegativeReal,
   },
-  input: {
+  state: {
     weight: blueprint.Types.NonNegativeReal,
     'default': function($options) {
-      return %options.weight;
+      return $options.weight;
     }
   },
-  output: {
-    weight: blueprint.Types.NonNegativeReal
-  },
-  compute: function($options, $input, $output, $source, $destination) {
-    $output.weight = $input.weight;
+  compute: function($options, $newState, $oldState, $source, $destination) {
+    $newState.weight = $oldState.weight;
     //only change weight of activating or inhibiting neurons,
     //that are connected to associating or disassociating neurons!
     if($source.type === blueprint.Types.NeuronType.ACTIVATE
@@ -200,17 +234,26 @@ blueprint.connection('Connection', {
       //compute new weight
       var sum = gain - descent;
       if(sum === 0) {
-        if($input.weight < $options.decayThreshold) //forget
-          $output.weight = Math.sqrt(Math.max(0, Math.pow($input.weight, 2) - $options.decayThreshold)); else //keep          
+        if($oldState.weight < $options.decayThreshold) //forget
+          $newState.weight = Math.sqrt(Math.max(0, Math.pow($oldState.weight, 2) - $options.decayThreshold)); else //keep          
       } else if(sum > 0) { //associate
-        $output.weight = Math.pow(Math.sqrt($input.weight) + sum, 2);
+        $newState.weight = Math.pow(Math.sqrt($oldState.weight) + sum, 2);
       } else { //sum < 0: disassociate
-        $output.weight = Math.sqrt(Math.max(0, Math.pow($input.weight, 2) + sum));
+        $newState.weight = Math.sqrt(Math.max(0, Math.pow($oldState.weight, 2) + sum));
       }
     }
-    return $input.weight * $source.output;
+    return $oldState.weight * $source.output;
   }
 });
+
+//während des ModuleBuilders:
+function builder(self, Connection) {
+    this.add(new Connection({
+        source: neuron1,
+        destination: neuron2,
+        weight: 1.4
+    }))
+}
 
 /*
 Provider:
@@ -257,3 +300,5 @@ Injector.prototype = {
     //http://plnkr.co/edit/5VOcxzVI7TOTjaprSZ4e?p=preview
   }
 };
+
+//ComputeFunctions müssen testbar gemacht werden!
