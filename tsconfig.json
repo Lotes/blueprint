@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "CommonJS",
+    "target": "es5",
+    "noImplicitAny": true,
+    "outDir": "core/dist"
+  },
+  "files": [
+    "core/src/basics-rev2.ts"
+  ]
+}

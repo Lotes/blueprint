@@ -235,7 +235,7 @@ blueprint.connection('Connection', {
       var sum = gain - descent;
       if(sum === 0) {
         if($oldState.weight < $options.decayThreshold) //forget
-          $newState.weight = Math.sqrt(Math.max(0, Math.pow($oldState.weight, 2) - $options.decayThreshold)); else //keep          
+          $newState.weight = Math.sqrt(Math.max(0, Math.pow($oldState.weight, 2) - $options.decayThreshold)); //keep
       } else if(sum > 0) { //associate
         $newState.weight = Math.pow(Math.sqrt($oldState.weight) + sum, 2);
       } else { //sum < 0: disassociate
@@ -246,7 +246,7 @@ blueprint.connection('Connection', {
   }
 });
 
-//während des ModuleBuilders:
+//wï¿½hrend des ModuleBuilders:
 function builder(self, Connection) {
     this.add(new Connection({
         source: neuron1,
@@ -301,4 +301,4 @@ Injector.prototype = {
   }
 };
 
-//ComputeFunctions müssen testbar gemacht werden!
+//ComputeFunctions mï¿½ssen testbar gemacht werden!

@@ -3,10 +3,10 @@ TODO
 
 Backlogs
 --------
-- Readonly-Modus für Modulinstanzen im PropertyGrid
+- Readonly-Modus fï¿½r Modulinstanzen im PropertyGrid
 - Zentrum von Modulen und Labels anzeigen?
-- Neuronen hinzufügen
-- Module hinzufügen
+- Neuronen hinzufï¿½gen
+- Module hinzufï¿½gen
 - Beschriftungen als eigene Direktive (Labels)
 - Mehrsprachigkeit
 - Tag- und Volltextsuche
@@ -19,20 +19,20 @@ Eigenschaften
 - Entwurfszeit
 	- Neuron
 		- Grenzwert (threshold)
-		- Verststärkung (factor)
+		- Verststï¿½rkung (factor)
 		- Maximalpotential (maximum)
 	- Aktivator
 	- Inhibitor
 	- Assoziator
 	- Disassoziator
 
-Ausführung
+Ausfï¿½hrung
 ----------
 - Zustand des Netzes
-- Verbindungsmatrix für jeden Knoten
+- Verbindungsmatrix fï¿½r jeden Knoten
 - Berechnung von Neuronenpotenzialen
 - Anzeige der Eingabepotenziale (alter Zustand in rot)
-- Anzeige der Ausgabepotenziale (neuer Zustand in grün)
-- je größer das Potenzial, desto dicker die Verbindung (\x -> max(sqrt x, 5))
+- Anzeige der Ausgabepotenziale (neuer Zustand in grï¿½n)
+- je grï¿½ï¿½er das Potenzial, desto dicker die Verbindung (\x -> max(sqrt x, 5))
 - Potenzial von 0 -> grau
 - Step-Mode, Continous-Mode
