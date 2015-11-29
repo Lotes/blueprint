@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07f776ee-dc66-4caa-bb83-04c11a5d7682" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tsconfig.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/basics-rev2.js" afterPath="$PROJECT_DIR$/core/src/basics-rev2.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/blueprint.iml" afterPath="$PROJECT_DIR$/.idea/blueprint.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/Application.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/api.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/types.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO.md" afterPath="$PROJECT_DIR$/TODO.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/simulations.js" afterPath="$PROJECT_DIR$/core/src/simulations.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uml/rev-2-simulations.puml" afterPath="$PROJECT_DIR$/uml/rev-2-simulations.puml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uml/rev-2-workflow.js" afterPath="$PROJECT_DIR$/uml/rev-2-workflow.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/basics-rev2.ts" afterPath="$PROJECT_DIR$/core/src/basics-rev2.ts" />
     </list>
     <ignored path="blueprint.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,12 +26,29 @@
     <favorites_list name="blueprint" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="basics-rev2.ts" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="basics-rev2.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/basics-rev2.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9170732">
-              <caret line="359" column="3" selection-start-line="359" selection-start-column="3" selection-end-line="359" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="744" column="5" selection-start-line="744" selection-start-column="5" selection-end-line="744" selection-end-column="5" />
+              <folding>
+                <element signature="e#19330#26338#0" expanded="false" />
+                <element signature="e#20029#21635#0" expanded="false" />
+                <element signature="e#21716#23486#0" expanded="false" />
+                <element signature="e#23559#24652#0" expanded="false" />
+                <element signature="e#24729#25691#0" expanded="false" />
+                <element signature="e#26344#26450#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rev-2-workflow.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uml/rev-2-workflow.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8629442">
+              <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -69,10 +81,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1320" />
-    <option name="height" value="784" />
+    <option name="width" value="1304" />
+    <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -132,6 +142,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -252,18 +266,27 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <frame x="0" y="0" width="1304" height="768" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3968254" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33027524" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874617" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.338558" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874617" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2952381" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18086816" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -322,16 +345,17 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/Application.js">
+    <entry file="file://$PROJECT_DIR$/core/src/basics-rev2.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="119" column="16" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="75" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#140#467#0" expanded="false" />
-            <element signature="e#494#883#0" expanded="false" />
-            <element signature="e#919#1393#0" expanded="false" />
-            <element signature="e#1455#2464#0" expanded="false" />
-            <element signature="e#2492#3265#0" expanded="false" />
+            <element signature="e#19330#26338#0" expanded="false" />
+            <element signature="e#20029#21635#0" expanded="false" />
+            <element signature="e#21716#23486#0" expanded="false" />
+            <element signature="e#23559#24652#0" expanded="false" />
+            <element signature="e#24729#25691#0" expanded="false" />
+            <element signature="e#26344#26450#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -348,20 +372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/Application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="34" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
-          <folding>
-            <element signature="e#140#467#0" expanded="false" />
-            <element signature="e#494#883#0" expanded="false" />
-            <element signature="e#919#1393#0" expanded="false" />
-            <element signature="e#1455#2464#0" expanded="false" />
-            <element signature="e#2492#3265#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -391,13 +401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uml/rev-2-workflow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33226836">
-          <caret line="237" column="116" selection-start-line="237" selection-start-column="116" selection-end-line="237" selection-end-column="116" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TODO.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
@@ -405,6 +408,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6264657">
           <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/editor/services/editor.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33170733">
+          <caret line="156" column="6" selection-start-line="156" selection-start-column="6" selection-end-line="156" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/basics-rev1.spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -416,41 +435,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/Application.js">
+    <entry file="file://$PROJECT_DIR$/core/test/api.spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02715655">
-          <caret line="119" column="16" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="75" />
-          <folding>
-            <element signature="e#140#467#0" expanded="false" />
-            <element signature="e#494#883#0" expanded="false" />
-            <element signature="e#919#1393#0" expanded="false" />
-            <element signature="e#1455#2464#0" expanded="false" />
-            <element signature="e#2492#3265#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.7878049">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/dist/basics-rev2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9170732">
-          <caret line="253" column="23" selection-start-line="253" selection-start-column="23" selection-end-line="253" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="594" column="7" selection-start-line="594" selection-start-column="7" selection-end-line="594" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3984375">
+        <state vertical-scroll-proportion="0.41576087">
           <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/basics-rev1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="203" column="8" selection-start-line="203" selection-start-column="8" selection-end-line="213" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uml/rev-2-workflow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8629442">
+          <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/basics-rev2.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9170732">
-          <caret line="359" column="3" selection-start-line="359" selection-start-column="3" selection-end-line="359" selection-end-column="3" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="744" column="5" selection-start-line="744" selection-start-column="5" selection-end-line="744" selection-end-column="5" />
+          <folding>
+            <element signature="e#19330#26338#0" expanded="false" />
+            <element signature="e#20029#21635#0" expanded="false" />
+            <element signature="e#21716#23486#0" expanded="false" />
+            <element signature="e#23559#24652#0" expanded="false" />
+            <element signature="e#24729#25691#0" expanded="false" />
+            <element signature="e#26344#26450#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
