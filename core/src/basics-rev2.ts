@@ -459,12 +459,21 @@ declare var module: any;
     defineType('NonNegativeReal', function (value) {
         return types['Real'].validate(value) && value >= 0;
     });
+    defineType('Percentage', function (value) {
+        return types['Real'].validate(value) && value >= 0 && value <= 1;
+    });
     //string
     defineType('String', function (value) {
         return typeof (value) === 'string';
     });
     defineType('Identifier', function (value) {
         return typeof (value) === 'string' && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value);
+    });
+    defineType('NeuronType', function (value) {
+        return value === NeuronType.ACTIVATE
+            || value === NeuronType.INHIBIT
+            || value === NeuronType.ASSOCIATE
+            || value === NeuronType.DISASSOCIATE;
     });
 
     interface FormalParameter {
@@ -577,6 +586,19 @@ declare var module: any;
         output: ActualParameters;
     }
 
+    class Simulation {
+        reset() {}
+        step() {}
+    }
+
+    class Renderer {
+        //use viz.js with plain output and dot engine to produce graph
+    }
+
+    class Visualization {
+        get element(): any { return null; }
+    }
+
     /**
      * A standalone blueprint application.
      * @class Application
@@ -584,7 +606,55 @@ declare var module: any;
      */
     class Application {
         private _definitions: AnyDictionary = {};
-        constructor() {}
+        constructor() {
+            this.processor('Neuron', {
+                definition: {
+                    type: {
+                        type: types['NeuronType'],
+                        defaultValue: NeuronType.ACTIVATE
+                    },
+                    maximum: {
+                        type: types['NonNegativeReal']
+                    },
+                    threshold: {
+                        type: types['NonNegativeReal']
+                    },
+                    factor: {
+                        type: types['NonNegativeReal']
+                    },
+                },
+                input: { /* none */ },
+                state: { /* none */ },
+                output: {
+                    activation: {
+                        type: types['Percentage']
+                    },
+                },
+                compute: function(context: ProcessorContext): number {
+                    var signal = 0;
+                    this.connections.forEach(function(connection: any) { //TODO set node/connection stub
+                        switch(connection.type) {
+                            case NeuronType.ACTIVATE:
+                                signal += connection.output;
+                                break;
+                            case NeuronType.INHIBIT:
+                                signal -= connection.output;
+                                break;
+                        }
+                    });
+                    var threshold = context.definition['threshold'];
+                    if(signal >= threshold) {
+                        context.output['activation'] = 1;
+                        var maximum = context.definition['maximum'];
+                        var factor = context.definition['factor'];
+                        return Math.max(0, Math.min(maximum, (signal-threshold)*factor));
+                    } else {
+                        context.output['activation'] = Math.max(0, signal/threshold);
+                        return 0;
+                    }
+                }
+            });
+        }
         private _testName(name: string): void {
             if(name in this._definitions)
                 throw new Error('Name "'+name+'" was already assigned to another definition!');
@@ -595,7 +665,7 @@ declare var module: any;
                 definition: definition
             };
         }
-        processor(name: string, options: FormalProcessorOptions): Application {
+        private processor(name: string, options: FormalProcessorOptions): Application {
             this._testName(name);
             class NewProcessor extends Processor {
                 private _definition: ActualParameters;
@@ -626,7 +696,7 @@ declare var module: any;
             this._registerDefinition(name, ObjectType.PROCESSOR, NewProcessor);
             return this;
         }
-        connection(name: string, options: FormalConnectionOptions): Application {
+        private connection(name: string, options: FormalConnectionOptions): Application {
             //TODO die compute-Funktion ist knifflig...
             this._testName(name);
             if('weight' in options.definition)
@@ -663,7 +733,7 @@ declare var module: any;
             this._registerDefinition(name, ObjectType.CONNECTION, NewConnection);
             return this;
         }
-        sender(name: string, options: FormalSenderOptions): Application {
+        private sender(name: string, options: FormalSenderOptions): Application {
             this._testName(name);
             class NewSender extends Sender {
                 private _definition: ActualParameters;
@@ -687,7 +757,7 @@ declare var module: any;
             this._registerDefinition(name, ObjectType.SENDER, NewSender);
             return this;
         }
-        receiver(name: string, options: FormalReceiverOptions): Application {
+        private receiver(name: string, options: FormalReceiverOptions): Application {
             this._testName(name);
             class NewReceiver extends Receiver {
                 private _definition: ActualParameters;
@@ -722,6 +792,12 @@ declare var module: any;
             }
             this._registerDefinition(name, ObjectType.MODULE, NewModuleInstance);
             return this;
+        }
+        simulation(): Simulation {
+            return null;
+        }
+        visualization(module: any): Visualization {
+            return null;
         }
     }
 

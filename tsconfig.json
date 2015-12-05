@@ -4,9 +4,11 @@
     "module": "CommonJS",
     "target": "es5",
     "noImplicitAny": true,
-    "outDir": "core/dist"
+    "outDir": "core/dist",
+    "sourceMap": true
   },
   "files": [
-    "core/src/basics-rev2.ts"
+    "core/src/basics-rev2.ts",
+    "core/src/renderer.ts"
   ]
 }
