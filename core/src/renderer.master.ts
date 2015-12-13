@@ -52,14 +52,14 @@ declare var module: any;
         }
     }
     
-    function render(dotScript: string, workerPath: string = 'renderer.worker.js'): Abortable<string> {
+    function render(dotScript: string, workerPath: string = 'renderer.worker.js'): Abortable<any> {
         var worker = new Worker(workerPath);
-        var result = new Deferred<string>(() => { worker.terminate(); });
+        var result = new Deferred<any>(() => { worker.terminate(); });
         worker.addEventListener('message', function(e: any) {
             try {
                 var message = JSON.parse(e.data);
                 if(message.success === true)
-                    result.resolve(message.result);
+                    result.resolve(dot.read(message.result));
                 else
                     result.reject(new Error(message.error));
             } catch(err) {

@@ -1,11 +1,36 @@
-﻿declare function require(name:string): any;
+declare function require(name:string): any;
 declare var module: any;
 
 (function() {
     'use strict';
 
-    var _ = require('underscore');
-    var Backbone = require('backbone');
+    var _ = require('lodash');
+
+    enum JsonNodeType {
+        CONNECTABLE,
+        INSTANCE,
+        GROUP
+    }
+
+    interface JsonConnection {
+        'class': string;
+        definition: ActualParameters;
+        sourcePath: number[];
+        destinationPath: number[];
+    }
+
+    interface JsonNode {
+        type: JsonNodeType;
+    }
+    
+    interface JsonNamedNodes {
+        [name: string]: number[];
+    }
+    
+    interface JsonModuleInstance extends JsonNode {
+        nodes: JsonNode[]
+        connections: JsonConnection[]
+    }
 
     /**
      * Super class of all classes in Blueprint.
@@ -14,9 +39,7 @@ declare var module: any;
      */
     class Object {
         _parent: ModuleInstance = null;
-        constructor() {
-            _.extend(this, Backbone.Events);
-        }
+        constructor() {}
         /**
          * Get the parent module
          * @property parent
@@ -40,7 +63,9 @@ declare var module: any;
             }
             return false;
         }
-
+        toJson(): JsonNode {
+            throw new Error('Implement me in subclass!');
+        }
         static initializeActualParameters(actuals: ActualParameters, formals: FormalParameters): ActualParameters {
             var result: ActualParameters = {};
             //check defined values
@@ -587,15 +612,20 @@ declare var module: any;
     }
 
     class Simulation {
+        constructor(instance: ModuleInstance) {
+            
+        }
         reset() {}
         step() {}
     }
 
-    class Renderer {
-        //use viz.js with plain output and dot engine to produce graph
-    }
-
+    /**
+     * TODO own JS module
+     */
     class Visualization {
+        constructor(instance: ModuleInstance) {
+            
+        }
         get element(): any { return null; }
     }
 
@@ -793,12 +823,6 @@ declare var module: any;
             this._registerDefinition(name, ObjectType.MODULE, NewModuleInstance);
             return this;
         }
-        simulation(): Simulation {
-            return null;
-        }
-        visualization(module: any): Visualization {
-            return null;
-        }
     }
 
     /**
@@ -813,7 +837,9 @@ declare var module: any;
          */
         static application() { return new Application(); }
         static Types: TypeDictionary = types;
-        static NeuronType: any = NeuronType;
+        static NeuronType = NeuronType;
+        static Simulation = Simulation
+        static Visualization = Visualization
     }
 
     //public module interface

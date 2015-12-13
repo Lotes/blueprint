@@ -52,8 +52,11 @@ module.exports = function(grunt) {
             },
             core: {
                 files: ['core/src/**/*.ts'],
-                tasks: ['typescript:core', 'browserify:core'
-                //, 'jshint:core', 'mochaTest:core'
+                tasks: [
+                    'typescript:core', 
+                    'browserify:core',
+                    'browserify:renderer'
+                    //'browserify:rendererWorker'
                 ]
             },
             diagrams: {
@@ -64,19 +67,17 @@ module.exports = function(grunt) {
         browserify: {
             core: {
                 files: {
-                    /*'core/dist/blueprint.js': [
-                        'core/intermediate/basics-rev2.js',
-                        'core/intermediate/renderer.master.js'
-                    ],*/
-                    'core/dist/renderer.master.js': [
-                        'core/intermediate/renderer.master.js'
-                    ],
-                    'core/dist/renderer.worker.js': [
-                        'core/intermediate/renderer.worker.js'    
-                    ]
-                },
-                options: {
-                    require: ['./core/intermediate/renderer.master']
+                    'core/dist/blueprint.js': ['core/intermediate/basics-rev2.js']
+                }
+            },
+            renderer: {
+                files: {
+                    'core/dist/renderer.master.js': ['core/intermediate/renderer.master.js']
+                }
+            },
+            rendererWorker: {
+                files: {
+                    'core/dist/renderer.worker.js': ['core/intermediate/renderer.worker.js']
                 }
             }
         },
