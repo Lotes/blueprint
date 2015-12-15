@@ -11,45 +11,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        haxe: {
-            worker: {
-                main: 'WorkerMain',
-                classpath:['app/modules/editor/models'],
-                output:'app/modules/editor/models/worker.js'
-            }
-        },
-        less: {
-            svg: {
-                files: {
-                    "app/modules/editor/styles/editor.css": "app/modules/editor/styles/editor.less"
-                }
-            }
-        },
-        coffee: {
-            editor: {
-                files: {
-                    'app/modules/editor/services/editor.js': 'app/modules/editor/services/editor.coffee',
-                    'app/modules/property-grid/services/property-grid.js': 'app/modules/property-grid/services/property-grid.coffee'
-                }
-            }
-        },
-        jison: {
-            parser: {
-                options: {
-                    moduleType: 'js',
-                    moduleName: 'parser'
-                },
-                files: { 'app/modules/compiler/parser.generated.js': 'app/modules/compiler/parser.jison' }
-            }
-        },
         watch: {
-            web: {
-                files: ['app/modules/**/*.hx', 'app/modules/**/*.less', 'app/modules/**/*.coffee', 'app/modules/**/*.jison'],
-                tasks: [ 'haxe:worker', 'less:svg', 'coffee:editor', 'jison:parser' ],
-                options: {
-                    livereload: true
-                }
-            },
             core: {
                 files: ['core/src/**/*.ts'],
                 tasks: [
@@ -113,6 +75,17 @@ module.exports = function(grunt) {
                 src: ['core/intermediate/**/*.js']
             }
         },
+	    typedoc: {
+		    core: {
+			    options: {
+				    module: 'commonjs',
+				    out: './docs',
+				    name: 'blueprint',
+				    target: 'es5'
+			    },
+			    src: ['./core/src/**/*']
+		    }
+	    },
         yuidoc: {
             core: {
                 name: '<%= pkg.name %>',
@@ -140,6 +113,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-typedoc');
   
     // Default task(s).
     grunt.registerTask('default', ['haxe', 'less', 'coffee', 'php']);
