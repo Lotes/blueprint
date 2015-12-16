@@ -12,26 +12,52 @@ function clone(value: any) {
 }
 
 /**
+ * Validates parameters or autofills them if missing.
+ */
+function initializeActualParameters(actuals: common.ActualParameters, formals: common.FormalParameters): common.ActualParameters {
+    var result: common.ActualParameters = {};
+    //check defined values
+    for (var name in actuals) {
+        if (actuals.hasOwnProperty(name)) {
+            if (!formals.hasOwnProperty(name))
+                throw new Error('Unknown parameter "' + name + '"!');
+            var parameter = formals[name];
+            var value = actuals[name];
+            if (!parameter.type.validate(value))
+                throw new Error('"'+value+'" is no valid value for parameter "'+name+'"!');
+            result[name] = value;
+        }
+    }
+    //fill undefined values, alert missing values
+    for (var name in formals) {
+        if (formals.hasOwnProperty(name)) {
+            if (actuals.hasOwnProperty(name))
+                continue;
+            var parameter = formals[name];
+            if(typeof(parameter.defaultValue) === 'undefined')
+                throw new Error('Parameter "' + name + '" is required, it has no default value!');
+            if(!parameter.type.validate(parameter.defaultValue))
+                throw new Error('Parameter "'+name+'" has an invalid default value!');
+            result[name] = parameter.defaultValue;
+        }
+    }
+    return result;
+}
+
+/**
  * Super class of all classes in Blueprint.
- * @class Object
- * @constructor
  */
 export class Object {
     _parent: ModuleInstance = null;
     constructor() {}
     /**
      * Get the parent module
-     * @property parent
-     * @return {ModuleInstance}
      */
     get parent(): ModuleInstance {
         return this._parent;
     }
     /**
      * Returns true if one of node's parents is the given instance, false otherwise.
-     * @method isChildOf
-     * @param moduleInstance {ModuleInstance}
-     * @return {boolean}
      */
     isChildOf(moduleInstance: ModuleInstance): boolean {
         var node = this.parent;
@@ -42,53 +68,40 @@ export class Object {
         }
         return false;
     }
-    static initializeActualParameters(actuals: common.ActualParameters, formals: common.FormalParameters): common.ActualParameters {
-        var result: common.ActualParameters = {};
-        //check defined values
-        for (var name in actuals) {
-            if (actuals.hasOwnProperty(name)) {
-                if (!formals.hasOwnProperty(name))
-                    throw new Error('Unknown parameter "' + name + '"!');
-                var parameter = formals[name];
-                var value = actuals[name];
-                if (!parameter.type.validate(value))
-                    throw new Error('"'+value+'" is no valid value for parameter "'+name+'"!');
-                result[name] = value;
-            }
-        }
-        //fill undefined values, alert missing values
-        for (var name in formals) {
-            if (formals.hasOwnProperty(name)) {
-                if (actuals.hasOwnProperty(name))
-                    continue;
-                var parameter = formals[name];
-                if(typeof(parameter.defaultValue) === 'undefined')
-                    throw new Error('Parameter "' + name + '" is required, it has no default value!');
-                if(!parameter.type.validate(parameter.defaultValue))
-                    throw new Error('Parameter "'+name+'" has an invalid default value!');
-                result[name] = parameter.defaultValue;
-            }
-        }
-        return result;
+    /**
+     * Determines the relative path to this object in indices along the module instance hierarchy.
+     */
+    getRelativePath(root: ModuleInstance = null): number[] {
+        throw new Error('Implement me in sub class!');
     }
 }
 
 /**
  * The super class of all nodes in Blueprint.
  * They can be divided into grouping nodes and connectable nodes.
- * @class Node
- * @constructor
- * @extends Object
  */
 export class Node extends Object {
     constructor() { super(); }
+    getRelativePath(root: ModuleInstance = null): number[] {
+        if(!this.isChildOf(root))
+            throw new Error('This node is not part of the given instance!');
+        var path: number[] = [];
+        var node = this;
+        var instance = this._parent;
+        while(instance !== null && instance !== root) {
+            var index = instance.nodes.indexOf(node);
+            if(index == -1)
+                throw Error('Unexpected behaviour! Something is wrong with your module!');
+            path.unshift(index);
+            node = instance;
+            instance = instance._parent;
+        }
+        return path;
+    }
 }
 
 /**
  * Defines a group of nodes for a simpler accessing. Use the module builder to create one.
- * @class Group
- * @constructor
- * @extends Node
  * @param options.nodes {Array<Node>} a non-empty array of Nodes that form the group
  * @throws {Error} if nodes is not an array or has zero length or contains non-Node objects
  */
@@ -277,6 +290,19 @@ export class Connection extends Object {
     }
     compute(stub: ConnectionStub, weight: number): ConnectionOutput {
         throw new Error('Implement me in subclass!');
+    }
+    getRelativePath(root: ModuleInstance = null): number[] {
+        if(!this.isChildOf(root))
+            throw new Error('This connection is not part of the given instance!');
+        var instance = this._parent;
+        if(instance === null)
+            throw new Error('This connection was not assigned to a module instance!');
+        var path: number[] = instance.getRelativePath(root);
+        var index = instance.connections.indexOf(this);
+        if(index == -1)
+            throw Error('Unexpected behaviour! Something is wrong with your module!');
+        path.push(index);
+        return path;
     }
 }
 
@@ -487,13 +513,34 @@ export interface ModuleInstanceState {
 export interface Simulation {
     reset(): deferred.Abortable<boolean>;
     step(): deferred.Abortable<boolean>;
-    setInput(): deferred.Abortable<boolean>;
-    setState(): deferred.Abortable<boolean>;
-    getState(): deferred.Abortable<boolean>;
-    getOutput(): deferred.Abortable<boolean>;
+    setInput(input: ModuleInstanceState): deferred.Abortable<boolean>;
+    setState(state: ModuleInstanceState): deferred.Abortable<boolean>;
+    getState(): deferred.Abortable<ModuleInstanceState>;
+    getOutput(): deferred.Abortable<ModuleInstanceState>;
 }
 
-//export class LocalSimulation implements Simulation {}
+enum SimulationState {
+    UNINITIALIZED,
+    READY,
+    COMPUTING
+}
+
+class LocalSimulation implements Simulation {
+    private _state: SimulationState = SimulationState.UNINITIALIZED;
+    private _instance: ModuleInstance;
+    constructor(instance: ModuleInstance) {
+        this._instance = instance;
+    }
+    reset(): deferred.Abortable<boolean> { 
+        //var result = new deferred.Deferred<boolean>();
+        return null;
+    }
+    step(): deferred.Abortable<boolean> { return null; }
+    setInput(input: ModuleInstanceState): deferred.Abortable<boolean> { return null; }
+    setState(state: ModuleInstanceState): deferred.Abortable<boolean> { return null; }
+    getState(): deferred.Abortable<ModuleInstanceState> { return null; }
+    getOutput(): deferred.Abortable<ModuleInstanceState> { return null; }
+}
 
 //export class RemoteSimulation implements Simulation {}
 
@@ -581,15 +628,15 @@ export class Application {
             private _definition: common.ActualParameters;
             constructor(definition: common.ActualParameters) {
                 super();
-                this._definition = Object.initializeActualParameters(definition, options.definition);
+                this._definition = initializeActualParameters(definition, options.definition);
             }
             compute(input: common.ActualParameters, state: common.ActualParameters): ProcessorOutput {
                 var output: common.ActualParameters = {};
                 var nextState: common.ActualParameters = {};
                 var context: ProcessorContext = {
                     definition: clone(this._definition),
-                    input: Object.initializeActualParameters(input, options.input),
-                    state: Object.initializeActualParameters(state, options.state),
+                    input: initializeActualParameters(input, options.input),
+                    state: initializeActualParameters(state, options.state),
                     nextState: nextState,
                     output: output
                 };
@@ -598,8 +645,8 @@ export class Application {
                     throw new Error('Return value must be a non-negative real!');
                 return {
                     potential: potential,
-                    state: Object.initializeActualParameters(nextState, options.state),
-                    output: Object.initializeActualParameters(output, options.output)
+                    state: initializeActualParameters(nextState, options.state),
+                    output: initializeActualParameters(output, options.output)
                 };
             }
         }
@@ -617,7 +664,7 @@ export class Application {
         class NewConnection extends Connection {
             private _definition: common.ActualParameters;
             constructor(definition: common.ActualParameters) {
-                this._definition = Object.initializeActualParameters(definition, options.definition);
+                this._definition = initializeActualParameters(definition, options.definition);
                 super(this._definition['weight']);
             }
             clone(): Connection {
@@ -649,12 +696,12 @@ export class Application {
             private _definition: common.ActualParameters;
             constructor(definition: common.ActualParameters) {
                 super();
-                this._definition = Object.initializeActualParameters(definition, options.definition);
+                this._definition = initializeActualParameters(definition, options.definition);
             }
             compute(input: common.ActualParameters): SenderOutput {
                 var context: SenderContext = {
                     definition: clone(this._definition),
-                    input: Object.initializeActualParameters(input, options.input)
+                    input: initializeActualParameters(input, options.input)
                 };
                 var potential = options.compute(context);
                 if(!common.types['NonNegativeReal'].validate(potential))
@@ -673,7 +720,7 @@ export class Application {
             private _definition: common.ActualParameters;
             constructor(definition: common.ActualParameters) {
                 super();
-                this._definition = Object.initializeActualParameters(definition, options.definition);
+                this._definition = initializeActualParameters(definition, options.definition);
             }
             compute(): ReceiverOutput {
                 var output: common.ActualParameters = {};
@@ -683,7 +730,7 @@ export class Application {
                 };
                 options.compute(context);
                 return {
-                    output: Object.initializeActualParameters(output, options.output)
+                    output: initializeActualParameters(output, options.output)
                 };
             }
         }
@@ -696,7 +743,7 @@ export class Application {
     module(name: string, options: FormalModuleOptions): Application {
         this._testName(name);
         function NewModuleInstance(definition: common.ActualParameters) {
-            definition = Object.initializeActualParameters(definition, options.definition);
+            definition = initializeActualParameters(definition, options.definition);
             var builder = new ModuleBuilder();
             options.build.call(builder, definition);
             builder.end();

@@ -15,3 +15,5 @@
 /docs
 /uml/*.png
 /backup
+/core/intermediate
+/core/dist
