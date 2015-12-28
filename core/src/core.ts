@@ -8,7 +8,7 @@ import deferred = require('./deferred');
  * Produces a deep copy of an object.
  */
 function clone(value: any) {
-		return JSON.parse(JSON.stringify(value));
+	return JSON.parse(JSON.stringify(value));
 }
 
 /**
@@ -42,6 +42,17 @@ function initializeActualParameters(actuals: common.ActualParameters, formals: c
         }
     }
     return result;
+}
+
+export enum PathType {
+    NODE,
+    CONNECTION
+}
+
+export interface Path {
+    type: PathType;
+    moduleAddress: number[];
+    index: number;
 }
 
 /**
