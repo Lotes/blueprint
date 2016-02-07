@@ -1,0 +1,12 @@
+{
+    "name": "lotes/blueprint-www",
+    "authors": [
+        {
+            "name": "Lotes",
+            "email": "markhoernchen@gmx.de"
+        }
+    ],
+    "require": {
+        "slim/slim": "^2.6"
+    }
+}
