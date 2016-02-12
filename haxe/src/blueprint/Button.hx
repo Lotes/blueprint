@@ -1,6 +1,6 @@
 package blueprint;
 
-class Switch
+class Button
 	extends Node,
 	implements ConnectableSource
 {

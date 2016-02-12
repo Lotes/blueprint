@@ -2,7 +2,7 @@ package blueprint;
 
 class Node
 {
-	var parent: ModuleInstance;
+	private var _parent: ModuleInstance;
 	
 	public function new() 
 	{

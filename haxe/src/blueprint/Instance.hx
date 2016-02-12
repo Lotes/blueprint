@@ -1,6 +1,6 @@
 package blueprint;
 
-class ModuleInstance
+class Instance
 	extends Node 
 	implements ConnectableSource
 	implements ConnectableDestination
