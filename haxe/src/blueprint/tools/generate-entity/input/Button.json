@@ -1,0 +1,38 @@
+{
+	"entityName": "Button",
+	"package": "blueprint.entities.button",
+	"extends": "Node",
+	"implements": {
+		"ConnectableSource": []
+	},
+	"variables": [
+		{
+			"name": "minimum",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 0
+		},
+		{
+			"name": "maximum",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "enabled",
+			"type": "Bool",
+			"configurable": true,
+			"mutable": true,
+			"value": false
+		},
+		{
+			"name": "output",
+			"type": "Float",
+			"configurable": false,
+			"mutable": true,
+			"value": 0
+		}
+	]
+}

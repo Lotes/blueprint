@@ -1,0 +1,46 @@
+{
+	"entityName": "Neuron",
+	"package": "blueprint.entities.neuron",
+	"extends": "Node",
+	"implements": {
+		"ConnectableDestination": [],
+		"ConnectableSource": []
+	},
+	"variables": [
+		{
+			"name": "threshold",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "maximum",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "factor",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "input",
+			"type": "Float",
+			"configurable": false,
+			"mutable": true,
+			"value": 0
+		},
+		{
+			"name": "output",
+			"type": "Float",
+			"configurable": false,
+			"mutable": true,
+			"value": 0
+		}
+	]
+}

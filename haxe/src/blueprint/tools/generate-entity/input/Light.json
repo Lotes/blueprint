@@ -1,0 +1,31 @@
+{
+	"entityName": "Light",
+	"package": "blueprint.entities.light",
+	"extends": "Node",
+	"implements": {
+		"ConnectableDestination": []
+	},
+	"variables": [
+		{
+			"name": "threshold",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "enabled",
+			"type": "Bool",
+			"configurable": false,
+			"mutable": true,
+			"value": false
+		},
+		{
+			"name": "input",
+			"type": "Float",
+			"configurable": false,
+			"mutable": true,
+			"value": 0
+		}
+	]
+}

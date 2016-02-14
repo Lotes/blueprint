@@ -1,9 +1,7 @@
 package blueprint.entities.instance ;
 
-class Instance
+class ModuleInstance
 	extends Node 
-	implements ConnectableSource
-	implements ConnectableDestination
 {
 	var nodes: Array<Node>;
 	

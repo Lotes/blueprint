@@ -1,0 +1,38 @@
+{
+	"entityName": "Random",
+	"package": "blueprint.entities.random",
+	"extends": "Node",
+	"implements": {
+		"ConnectableSource": []
+	},
+	"variables": [
+		{
+			"name": "minimum",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 0
+		},
+		{
+			"name": "maximum",
+			"type": "Float",
+			"configurable": true,
+			"mutable": false,
+			"value": 1
+		},
+		{
+			"name": "seed",
+			"type": "Int",
+			"configurable": true,
+			"mutable": false,
+			"value": 13
+		},
+		{
+			"name": "output",
+			"type": "Float",
+			"configurable": false,
+			"mutable": true,
+			"value": 0
+		}
+	]
+}

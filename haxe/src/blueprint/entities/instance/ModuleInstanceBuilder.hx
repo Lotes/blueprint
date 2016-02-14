@@ -1,24 +1,26 @@
 package blueprint.entities.instance ;
-import blueprint.entities.button.ButtonBuilder;
-import blueprint.entities.button.ButtonTemplate;
-import blueprint.entities.neuron.NeuronBuilder;
-import blueprint.entities.neuron.NeuronTemplate;
+import blueprint.entities.button.*;
+import blueprint.entities.slider.*;
+import blueprint.entities.random.*;
+import blueprint.entities.light.*;
+import blueprint.entities.gauge.*;
+import blueprint.entities.neuron.*;
 
-interface ModuleBuilder
+interface ModuleInstanceBuilder
 {
 	function add(node: Node): Void;
 	//processor nodes
 	function neuron(template: NeuronTemplate = null): NeuronBuilder;
 	//input nodes
 	function button(template: ButtonTemplate = null): ButtonBuilder;
-		//function slider(template: SliderTemplate = null): SliderBuilder;
-		//function random(template: RandomTemplate = null): RandomBuilder;
+	function slider(template: SliderTemplate = null): SliderBuilder;
+	function random(template: RandomTemplate = null): RandomBuilder;
 	//output nodes
 	function light(template: LightTemplate = null): LightBuilder;
-		//function gauge(template: GaugeTemplate = null): GaugeBuilder;
+	function gauge(template: GaugeTemplate = null): GaugeBuilder;
 	//group nodes
 	function group(): GroupBuilder;
-	function instance(template: Instance): InstanceBuilder;
+	function instance(template: ModuleInstance): ModuleInstanceBuilder;
 	//connections
 	function connect(template: ConnectionTemplate = null): ConnectionBuilder;
 	//aliases
