@@ -45,7 +45,7 @@ class ButtonBuilder
 	{
 		if (this._finished)
 			throw new Error("Button was already built!");
-		var entity = new Neuron(template());
+		var entity = new Button(template());
 		_moduleBuilder.add(entity);
 		if(this._name != null)
 			_moduleBuilder.alias(name, entity);

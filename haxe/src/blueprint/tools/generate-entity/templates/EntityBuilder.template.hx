@@ -37,7 +37,7 @@ class {{:entityName}}Builder
 	{
 		if (this._finished)
 			throw new Error("{{:entityName}} was already built!");
-		var entity = new Neuron(template());
+		var entity = new {{:entityName}}(template());
 		_moduleBuilder.add(entity);
 		if(this._name != null)
 			_moduleBuilder.alias(name, entity);

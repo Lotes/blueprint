@@ -5,6 +5,14 @@
 	"implements": {
 		"ConnectableSource": []
 	},
+	"templates": {
+		"entity": {},
+		"builder": {},
+		"configuration": {},
+		"configurator": {},
+		"template": {},
+		"mutable": {}
+	},
 	"variables": [
 		{
 			"name": "minimum",

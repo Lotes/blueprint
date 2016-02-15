@@ -5,6 +5,14 @@
 	"implements": {
 		"ConnectableDestination": []
 	},
+	"templates": {
+		"entity": {},
+		"builder": {},
+		"configuration": {},
+		"configurator": {},
+		"template": {},
+		"mutable": {}
+	},
 	"variables": [
 		{
 			"name": "threshold",

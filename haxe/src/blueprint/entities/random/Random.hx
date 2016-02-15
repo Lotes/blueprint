@@ -44,12 +44,9 @@ class Random
 
 
 	/* INTERFACE ConnectableSource */
-	public function getOutgoingConnections():Array<Connection> { return _outgoingConnections; }
-	public function connectAsSource(connection:Connection) { _outgoingConnections.push(connection); }
+	private var _outgoingConnections: Array<Connection> = new Array<Connection>();
+	public function getOutgoingConnections(): Array<Connection> { return _outgoingConnections; }
+	public function connectAsSource(connection: Connection) { _outgoingConnections.push(connection); }
 
-
-	/* INTERFACE ConnectableDestination */
-	public function getIngoingConnections():Array<Connection> { return _ingoingConnections; }
-	public function connectAsDestination(connection:Connection) { _ingoingConnections.push(connection); }
 
 }

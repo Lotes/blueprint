@@ -45,7 +45,7 @@ class RandomBuilder
 	{
 		if (this._finished)
 			throw new Error("Random was already built!");
-		var entity = new Neuron(template());
+		var entity = new Random(template());
 		_moduleBuilder.add(entity);
 		if(this._name != null)
 			_moduleBuilder.alias(name, entity);

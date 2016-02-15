@@ -5,6 +5,7 @@ import blueprint.entities.random.*;
 import blueprint.entities.light.*;
 import blueprint.entities.gauge.*;
 import blueprint.entities.neuron.*;
+import blueprint.entities.group.*;
 
 interface ModuleInstanceBuilder
 {

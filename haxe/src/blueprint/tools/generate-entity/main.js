@@ -7,26 +7,32 @@ var inputFile = args[0];
 var outputFolder = args[1];
 var templates = [
 	{
+		name: 'entity',
 		file: '{{:entityName}}.hx',
 		template: path.join(__dirname, 'templates', 'Entity.template.hx')
 	},
 	{
+		name: 'builder',
 		file: '{{:entityName}}Builder.hx',
 		template: path.join(__dirname, 'templates', 'EntityBuilder.template.hx')
 	},
 	{
+		name: 'configuration',
 		file: '{{:entityName}}Configuration.hx',
 		template: path.join(__dirname, 'templates', 'EntityConfiguration.template.hx')
 	},
 	{
+		name: 'configurator',
 		file: '{{:entityName}}Configurator.hx',
 		template: path.join(__dirname, 'templates', 'EntityConfigurator.template.hx')
 	},
 	{
+		name: 'template',
 		file: '{{:entityName}}Template.hx',
 		template: path.join(__dirname, 'templates', 'EntityTemplate.template.hx')
 	},
 	{
+		name: 'mutable',
 		file: 'Mutable{{:entityName}}.hx',
 		template: path.join(__dirname, 'templates', 'MutableEntity.template.hx')
 	}
@@ -45,6 +51,9 @@ fse.emptyDirSync(outputFolder);
 
 //apply templates
 templates.forEach(function(t) {	
+	if(!input.templates[t.name])
+		return;
+	
 	var fileNameContent = t.file;
 	var fileNameTemplate = jsrender.templates(fileNameContent);
 	var fileName = path.join(outputFolder, fileNameTemplate.render(input));

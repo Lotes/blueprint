@@ -45,7 +45,7 @@ class SliderBuilder
 	{
 		if (this._finished)
 			throw new Error("Slider was already built!");
-		var entity = new Neuron(template());
+		var entity = new Slider(template());
 		_moduleBuilder.add(entity);
 		if(this._name != null)
 			_moduleBuilder.alias(name, entity);
