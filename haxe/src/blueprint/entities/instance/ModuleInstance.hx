@@ -7,10 +7,10 @@ class ModuleInstance
 	
 	public function new() 
 	{
-		
+		super();
 	}	
 	
-	function getNodeByName(name: String) : Node
+	function getEntityByName(name: String) : Node
 	{
 		return null;
 	}

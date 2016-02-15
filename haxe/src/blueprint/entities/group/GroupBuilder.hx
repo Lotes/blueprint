@@ -20,7 +20,7 @@ class GroupBuilder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: GroupTemplate)
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		this._entities = template.getEntities().copy();
 	}
 
@@ -30,9 +30,9 @@ class GroupBuilder
 		if (this._finished)
 			throw new Error("Group was already built!");
 		var entity = new Group(template());
-		_moduleBuilder.add(entity);
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

@@ -26,7 +26,7 @@ class {{:entityName}}Builder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: {{:entityName}}Template) 
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		{{for variables}}{{if configurable}}
 		this._{{:name}} = template.get{{:name.capitalize()}}();
 		{{/if}}{{/for}}
@@ -37,10 +37,10 @@ class {{:entityName}}Builder
 	{
 		if (this._finished)
 			throw new Error("{{:entityName}} was already built!");
-		var entity = new {{:entityName}}(template());
-		_moduleBuilder.add(entity);
+		var entity = new Mutable{{:entityName}}(template());
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

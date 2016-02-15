@@ -26,10 +26,10 @@ class NeuronTemplate
 
 	/* INTERFACE NeuronConfigurator<NeuronTemplate> */
 	
-	public function threshold(value:Float): Template { _threshold = value; return this; }
+	public function threshold(value: Float): NeuronTemplate { _threshold = value; return this; }
 	
-	public function maximum(value:Float): Template { _maximum = value; return this; }
+	public function maximum(value: Float): NeuronTemplate { _maximum = value; return this; }
 	
-	public function factor(value:Float): Template { _factor = value; return this; }
+	public function factor(value: Float): NeuronTemplate { _factor = value; return this; }
 	
 }

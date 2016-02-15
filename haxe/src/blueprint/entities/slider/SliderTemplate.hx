@@ -26,10 +26,10 @@ class SliderTemplate
 
 	/* INTERFACE SliderConfigurator<SliderTemplate> */
 	
-	public function minimum(value:Float): Template { _minimum = value; return this; }
+	public function minimum(value: Float): SliderTemplate { _minimum = value; return this; }
 	
-	public function maximum(value:Float): Template { _maximum = value; return this; }
+	public function maximum(value: Float): SliderTemplate { _maximum = value; return this; }
 	
-	public function position(value:Float): Template { _position = value; return this; }
+	public function position(value: Float): SliderTemplate { _position = value; return this; }
 	
 }

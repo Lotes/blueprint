@@ -22,8 +22,8 @@ class GaugeTemplate
 
 	/* INTERFACE GaugeConfigurator<GaugeTemplate> */
 	
-	public function threshold(value:Float): Template { _threshold = value; return this; }
+	public function threshold(value: Float): GaugeTemplate { _threshold = value; return this; }
 	
-	public function maximum(value:Float): Template { _maximum = value; return this; }
+	public function maximum(value: Float): GaugeTemplate { _maximum = value; return this; }
 	
 }

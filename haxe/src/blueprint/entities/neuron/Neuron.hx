@@ -4,6 +4,8 @@ package blueprint.entities.neuron;
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD!
  */
 
+import blueprint.entities.connection.*;
+
 class Neuron
 	extends Node
 	implements NeuronConfiguration

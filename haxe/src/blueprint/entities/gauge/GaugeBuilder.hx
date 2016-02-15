@@ -28,7 +28,7 @@ class GaugeBuilder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: GaugeTemplate)
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		
 		this._threshold = template.getThreshold();
 		
@@ -41,10 +41,10 @@ class GaugeBuilder
 	{
 		if (this._finished)
 			throw new Error("Gauge was already built!");
-		var entity = new Gauge(template());
-		_moduleBuilder.add(entity);
+		var entity = new MutableGauge(template());
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

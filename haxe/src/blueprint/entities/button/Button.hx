@@ -4,6 +4,8 @@ package blueprint.entities.button;
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD!
  */
 
+import blueprint.entities.connection.*;
+
 class Button
 	extends Node
 	implements ButtonConfiguration

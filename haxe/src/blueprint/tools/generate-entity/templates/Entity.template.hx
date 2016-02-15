@@ -4,6 +4,8 @@ package {{:package}};
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD! 
  */
 
+import blueprint.entities.connection.*; 
+ 
 class {{:entityName}} 
 	extends {{:extends}}
 	implements {{:entityName}}Configuration

@@ -4,6 +4,8 @@ package blueprint.entities.gauge;
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD!
  */
 
+import blueprint.entities.connection.*;
+
 class Gauge
 	extends Node
 	implements GaugeConfiguration

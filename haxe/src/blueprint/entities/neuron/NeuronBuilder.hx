@@ -30,7 +30,7 @@ class NeuronBuilder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: NeuronTemplate)
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		
 		this._threshold = template.getThreshold();
 		
@@ -45,10 +45,10 @@ class NeuronBuilder
 	{
 		if (this._finished)
 			throw new Error("Neuron was already built!");
-		var entity = new Neuron(template());
-		_moduleBuilder.add(entity);
+		var entity = new MutableNeuron(template());
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

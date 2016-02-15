@@ -30,7 +30,7 @@ class RandomBuilder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: RandomTemplate)
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		
 		this._minimum = template.getMinimum();
 		
@@ -45,10 +45,10 @@ class RandomBuilder
 	{
 		if (this._finished)
 			throw new Error("Random was already built!");
-		var entity = new Random(template());
-		_moduleBuilder.add(entity);
+		var entity = new MutableRandom(template());
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

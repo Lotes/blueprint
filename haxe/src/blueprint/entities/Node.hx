@@ -8,6 +8,6 @@ class Node extends Entity
 	
 	public function new() 
 	{
-		
+		super();
 	}	
 }

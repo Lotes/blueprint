@@ -2,5 +2,6 @@ package blueprint.entities.connection ;
 
 enum ConnectionType 
 {
-	ACTIVATE;INHIBIT
+	ACTIVATE;
+	INHIBIT;
 }

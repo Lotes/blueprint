@@ -18,6 +18,6 @@ class LightTemplate
 
 	/* INTERFACE LightConfigurator<LightTemplate> */
 	
-	public function threshold(value:Float): Template { _threshold = value; return this; }
+	public function threshold(value: Float): LightTemplate { _threshold = value; return this; }
 	
 }

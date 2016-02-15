@@ -4,6 +4,8 @@ package blueprint.entities.random;
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD!
  */
 
+import blueprint.entities.connection.*;
+
 class Random
 	extends Node
 	implements RandomConfiguration

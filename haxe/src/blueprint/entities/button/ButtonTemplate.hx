@@ -26,10 +26,10 @@ class ButtonTemplate
 
 	/* INTERFACE ButtonConfigurator<ButtonTemplate> */
 	
-	public function minimum(value:Float): Template { _minimum = value; return this; }
+	public function minimum(value: Float): ButtonTemplate { _minimum = value; return this; }
 	
-	public function maximum(value:Float): Template { _maximum = value; return this; }
+	public function maximum(value: Float): ButtonTemplate { _maximum = value; return this; }
 	
-	public function enabled(value:Float): Template { _enabled = value; return this; }
+	public function enabled(value: Bool): ButtonTemplate { _enabled = value; return this; }
 	
 }

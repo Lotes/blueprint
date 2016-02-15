@@ -6,6 +6,7 @@ import blueprint.entities.light.*;
 import blueprint.entities.gauge.*;
 import blueprint.entities.neuron.*;
 import blueprint.entities.group.*;
+import blueprint.entities.connection.*;
 
 interface ModuleInstanceBuilder
 {
@@ -21,11 +22,9 @@ interface ModuleInstanceBuilder
 	function gauge(template: GaugeTemplate = null): GaugeBuilder;
 	//group nodes
 	function group(): GroupBuilder;
-	function instance(template: ModuleInstance): ModuleInstanceBuilder;
+	//function instance(template: ModuleInstance): ModuleInstanceBuilder;
 	//connections
 	function connect(template: ConnectionTemplate = null): ConnectionBuilder;
 	//aliases
 	function alias(name: String, entity: Entity): Void;
-	//query?
-		//function query(queryString: String): Entity;
 }

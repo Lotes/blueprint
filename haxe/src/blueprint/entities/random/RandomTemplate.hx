@@ -26,10 +26,10 @@ class RandomTemplate
 
 	/* INTERFACE RandomConfigurator<RandomTemplate> */
 	
-	public function minimum(value:Float): Template { _minimum = value; return this; }
+	public function minimum(value: Float): RandomTemplate { _minimum = value; return this; }
 	
-	public function maximum(value:Float): Template { _maximum = value; return this; }
+	public function maximum(value: Float): RandomTemplate { _maximum = value; return this; }
 	
-	public function seed(value:Float): Template { _seed = value; return this; }
+	public function seed(value: Int): RandomTemplate { _seed = value; return this; }
 	
 }

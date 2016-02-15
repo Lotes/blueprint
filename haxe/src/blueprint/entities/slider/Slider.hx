@@ -4,6 +4,8 @@ package blueprint.entities.slider;
  * DO NOT CHANGE ANYTHING HERE! CHANGE THE TEMPLATES INSTEAD!
  */
 
+import blueprint.entities.connection.*;
+
 class Slider
 	extends Node
 	implements SliderConfiguration

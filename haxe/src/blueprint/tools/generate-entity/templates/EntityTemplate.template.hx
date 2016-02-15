@@ -18,6 +18,6 @@ class {{:entityName}}Template
 	
 	/* INTERFACE {{:entityName}}Configurator<{{:entityName}}Template> */
 	{{for variables}}{{if configurable}}
-	public function {{:name}}(value:Float): {{:entityName}}Template { _{{:name}} = value; return this; }
+	public function {{:name}}(value: {{:type}}): {{:~root.entityName}}Template { _{{:name}} = value; return this; }
 	{{/if}}{{/for}}
 }

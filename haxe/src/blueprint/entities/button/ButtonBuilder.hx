@@ -30,7 +30,7 @@ class ButtonBuilder
 	/* CONSTRUCTOR */
 	public function new(instanceBuilder: ModuleInstanceBuilder, template: ButtonTemplate)
 	{
-		this._moduleBuilder = moduleBuilder;
+		this._moduleInstanceBuilder = instanceBuilder;
 		
 		this._minimum = template.getMinimum();
 		
@@ -45,10 +45,10 @@ class ButtonBuilder
 	{
 		if (this._finished)
 			throw new Error("Button was already built!");
-		var entity = new Button(template());
-		_moduleBuilder.add(entity);
+		var entity = new MutableButton(template());
+		_moduleInstanceBuilder.add(entity);
 		if(this._name != null)
-			_moduleBuilder.alias(name, entity);
+			_moduleInstanceBuilder.alias(this._name, entity);
 		this._finished = true;
 		return entity;
 	}

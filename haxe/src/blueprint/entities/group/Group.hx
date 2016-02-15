@@ -8,10 +8,10 @@ class Group
 	private var _entities: Array<Entity>;
 
 	/* CONSTRUCTOR  */
-	private function new(template: GroupTemplate)
+	public function new(template: GroupTemplate)
 	{
 		super();
-		this._entities = template;
+		this._entities = template.getEntities().copy();
 	}
 	
 	/* GETTERS */
