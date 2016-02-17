@@ -10,7 +10,7 @@ class ModuleInstance
 		super();
 	}	
 	
-	function getEntityByName(name: String) : Node
+	function getEntityByName(name: String) : Entity
 	{
 		return null;
 	}
