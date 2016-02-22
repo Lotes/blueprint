@@ -5,7 +5,7 @@ package blueprint.entities.random;
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class RandomBuilder
 	implements TemplateBuilder<RandomTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	
@@ -28,7 +28,7 @@ class RandomBuilder
 	
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: RandomTemplate)
+	public function new(instanceBuilder: IModuleInstanceCreator, template: RandomTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		

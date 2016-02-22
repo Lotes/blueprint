@@ -37,7 +37,7 @@ class ModuleBuilder
 	}
 	
 	/* INTERFACE Builder<Module> */
-	public function build(instantiate: ModuleInstanceBuilder => Void): Module 
+	public function build(instantiate: ModuleInstanceCreator => Void): Module 
 	{
 		return new Module(this._name, this._description, this._parameters, instantiate);
 	}

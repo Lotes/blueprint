@@ -21,3 +21,4 @@
 /www/node_modules
 /www/vendor
 /www/bower_components
+/haxe/bin/blueprint.js

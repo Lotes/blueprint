@@ -5,7 +5,7 @@ package blueprint.entities.neuron;
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class NeuronBuilder
 	implements TemplateBuilder<NeuronTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	
@@ -28,7 +28,7 @@ class NeuronBuilder
 	
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: NeuronTemplate)
+	public function new(instanceBuilder: IModuleInstanceCreator, template: NeuronTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		

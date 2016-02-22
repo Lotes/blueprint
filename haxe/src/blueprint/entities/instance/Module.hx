@@ -6,10 +6,10 @@ class Module
 	private var _name: String;
 	private var _description: String;
 	private var _parameters: Map<String, Parameter>;
-	private var _instantiate: ModuleInstanceBuilder => Void;
+	private var _instantiate: IModuleInstanceCreator -> Void;
 	
 	public function new(name: String, description: String, 
-		parameters: Map<String, Parameter>, instantiate: ModuleInstanceBuilder => Void) 
+		parameters: Map<String, Parameter>, instantiate: IModuleInstanceCreator -> Void) 
 	{
 		this._name = name;
 		this._description = description;
@@ -23,5 +23,5 @@ class Module
 	public function getParameters(): Map<String, Parameter> { return this._parameters; }
 	
 	/* BUILD ACTION */
-	public function instantiate(builder: ModuleInstanceBuilder): ModuleInstance { return this._instantiate(builder); }
+	public function instantiate(creator: IModuleInstanceCreator): Void { this._instantiate(creator); }
 }

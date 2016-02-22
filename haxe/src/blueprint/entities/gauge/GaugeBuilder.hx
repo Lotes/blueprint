@@ -5,7 +5,7 @@ package blueprint.entities.gauge;
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class GaugeBuilder
 	implements TemplateBuilder<GaugeTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	
@@ -26,7 +26,7 @@ class GaugeBuilder
 	
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: GaugeTemplate)
+	public function new(instanceBuilder: IModuleInstanceCreator, template: GaugeTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		

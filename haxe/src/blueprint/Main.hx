@@ -1,11 +1,11 @@
 package blueprint;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.ModuleInstanceCreator;
 
 class Main 
 {	
 	static function main() 
 	{
-		var x: ModuleInstanceBuilder = null;
+		var x: ModuleInstanceCreator = null;
 		trace("Ente!");
 	}	
 }

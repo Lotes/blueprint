@@ -5,7 +5,7 @@ package blueprint.entities.light;
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class LightBuilder
 	implements TemplateBuilder<LightTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	
@@ -24,7 +24,7 @@ class LightBuilder
 	
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: LightTemplate)
+	public function new(instanceBuilder: IModuleInstanceCreator, template: LightTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		

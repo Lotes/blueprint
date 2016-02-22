@@ -5,7 +5,7 @@ package {{:package}};
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class {{:entityName}}Builder
 	implements TemplateBuilder<{{:entityName}}Template>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	{{for variables}}{{if configurable}}
@@ -24,7 +24,7 @@ class {{:entityName}}Builder
 	{{/if}}{{/for}}
 	
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: {{:entityName}}Template) 
+	public function new(instanceBuilder: IModuleInstanceCreator, template: {{:entityName}}Template) 
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		{{for variables}}{{if configurable}}

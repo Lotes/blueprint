@@ -5,7 +5,7 @@ package blueprint.entities.button;
  */
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.IModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -16,7 +16,7 @@ class ButtonBuilder
 	implements TemplateBuilder<ButtonTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: IModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	
@@ -28,7 +28,7 @@ class ButtonBuilder
 	
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: ButtonTemplate)
+	public function new(instanceBuilder: IModuleInstanceCreator, template: ButtonTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		

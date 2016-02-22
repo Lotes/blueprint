@@ -1,7 +1,7 @@
 package blueprint.entities.group;
 
 import blueprint.entities.Builder;
-import blueprint.entities.instance.ModuleInstanceBuilder;
+import blueprint.entities.instance.ModuleInstanceCreator;
 import blueprint.entities.TemplateBuilder;
 import blueprint.Error;
 
@@ -12,13 +12,13 @@ class GroupBuilder
 	implements TemplateBuilder<GroupTemplate>
 {
 	/* VARIABLES */
-	private var _moduleInstanceBuilder: ModuleInstanceBuilder;
+	private var _moduleInstanceBuilder: ModuleInstanceCreator;
 	private var _finished: Bool = false;
 	private var _name: String = null;
 	private var _entities: Array<Entity>;
 
 	/* CONSTRUCTOR */
-	public function new(instanceBuilder: ModuleInstanceBuilder, template: GroupTemplate)
+	public function new(instanceBuilder: ModuleInstanceCreator, template: GroupTemplate)
 	{
 		this._moduleInstanceBuilder = instanceBuilder;
 		this._entities = template.getEntities().copy();
