@@ -89,7 +89,7 @@ class ConnectionBuilder
 			throw new blueprint.Error("No source specified!");
 		if (this._destination == null)
 			throw new blueprint.Error("No destination specified!");
-		var sources
+		//var sources
 		var connections = new Array<Connection>();
 		return connections;
 	}

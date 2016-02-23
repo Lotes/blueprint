@@ -22,3 +22,6 @@
 /www/vendor
 /www/bower_components
 /haxe/bin/blueprint.js
+/haxe/report
+/haxe/build
+/haxe/.temp

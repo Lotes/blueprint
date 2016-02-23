@@ -1,7 +1,6 @@
 package blueprint.entities.instance;
 
 class ModuleBuilder
-	implements blueprint.entities.Builder<Module>
 {
 	/* VARIABLES */
 	private var _name: String;
@@ -36,8 +35,7 @@ class ModuleBuilder
 		return this;
 	}
 	
-	/* INTERFACE Builder<Module> */
-	public function build(instantiate: ModuleInstanceCreator => Void): Module 
+	public function build(instantiate: IModuleInstanceCreator -> Void): Module 
 	{
 		return new Module(this._name, this._description, this._parameters, instantiate);
 	}
