@@ -1,6 +1,8 @@
 # example travis.yml haxe configuration
 language: c # change this to objective-c to test on a mac machine
 
+sudo: required
+
 install:
     - chmod a+x .travis-install.sh
     - ./.travis-install.sh
