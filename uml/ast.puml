@@ -1,0 +1,194 @@
+package root {
+class Array{
+}
+interface IMap{
+}
+class Reflect{
+}
+class Std{
+}
+interface ArrayAccess{
+}
+class String{
+}
+class Type{
+}
+package blueprint {
+class Error{
+}
+class Main{
+}
+package entities {
+interface Builder{
+}
+interface ConnectableDestination{
+}
+interface ConnectableSource{
+}
+class Entity{
+}
+interface NameConfigurator{
+}
+class Node{
+}
+interface TemplateBuilder{
+}
+package button {
+interface ButtonConfiguration{
+}
+class Button{
+}
+interface ButtonConfigurator{
+}
+class ButtonBuilder{
+}
+class ButtonTemplate{
+}
+class MutableButton{
+}
+
+}
+package connection {
+interface ConnectionConfiguration{
+}
+class Connection{
+}
+interface ConnectionConfigurator{
+}
+class ConnectionBuilder{
+}
+class ConnectionTemplate{
+}
+
+}
+package gauge {
+interface GaugeConfiguration{
+}
+class Gauge{
+}
+interface GaugeConfigurator{
+}
+class GaugeBuilder{
+}
+class GaugeTemplate{
+}
+class MutableGauge{
+}
+
+}
+package group {
+interface GroupConfiguration{
+}
+class Group{
+}
+interface GroupConfigurator{
+}
+class GroupBuilder{
+}
+class GroupTemplate{
+}
+
+}
+package instance {
+interface IModuleInstanceCreator{
+}
+class Module{
+}
+class ModuleBuilder{
+}
+class ModuleInstance{
+}
+class ModuleInstanceBuilder{
+}
+class ModuleInstanceCreator{
+}
+class ModuleInstanceTemplate{
+}
+class Parameter{
+}
+
+}
+package light {
+interface LightConfiguration{
+}
+class Light{
+}
+interface LightConfigurator{
+}
+class LightBuilder{
+}
+class LightTemplate{
+}
+class MutableLight{
+}
+
+}
+package neuron {
+interface NeuronConfiguration{
+}
+class Neuron{
+}
+class MutableNeuron{
+}
+interface NeuronConfigurator{
+}
+class NeuronBuilder{
+}
+class NeuronTemplate{
+}
+
+}
+package random {
+interface RandomConfiguration{
+}
+class Random{
+}
+class MutableRandom{
+}
+interface RandomConfigurator{
+}
+class RandomBuilder{
+}
+class RandomTemplate{
+}
+
+}
+package slider {
+interface SliderConfiguration{
+}
+class Slider{
+}
+class MutableSlider{
+}
+interface SliderConfigurator{
+}
+class SliderBuilder{
+}
+class SliderTemplate{
+}
+
+}
+
+}
+
+}
+package haxe {
+class EnumTools{
+}
+class EnumValueTools{
+}
+class Log{
+}
+package ds {
+class IntMap{
+}
+class ObjectMap{
+}
+class StringMap{
+}
+
+}
+
+}
+
+}

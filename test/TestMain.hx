@@ -24,6 +24,8 @@ class TestMain
 
 		#if MCOVER
 			var client = new mcover.coverage.munit.client.MCoverPrintClient();
+			client.includeMissingBlocks = true;
+			client.includeClassAndPackageBreakdowns = true;
 			var httpClient = new HTTPClient(new mcover.coverage.munit.client.MCoverSummaryReportClient());
 		#else
 			var client = new RichPrintClient();

@@ -1,6 +1,8 @@
-language: node_js
-node_js:
-  - "4.1"
-before_install: npm install -g grunt-cli
-install: npm install
-script: grunt typescript:core
+# example travis.yml haxe configuration
+language: c # change this to objective-c to test on a mac machine
+
+install:
+    - ./.travis-install.sh
+
+script:
+    - haxelib run munit test -cpp -coverage
