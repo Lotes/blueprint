@@ -5,7 +5,7 @@ test:
 	haxelib run munit test -cpp
 
 coverage:
-	haxelib run munit test -cpp -coverage
+	haxelib run munit test -cpp -coverage > coverage.txt
 	
 entities:
 	node tools/generate-entity/main.js tools/generate-entity/input/Neuron.json src/blueprint/entities/neuron

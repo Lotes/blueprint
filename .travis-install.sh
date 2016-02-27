@@ -21,5 +21,8 @@ fi
 mkdir -p ~/.haxe/lib
 mkdir -p bin
 echo ~/.haxe/lib | haxelib setup
+haxelib install hamcrest || true
+haxelib install hxcpp || true
 haxelib install munit || true
+haxelib install mcover || true
 haxelib install promhx || true
