@@ -5,6 +5,6 @@ blueprint
 
 Inspired by Dietrich Dörner's "Bauplan für eine Seele" (Blueprint for a soul).
 
-This project is about a neural assembling API. You can plumb your neurons together and simulate a neural network.
+This project is about a neural assembling API. You can plug your neurons together and simulate a neural network.
 
-So many plans....
+So many plans.... :'(

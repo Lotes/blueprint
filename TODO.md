@@ -2,31 +2,31 @@ TODO
 ====
 
 Core (Neural Assembler)
-[ ] Connection.build() implementieren
-[ ] toJson/fromJson - Austauschformat zwischen verschiedenen Sprachen
-	[ ] Austauschformat für die Struktur
-	[ ] Austauschformat für den Zustand
-[ ] Visualisierung mit Graphviz Dot
-[ ] Simulation -> Berechnungsvorschriften integrieren
-	[ ] Fernzugriffssteuerung (Worker-Konzept)
-[ ] vorgefertigte Module (IfThenElse, Hypercept, Min/Max, SelectOne)
+* [ ] Connection.build() implementieren
+* [ ] toJson/fromJson - Austauschformat zwischen verschiedenen Sprachen
+	* [ ] Austauschformat für die Struktur
+	* [ ] Austauschformat für den Zustand
+* [ ] Visualisierung mit Graphviz Dot
+* [ ] Simulation -> Berechnungsvorschriften integrieren
+	* [ ] Fernzugriffssteuerung (Worker-Konzept)
+* [ ] vorgefertigte Module (IfThenElse, Hypercept, Min/Max, SelectOne)
 
 Documentation
-[ ] Blog-Einträge oder Wiki-Artikel
-[ ] UML-Diagramm automatisch erstellen mit PlantUML (siehe "make uml")
+* [ ] Blog-Einträge oder Wiki-Artikel
+* [ ] UML-Diagramm automatisch erstellen mit PlantUML (siehe "make uml")
 
 WISHLIST
 ========
 
 Testing
-[ ] Testframework
+* [ ] Testframework
 
 High-level programming language (Neural C)
-[ ] imperative Elemente gemäß Dörners "Bauplan für eine Seele" und "Mechanik des Seelenwagens"
+* [ ] imperative Elemente gemäß Dörners "Bauplan für eine Seele" und "Mechanik des Seelenwagens"
 
 Distribution & Collaboration
-[ ] Modulverwaltung überlegen -> Paketmanager möglich? NPM oder HaxeLib
-[ ] Plunker für Neuronen-Programmierung
+* [ ] Modulverwaltung überlegen -> Paketmanager möglich? NPM oder HaxeLib
+* [ ] Plunker für Neuronen-Programmierung
 
 QUESTIONS
 =========
