@@ -16,6 +16,8 @@ class RandomTemplate
 	private var _seed: Int = 13;
 	
 
+	public function new() {}
+
 	
 	public function getMinimum(): Float { return _minimum; }
 	

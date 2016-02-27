@@ -16,6 +16,8 @@ class NeuronTemplate
 	private var _factor: Float = 1;
 	
 
+	public function new() {}
+
 	
 	public function getThreshold(): Float { return _threshold; }
 	

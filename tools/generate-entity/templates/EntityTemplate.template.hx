@@ -12,6 +12,8 @@ class {{:entityName}}Template
 	private var _{{:name}}: {{:type}} = {{:value}};
 	{{/if}}{{/for}}
 	
+	public function new() {}
+	
 	{{for variables}}{{if configurable}}
 	public function get{{:name.capitalize()}}(): {{:type}} { return _{{:name}}; }
 	{{/if}}{{/for}}

@@ -10,6 +10,8 @@ class ModuleInstanceTemplate
 	private var _module: Module = null;
 	private var _actualParameters: Map<String, Dynamic> = new Map<String, Dynamic>();
 	
+	public function new() {}
+	
 	/* GETTERS */
 	public function getModule(): Module { return this._module; }
 	public function getParameters(): Map<String, Dynamic> { return this._actualParameters; }

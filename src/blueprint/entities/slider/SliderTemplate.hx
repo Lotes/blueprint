@@ -16,6 +16,8 @@ class SliderTemplate
 	private var _position: Float = 0;
 	
 
+	public function new() {}
+
 	
 	public function getMinimum(): Float { return _minimum; }
 	

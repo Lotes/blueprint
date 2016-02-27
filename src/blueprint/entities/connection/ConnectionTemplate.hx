@@ -13,6 +13,8 @@ class ConnectionTemplate
 	private var _disassociatingConstant: Float = 0;
 	private var _weight: Float = 1;
 	
+	public function new() {}
+	
 	/* INTERFACE blueprint.entities.connection.ConnectionConfiguration */
 	public function getConnectionType():ConnectionType { return this._type; }
 	public function getSource():ConnectableSource { return this._source; }

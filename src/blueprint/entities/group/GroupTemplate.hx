@@ -7,6 +7,8 @@ class GroupTemplate
 	/* VARIABLES */
 	private var _entities: Array<Entity> = new Array<Entity>();
 	
+	public function new() {}
+	
 	/* INTERFACE GroupConfigurator<GroupTemplate> */
 	public function add(entity: Entity): GroupTemplate
 	{

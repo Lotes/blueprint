@@ -14,6 +14,8 @@ class GaugeTemplate
 	private var _maximum: Float = 1;
 	
 
+	public function new() {}
+
 	
 	public function getThreshold(): Float { return _threshold; }
 	

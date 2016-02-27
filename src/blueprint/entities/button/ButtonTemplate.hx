@@ -16,6 +16,8 @@ class ButtonTemplate
 	private var _enabled: Bool = false;
 	
 
+	public function new() {}
+
 	
 	public function getMinimum(): Float { return _minimum; }
 	

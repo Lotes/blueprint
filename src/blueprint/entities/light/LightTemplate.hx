@@ -12,6 +12,8 @@ class LightTemplate
 	private var _threshold: Float = 1;
 	
 
+	public function new() {}
+
 	
 	public function getThreshold(): Float { return _threshold; }
 	
