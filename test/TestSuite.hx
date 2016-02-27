@@ -1,5 +1,6 @@
 import massive.munit.TestSuite;
 
+import blueprint.entities.button.ButtonTest;
 import blueprint.entities.instance.ModuleBuilderTest;
 import ExampleTest;
 
@@ -15,6 +16,7 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(blueprint.entities.button.ButtonTest);
 		add(blueprint.entities.instance.ModuleBuilderTest);
 		add(ExampleTest);
 	}

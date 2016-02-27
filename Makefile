@@ -2,7 +2,7 @@ compile:
 	haxe -lib promhx -cp src -main blueprint.Main
 
 test:
-	haxelib run munit test -cpp
+	haxelib run munit test -cpp > tests.txt
 
 coverage:
 	haxelib run munit test -cpp -coverage > coverage.txt
